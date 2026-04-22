@@ -4,11 +4,16 @@
  */
 package Vista;
 
+import Controlador.ManchuControladorBDR;
+
 /**
  *
  * @author chris
  */
 public class Usuarios extends javax.swing.JFrame {
+    ManchuControladorBDR gestorBDR = new ManchuControladorBDR();
+    
+    
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(Usuarios.class.getName());
 
