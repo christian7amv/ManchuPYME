@@ -11,10 +11,17 @@ import Controlador.ManchuControladorBDR;
  * @author chris
  */
 public class Usuarios extends javax.swing.JFrame {
+
     ManchuControladorBDR gestorBDR = new ManchuControladorBDR();
-    
-    
-    
+
+    String[] nomCols = {
+        "NIE",
+        "Nombre y apellidos",
+        "Grupo",
+        "Año nacimiento",
+        "Nota Acceso"
+    };
+
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(Usuarios.class.getName());
 
     /**
