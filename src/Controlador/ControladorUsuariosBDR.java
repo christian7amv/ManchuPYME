@@ -16,7 +16,7 @@ import java.util.ArrayList;
  *
  * @author chris
  */
-public class ManchuControladorBDR {
+public class ControladorUsuariosBDR {
     public static boolean online=false;
     ArrayList<Object[]> lista = new ArrayList<>(); //lista para la matriz y varias operaciones de la lista
     Connection con;
@@ -29,7 +29,7 @@ public class ManchuControladorBDR {
     //String url = "jdbc:mysql://26.132.30.248:3306/manchupyme"; //local
     
     
-    public ManchuControladorBDR() {
+    public ControladorUsuariosBDR() {
         conectar();
     }
 
