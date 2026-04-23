@@ -11,24 +11,23 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
-    
 /**
  *
  * @author chris
  */
 public class ControladorUsuariosBDR {
-    public static boolean online=false;
-    ArrayList<Object[]> lista = new ArrayList<>(); //lista para la matriz y varias operaciones de la lista
+
+    public static boolean online = false;
+    ArrayList<Object[]> listaUsr = new ArrayList<>(); //lista para la matriz y varias operaciones de la lista
     Connection con;
     Statement sentencia;
     ResultSet rs;
     String sql;
     String usuario = "caca";
     String clave = "7IX-MPda_Kz-kWqa";
-    String url = "jdbc:mysql://26.132.30.248:3306/manchupymev2"; //online
+    String url = "jdbc:mysql://26.132.30.248:3306/machuphymev2"; //online
     //String url = "jdbc:mysql://26.132.30.248:3306/manchupyme"; //local
-    
-    
+
     public ControladorUsuariosBDR() {
         conectar();
     }
@@ -38,7 +37,7 @@ public class ControladorUsuariosBDR {
             // conexión con la BD
             con = DriverManager.getConnection(url, usuario, clave);
             System.out.println("Conexión establecida con " + url);
-            online=true;
+            online = true;
             // cierre de la conexión
         } catch (SQLException e) {
             // Información del Error
@@ -49,8 +48,8 @@ public class ControladorUsuariosBDR {
             e.printStackTrace(System.err);
         }
     }
-    
-     public ArrayList<String> obtenerPerfiles() {
+
+    public ArrayList<String> obtenerPerfiles() {
         ArrayList<String> perfiles = new ArrayList<>();
         if (!online || con == null) {
             return perfiles;
@@ -68,5 +67,46 @@ public class ControladorUsuariosBDR {
         }
         return perfiles;
     }
-}
 
+    public Object[][] obtenerMatriz() {
+
+        try {
+            listaUsr.clear(); //Borrar lista pa q no se duplique
+            sentencia = con.createStatement();
+
+            sql = "SELECT * FROM usuarios";
+            rs = sentencia.executeQuery(sql);
+
+            while (rs.next()) {
+                Object[] fila = new Object[8]; //se crea un objeto para cada fila
+                fila[0] = rs.getInt("id");
+                fila[1] = rs.getString("nombre");
+                fila[2] = rs.getString("email");
+                fila[3] = rs.getString("rol");
+                fila[4] = rs.getString("municipio");
+                fila[5] = rs.getString("categoria");
+                fila[6] = rs.getString("descripcion");
+                fila[7] = rs.getDouble("puntuacion_media");
+
+                listaUsr.add(fila);
+            }
+            Object[][] matriz = new Object[listaUsr.size()][5];
+            for (int i = 0; i < listaUsr.size(); i++) {
+                matriz[i] = listaUsr.get(i); //se añade cada cosa de la lista a la matriz
+            }
+
+            return matriz;
+
+        } catch (SQLException e) {
+            // Información del Error
+            System.err.println("SQL Error mensaje: " + e.getMessage());
+            System.err.println("SQL Estado: " + e.getSQLState());
+            System.err.println("SQL código específico: " + e.getErrorCode());
+            return null; //en el caso de que haya error devuelve null
+        } catch (Exception e) {
+            e.printStackTrace(System.err);
+            return null;
+        }
+
+    }
+}
