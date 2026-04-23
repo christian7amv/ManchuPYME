@@ -95,7 +95,7 @@ public class Suscripciones extends javax.swing.JFrame {
         labelPlan.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         labelPlan.setText("Plan");
 
-        plan.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "BÁSICO", "ESTÁNDAR", "PREMIUM" }));
+        plan.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "ESTÁNDAR", "PROFESIONAL", "EMPRESARIAL" }));
         plan.addActionListener(this::planActionPerformed);
 
         labelEstado.setText("Estado");
