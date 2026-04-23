@@ -25,7 +25,7 @@ public class ManchuControladorBDR {
     String sql;
     String usuario = "caca";
     String clave = "7IX-MPda_Kz-kWqa";
-    String url = "jdbc:mysql://26.132.30.248:3306/manchupyme"; //online
+    String url = "jdbc:mysql://26.132.30.248:3306/manchupymev2"; //online
     //String url = "jdbc:mysql://26.132.30.248:3306/manchupyme"; //local
     
     
@@ -49,4 +49,24 @@ public class ManchuControladorBDR {
             e.printStackTrace(System.err);
         }
     }
+    
+     public ArrayList<String> obtenerPerfiles() {
+        ArrayList<String> perfiles = new ArrayList<>();
+        if (!online || con == null) {
+            return perfiles;
+        }
+        try {
+            sentencia = con.createStatement();
+            rs = sentencia.executeQuery("SELECT perfil FROM perfiles_profesionales ORDER BY perfil");
+            while (rs.next()) {
+                perfiles.add(rs.getString("perfil"));
+            }
+            rs.close();
+            sentencia.close();
+        } catch (SQLException e) {
+            System.err.println("SQL Error al obtener perfiles: " + e.getMessage());
+        }
+        return perfiles;
+    }
 }
+
