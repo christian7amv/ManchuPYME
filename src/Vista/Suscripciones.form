@@ -244,9 +244,9 @@
               <Properties>
                 <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
                   <StringArray count="3">
-                    <StringItem index="0" value="B&#xc1;SICO"/>
-                    <StringItem index="1" value="EST&#xc1;NDAR"/>
-                    <StringItem index="2" value="PREMIUM"/>
+                    <StringItem index="0" value="EST&#xc1;NDAR"/>
+                    <StringItem index="1" value="PROFESIONAL"/>
+                    <StringItem index="2" value="EMPRESARIAL"/>
                   </StringArray>
                 </Property>
               </Properties>
@@ -329,7 +329,7 @@
                 <Component class="javax.swing.JTable" name="jTable1">
                   <Properties>
                     <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                      <Table columnCount="7" rowCount="4">
+                      <Table columnCount="7" rowCount="0">
                         <Column editable="true" title="ID" type="java.lang.Integer"/>
                         <Column editable="true" title="Cliente" type="java.lang.String"/>
                         <Column editable="true" title="Plan" type="java.lang.String"/>
