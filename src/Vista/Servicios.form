@@ -77,19 +77,19 @@
           <Layout>
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace min="-2" pref="65" max="-2" attributes="0"/>
-                      <Component id="TituloIngreso_Datos" min="-2" pref="469" max="-2" attributes="0"/>
-                      <EmptySpace pref="127" max="32767" attributes="0"/>
+                  <Group type="102" alignment="1" attributes="0">
+                      <EmptySpace max="32767" attributes="0"/>
+                      <Component id="TituloIngreso_Datos" min="-2" pref="285" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="179" max="-2" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
             <DimensionLayout dim="1">
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" attributes="0">
-                      <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="16" max="-2" attributes="0"/>
                       <Component id="TituloIngreso_Datos" max="32767" attributes="0"/>
-                      <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="32" max="-2" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -100,7 +100,7 @@
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Segoe UI" size="48" style="1"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="INGRESO DE DATOS"/>
+                <Property name="text" type="java.lang.String" value="SERVICIOS"/>
               </Properties>
             </Component>
           </SubComponents>
@@ -154,7 +154,7 @@
                           </Group>
                           <Component id="jTextField4" alignment="0" min="-2" pref="254" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace max="32767" attributes="0"/>
+                      <EmptySpace pref="136" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
