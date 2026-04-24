@@ -92,6 +92,12 @@ public class Suscripciones extends javax.swing.JFrame {
         labelID.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         labelID.setText("ID");
 
+        fecInicio.addActionListener(this::fecInicioActionPerformed);
+
+        id.addActionListener(this::idActionPerformed);
+
+        fecFin.addActionListener(this::fecFinActionPerformed);
+
         labelPlan.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         labelPlan.setText("Plan");
 
@@ -101,10 +107,15 @@ public class Suscripciones extends javax.swing.JFrame {
         labelEstado.setText("Estado");
 
         estado.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "ACTIVA", "NO ACTIVA", "PAUSADA" }));
+        estado.addActionListener(this::estadoActionPerformed);
 
         labelCliente.setText("Cliente");
 
+        cliente.addActionListener(this::clienteActionPerformed);
+
         labelPrecio.setText("Precio (€)");
+
+        precio.addActionListener(this::precioActionPerformed);
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -212,14 +223,19 @@ public class Suscripciones extends javax.swing.JFrame {
         jPanel5.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
         nuevo.setText("Nuevo");
+        nuevo.addActionListener(this::nuevoActionPerformed);
 
         guardar.setText("Guardar");
+        guardar.addActionListener(this::guardarActionPerformed);
 
         actualizar.setText("Actualizar");
+        actualizar.addActionListener(this::actualizarActionPerformed);
 
         Eliminar.setText("Eliminar");
+        Eliminar.addActionListener(this::EliminarActionPerformed);
 
         limpiar.setText("Limpiar");
+        limpiar.addActionListener(this::limpiarActionPerformed);
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -295,6 +311,50 @@ public class Suscripciones extends javax.swing.JFrame {
     private void planActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_planActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_planActionPerformed
+
+    private void idActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_idActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_idActionPerformed
+
+    private void fecInicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fecInicioActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_fecInicioActionPerformed
+
+    private void clienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_clienteActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_clienteActionPerformed
+
+    private void precioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_precioActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_precioActionPerformed
+
+    private void fecFinActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fecFinActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_fecFinActionPerformed
+
+    private void estadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_estadoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_estadoActionPerformed
+
+    private void nuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nuevoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_nuevoActionPerformed
+
+    private void guardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_guardarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_guardarActionPerformed
+
+    private void actualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_actualizarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_actualizarActionPerformed
+
+    private void EliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EliminarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_EliminarActionPerformed
+
+    private void limpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_limpiarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_limpiarActionPerformed
 
     /**
      * @param args the command line arguments
