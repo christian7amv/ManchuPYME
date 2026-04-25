@@ -4,19 +4,57 @@
  */
 package Vista;
 
+import javax.swing.JOptionPane;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author chris
  */
 public class Suscripciones extends javax.swing.JFrame {
-    
+
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(Suscripciones.class.getName());
+
+    // Modelo de la tabla, se inicializa tras initComponents()
+    private DefaultTableModel modeloTabla;
 
     /**
      * Creates new form PLANTILLA_NO_USAR
      */
     public Suscripciones() {
         initComponents();
+
+        // Obtenemos el modelo de la tabla ya creada por el diseñador
+        modeloTabla = (DefaultTableModel) jTable1.getModel();
+
+        // Al hacer clic en una fila de la tabla se rellenan los campos del formulario
+        jTable1.getSelectionModel().addListSelectionListener((ListSelectionEvent e) -> {
+            if (!e.getValueIsAdjusting()) {
+                int fila = jTable1.getSelectedRow();
+                if (fila != -1) {
+                    id.setText(String.valueOf(modeloTabla.getValueAt(fila, 0)));
+                    cliente.setText(String.valueOf(modeloTabla.getValueAt(fila, 1)));
+                    plan.setSelectedItem(modeloTabla.getValueAt(fila, 2));
+                    precio.setText(String.valueOf(modeloTabla.getValueAt(fila, 3)));
+                    fecInicio.setText(String.valueOf(modeloTabla.getValueAt(fila, 4)));
+                    fecFin.setText(String.valueOf(modeloTabla.getValueAt(fila, 5)));
+                    estado.setSelectedItem(modeloTabla.getValueAt(fila, 6));
+
+                    // Con fila seleccionada: permitir Actualizar y Eliminar, bloquear Guardar
+                    id.setEditable(true);
+                    cliente.setEditable(true);
+                    precio.setEditable(true);
+                    fecInicio.setEditable(true);
+                    fecFin.setEditable(true);
+                    plan.setEnabled(true);
+                    estado.setEnabled(true);
+                    guardar.setEnabled(false);
+                    actualizar.setEnabled(true);
+                    Eliminar.setEnabled(true);
+                }
+            }
+        });
     }
 
     /**
@@ -309,51 +347,326 @@ public class Suscripciones extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void planActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_planActionPerformed
-        // TODO add your handling code here:
+        // Al cambiar el plan, se sugiere un precio automáticamente si el campo está vacío
+        if (precio.getText().trim().isEmpty()) {
+            switch ((String) plan.getSelectedItem()) {
+                case "ESTÁNDAR":
+                    precio.setText("9.99");
+                    break;
+                case "PROFESIONAL":
+                    precio.setText("19.99");
+                    break;
+                case "EMPRESARIAL":
+                    precio.setText("49.99");
+                    break;
+            }
+        }
     }//GEN-LAST:event_planActionPerformed
 
     private void idActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_idActionPerformed
-        // TODO add your handling code here:
+        // Al pulsar Enter en el campo ID, el foco pasa al campo Cliente
+        cliente.requestFocus();
     }//GEN-LAST:event_idActionPerformed
 
     private void fecInicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fecInicioActionPerformed
-        // TODO add your handling code here:
+        // Validamos formato dd/MM/yyyy y año >= 2026 al salir del campo con Enter
+        String texto = fecInicio.getText().trim();
+        try {
+            java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("dd/MM/yyyy");
+            sdf.setLenient(false);
+            java.util.Date fecha = sdf.parse(texto);
+            java.util.Calendar cal = java.util.Calendar.getInstance();
+            cal.setTime(fecha);
+            if (cal.get(java.util.Calendar.YEAR) < 2026) {
+                JOptionPane.showMessageDialog(this,
+                        "El año de la fecha de inicio debe ser 2026 o posterior.",
+                        "Año inválido", JOptionPane.WARNING_MESSAGE);
+                fecInicio.requestFocus();
+                return;
+            }
+        } catch (java.text.ParseException ex) {
+            JOptionPane.showMessageDialog(this,
+                    "Formato de fecha incorrecto. Usa dd/MM/yyyy  (ej: 15/04/2026)",
+                    "Fecha inválida", JOptionPane.WARNING_MESSAGE);
+            fecInicio.requestFocus();
+            return;
+        }
+        // Fecha correcta → el foco pasa a Fecha Fin
+        fecFin.requestFocus();
     }//GEN-LAST:event_fecInicioActionPerformed
 
     private void clienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_clienteActionPerformed
-        // TODO add your handling code here:
+        // Al pulsar Enter en Cliente, el foco pasa al campo Precio
+        precio.requestFocus();
     }//GEN-LAST:event_clienteActionPerformed
 
     private void precioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_precioActionPerformed
-        // TODO add your handling code here:
+        // Al pulsar Enter en Precio, el foco pasa a Fecha Inicio
+        fecInicio.requestFocus();
     }//GEN-LAST:event_precioActionPerformed
 
     private void fecFinActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fecFinActionPerformed
-        // TODO add your handling code here:
+        // Validamos formato dd/MM/yyyy y año >= 2026 al salir del campo con Enter
+        String texto = fecFin.getText().trim();
+        try {
+            java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("dd/MM/yyyy");
+            sdf.setLenient(false);
+            java.util.Date fecha = sdf.parse(texto);
+            java.util.Calendar cal = java.util.Calendar.getInstance();
+            cal.setTime(fecha);
+            if (cal.get(java.util.Calendar.YEAR) < 2026) {
+                JOptionPane.showMessageDialog(this,
+                        "El año de la fecha de fin debe ser 2026 o posterior.",
+                        "Año inválido", JOptionPane.WARNING_MESSAGE);
+                fecFin.requestFocus();
+                return;
+            }
+        } catch (java.text.ParseException ex) {
+            JOptionPane.showMessageDialog(this,
+                    "Formato de fecha incorrecto. Usa dd/MM/yyyy  (ej: 15/04/2026)",
+                    "Fecha inválida", JOptionPane.WARNING_MESSAGE);
+            fecFin.requestFocus();
+            return;
+        }
+        // Fecha correcta → el foco va al botón activo (Guardar o Actualizar)
+        if (guardar.isEnabled()) {
+            guardar.requestFocus();
+        } else if (actualizar.isEnabled()) {
+            actualizar.requestFocus();
+        }
     }//GEN-LAST:event_fecFinActionPerformed
 
     private void estadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_estadoActionPerformed
-        // TODO add your handling code here:
+        // El estado seleccionado se usará directamente al guardar o actualizar
+        // No se necesita ninguna acción adicional aquí
     }//GEN-LAST:event_estadoActionPerformed
 
     private void nuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nuevoActionPerformed
-        // TODO add your handling code here:
+        // Limpiamos todos los campos
+        id.setText("");
+        cliente.setText("");
+        precio.setText("");
+        fecInicio.setText("");
+        fecFin.setText("");
+        plan.setSelectedIndex(0);
+        estado.setSelectedIndex(0);
+
+        // Habilitamos los campos para que el usuario pueda escribir
+        id.setEditable(true);
+        cliente.setEditable(true);
+        precio.setEditable(true);
+        fecInicio.setEditable(true);
+        fecFin.setEditable(true);
+        plan.setEnabled(true);
+        estado.setEnabled(true);
+
+        // Solo Guardar disponible; no tiene sentido Actualizar ni Eliminar aún
+        guardar.setEnabled(true);
+        actualizar.setEnabled(false);
+        Eliminar.setEnabled(false);
+
+        // Quitamos la selección de la tabla y ponemos el cursor en el primer campo
+        jTable1.clearSelection();
+        id.requestFocus();
     }//GEN-LAST:event_nuevoActionPerformed
 
     private void guardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_guardarActionPerformed
-        // TODO add your handling code here:
+        // Comprobamos que ningún campo esté vacío
+        if (id.getText().trim().isEmpty() || cliente.getText().trim().isEmpty()
+                || precio.getText().trim().isEmpty() || fecInicio.getText().trim().isEmpty()
+                || fecFin.getText().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Debes rellenar todos los campos.",
+                    "Campos vacíos", JOptionPane.WARNING_MESSAGE);
+            return;
+
+        }
+
+        try {
+            int idVal = Integer.parseInt(id.getText().trim());
+
+            // Comprobamos que el ID no exista ya en la tabla
+            for (int i = 0; i < modeloTabla.getRowCount(); i++) {
+                if (((Integer) modeloTabla.getValueAt(i, 0)) == idVal) {
+                    JOptionPane.showMessageDialog(this,
+                            "Ya existe una suscripción con ID " + idVal,
+                            "ID duplicado", JOptionPane.WARNING_MESSAGE);
+                    id.requestFocus();
+                    return;
+                }
+            }
+
+            float precioVal = Float.parseFloat(precio.getText().trim().replace(",", "."));
+
+            // Añadimos la nueva fila a la tabla
+            modeloTabla.addRow(new Object[]{
+                idVal,
+                cliente.getText().trim(),
+                (String) plan.getSelectedItem(),
+                precioVal,
+                fecInicio.getText().trim(),
+                fecFin.getText().trim(),
+                (String) estado.getSelectedItem()
+            });
+
+            JOptionPane.showMessageDialog(this, "Suscripción guardada correctamente.");
+
+            // Limpiamos y volvemos al estado inicial
+            id.setText("");
+            cliente.setText("");
+            precio.setText("");
+            fecInicio.setText("");
+            fecFin.setText("");
+            plan.setSelectedIndex(0);
+            estado.setSelectedIndex(0);
+            id.setEditable(false);
+            cliente.setEditable(false);
+            precio.setEditable(false);
+            fecInicio.setEditable(false);
+            fecFin.setEditable(false);
+            plan.setEnabled(false);
+            estado.setEnabled(false);
+            guardar.setEnabled(false);
+            actualizar.setEnabled(false);
+            Eliminar.setEnabled(false);
+
+        } catch (NumberFormatException ex) {
+            JOptionPane.showMessageDialog(this,
+                    "El ID debe ser un número entero y el precio un número válido (ej: 9.99).",
+                    "Error de formato", JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_guardarActionPerformed
 
     private void actualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_actualizarActionPerformed
-        // TODO add your handling code here:
+        int fila = jTable1.getSelectedRow();
+        if (fila == -1) {
+            JOptionPane.showMessageDialog(this, "Selecciona una fila de la tabla para actualizar.",
+                    "Sin selección", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        // Comprobamos que ningún campo esté vacío
+        if (id.getText().trim().isEmpty() || cliente.getText().trim().isEmpty()
+                || precio.getText().trim().isEmpty() || fecInicio.getText().trim().isEmpty()
+                || fecFin.getText().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Debes rellenar todos los campos.",
+                    "Campos vacíos", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        try {
+            int idVal = Integer.parseInt(id.getText().trim());
+
+            // Comprobamos que el ID no coincida con el de otra fila distinta
+            for (int i = 0; i < modeloTabla.getRowCount(); i++) {
+                if (i == fila) {
+                    continue;
+                }
+                if (((Integer) modeloTabla.getValueAt(i, 0)) == idVal) {
+                    JOptionPane.showMessageDialog(this,
+                            "Ya existe otra suscripción con ID " + idVal,
+                            "ID duplicado", JOptionPane.WARNING_MESSAGE);
+                    return;
+                }
+            }
+
+            float precioVal = Float.parseFloat(precio.getText().trim().replace(",", "."));
+
+            // Sobreescribimos los datos de la fila seleccionada
+            modeloTabla.setValueAt(idVal, fila, 0);
+            modeloTabla.setValueAt(cliente.getText().trim(), fila, 1);
+            modeloTabla.setValueAt(plan.getSelectedItem(), fila, 2);
+            modeloTabla.setValueAt(precioVal, fila, 3);
+            modeloTabla.setValueAt(fecInicio.getText().trim(), fila, 4);
+            modeloTabla.setValueAt(fecFin.getText().trim(), fila, 5);
+            modeloTabla.setValueAt(estado.getSelectedItem(), fila, 6);
+
+            JOptionPane.showMessageDialog(this, "Suscripción actualizada correctamente.");
+
+            // Limpiamos y volvemos al estado inicial
+            id.setText("");
+            cliente.setText("");
+            precio.setText("");
+            fecInicio.setText("");
+            fecFin.setText("");
+            plan.setSelectedIndex(0);
+            estado.setSelectedIndex(0);
+            id.setEditable(false);
+            cliente.setEditable(false);
+            precio.setEditable(false);
+            fecInicio.setEditable(false);
+            fecFin.setEditable(false);
+            plan.setEnabled(false);
+            estado.setEnabled(false);
+            guardar.setEnabled(false);
+            actualizar.setEnabled(false);
+            Eliminar.setEnabled(false);
+            jTable1.clearSelection();
+
+        } catch (NumberFormatException ex) {
+            JOptionPane.showMessageDialog(this,
+                    "El ID debe ser un número entero y el precio un número válido (ej: 9.99).",
+                    "Error de formato", JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_actualizarActionPerformed
 
     private void EliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EliminarActionPerformed
-        // TODO add your handling code here:
+        int fila = jTable1.getSelectedRow();
+        if (fila == -1) {
+            JOptionPane.showMessageDialog(this, "Selecciona una fila de la tabla para eliminar.",
+                    "Sin selección", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        int respuesta = JOptionPane.showConfirmDialog(this,
+                "¿Deseas eliminar la suscripción seleccionada?",
+                "Confirmar eliminación", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+
+        if (respuesta == JOptionPane.YES_OPTION) {
+            modeloTabla.removeRow(fila);
+
+            // Limpiamos y volvemos al estado inicial
+            id.setText("");
+            cliente.setText("");
+            precio.setText("");
+            fecInicio.setText("");
+            fecFin.setText("");
+            plan.setSelectedIndex(0);
+            estado.setSelectedIndex(0);
+            id.setEditable(false);
+            cliente.setEditable(false);
+            precio.setEditable(false);
+            fecInicio.setEditable(false);
+            fecFin.setEditable(false);
+            plan.setEnabled(false);
+            estado.setEnabled(false);
+            guardar.setEnabled(false);
+            actualizar.setEnabled(false);
+            Eliminar.setEnabled(false);
+        }
     }//GEN-LAST:event_EliminarActionPerformed
 
     private void limpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_limpiarActionPerformed
-        // TODO add your handling code here:
+        // Vaciamos todos los campos de texto
+        id.setText("");
+        cliente.setText("");
+        precio.setText("");
+        fecInicio.setText("");
+        fecFin.setText("");
+        plan.setSelectedIndex(0);
+        estado.setSelectedIndex(0);
+
+        // Bloqueamos los campos y botones, quitamos la selección de la tabla
+        id.setEditable(false);
+        cliente.setEditable(false);
+        precio.setEditable(false);
+        fecInicio.setEditable(false);
+        fecFin.setEditable(false);
+        plan.setEnabled(false);
+        estado.setEnabled(false);
+        guardar.setEnabled(false);
+        actualizar.setEnabled(false);
+        Eliminar.setEnabled(false);
+        jTable1.clearSelection();
     }//GEN-LAST:event_limpiarActionPerformed
 
     /**
@@ -376,6 +689,16 @@ public class Suscripciones extends javax.swing.JFrame {
             logger.log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (ReflectiveOperationException | javax.swing.UnsupportedLookAndFeelException ex) {
+            logger.log(java.util.logging.Level.SEVERE, null, ex);
+        }
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(() -> new Suscripciones().setVisible(true));
