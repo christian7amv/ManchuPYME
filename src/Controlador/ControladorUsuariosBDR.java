@@ -4,6 +4,11 @@
  */
 package Controlador;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -68,6 +73,36 @@ public class ControladorUsuariosBDR {
         return perfiles;
     }
 
+    public void añadirDatosEjemplo() {
+        try {
+
+            sentencia = con.createStatement();
+
+            // INSERCIÓN INICIAL MASIVA
+            sql = "INSERT INTO usuarios (nombre, email, rol, municipio, categoria, descripcion, puntuacion_media) VALUES"
+                    + "('Carlos Ruiz', 'carlos@manchupyme.es', 'PROFESIONAL', 'Albacete', 'Electricista', 'Instalaciones electricas residenciales y comerciales', 4.70),\n"
+                    + "('Ana Gomez', 'ana@correo.es', 'PARTICULAR', 'Albacete', NULL, NULL, NULL),\n"
+                    + "('Pedro Sanchez', 'pedro@manchupyme.es', 'PROFESIONAL', 'Ciudad Real', 'Fontanero', 'Reparacion de tuberias, calefaccion y fontaneria general', 4.20),\n"
+                    + "('Marta Lopez', 'marta@correo.es', 'PARTICULAR', 'Ciudad Real', NULL, NULL, NULL),\n"
+                    + "('Luis Martinez', 'luis@manchupyme.es', 'PROFESIONAL', 'Guadalajara', 'Carpintero', 'Muebles a medida, puertas y ventanas de madera', 4.90),\n"
+                    + "('Sara Diaz', 'sara@correo.es', 'PARTICULAR', 'Guadalajara', NULL, NULL, NULL),\n"
+                    + "('Juan Torres', 'juan@manchupyme.es', 'PROFESIONAL', 'Cuenca', 'Cerrajero', 'Apertura de puertas, cambio de cerraduras y copias', 3.80),\n"
+                    + "('Elena Moreno', 'elena@manchupyme.es', 'PARTICULAR', 'Albacete', NULL, NULL, NULL),\n"
+                    + "('Tomas Jimenez', 'tomas@manchupyme.es', 'PROFESIONAL', 'Ciudad Real', 'Pintor', 'Pintura interior y exterior, tratamientos de fachada', 4.50),\n"
+                    + "('Raul Fernandez', 'raul@correo.es', 'PARTICULAR', 'Cuenca', NULL, NULL, NULL);";
+
+            System.out.println("Sentencia a ejecutar: " + sql);
+            sentencia.executeUpdate(sql);
+
+        } catch (SQLException e) {
+            System.err.println("SQL Error mensaje: " + e.getMessage());
+            System.err.println("SQL Estado: " + e.getSQLState());
+            System.err.println("SQL código específico: " + e.getErrorCode());
+        } catch (Exception e) {
+            e.printStackTrace(System.err);
+        }
+    }
+
     public Object[][] obtenerMatriz() {
 
         try {
@@ -109,4 +144,182 @@ public class ControladorUsuariosBDR {
         }
 
     }
+
+    public void borrarTodo() {
+        try {
+
+            sentencia = con.createStatement();
+            sql = "DELETE FROM usuarios;";//truncate resetea el auto increment
+
+            System.out.println("Sentencia a ejecutar: " + sql);
+            sentencia.executeUpdate(sql);
+            sql = "ALTER TABLE usuarios AUTO_INCREMENT = 1;";//truncate resetea el auto increment
+
+            System.out.println("Sentencia a ejecutar: " + sql);
+            sentencia.executeUpdate(sql);
+        } catch (SQLException e) {
+            // Información del Error
+            System.err.println("SQL Error mensaje: " + e.getMessage());
+            System.err.println("SQL Estado: " + e.getSQLState());
+            System.err.println("SQL código específico: " + e.getErrorCode());
+        } catch (Exception e) {
+            e.printStackTrace(System.err);
+        }
+    }
+
+    public void añadir(String nombre, String email, String rol, String municipio, String categoria, String descripcion) throws SQLException {
+
+        try {
+            sentencia = con.createStatement();
+
+            String munSQL;
+            String catSQL;
+            String descSQL;
+
+            if (municipio.isEmpty()) {
+                munSQL = "NULL";
+            } else {
+                munSQL = "'" + municipio + "'";
+            }
+
+            if (categoria.isEmpty()) {
+                catSQL = "NULL";
+            } else {
+                catSQL = "'" + categoria + "'";
+            }
+
+            if (descripcion.isEmpty()) {
+                descSQL = "NULL";
+            } else {
+                descSQL = "'" + descripcion + "'";
+            }
+
+            sql = "INSERT INTO usuarios (nombre, email, rol, municipio, categoria, descripcion) VALUES ('" + nombre + "', '" + email + "', '"
+                    + rol + "', " + munSQL + ", " + catSQL + ", " + descSQL + ")";
+
+            System.out.println("Sentencia a ejecutar: " + sql);
+            sentencia.executeUpdate(sql);
+            System.out.println("Se ha insertado el nuevo usuario.");
+
+        } catch (SQLException e) {
+            System.err.println("SQL Error mensaje: " + e.getMessage());
+            System.err.println("SQL Estado: " + e.getSQLState());
+            System.err.println("SQL código específico: " + e.getErrorCode());
+        } catch (Exception e) {
+            e.printStackTrace(System.err);
+        }
+    }
+
+    public void borrarPorEmail(String resp) {
+        try {
+            sentencia = con.createStatement();
+            sql = "DELETE FROM usuarios WHERE email = '" + resp.trim() + "';";
+            System.out.println("Sentencia a ejecutar: " + sql);
+            sentencia.executeUpdate(sql);
+        } catch (SQLException e) {
+            // Información del Error
+            System.err.println("SQL Error mensaje: " + e.getMessage());
+            System.err.println("SQL Estado: " + e.getSQLState());
+            System.err.println("SQL código específico: " + e.getErrorCode());
+        } catch (Exception e) {
+            e.printStackTrace(System.err);
+        }
+    }
+
+    public void borrarSelec(int fila) {
+        try {
+            int id = (int) listaUsr.get(fila)[0]; // la fila dada, y col 0 en la lista q siempre va a ser id
+            sentencia = con.createStatement();
+            sql = "DELETE FROM usuarios WHERE id = '" + id + "'";
+            sentencia.executeUpdate(sql);
+        } catch (SQLException e) {
+            // Información del Error
+            System.err.println("SQL Error mensaje: " + e.getMessage());
+            System.err.println("SQL Estado: " + e.getSQLState());
+            System.err.println("SQL código específico: " + e.getErrorCode());
+        } catch (Exception e) {
+            e.printStackTrace(System.err);
+        }
+    }
+
+    public void exportar(String nombreFich) {
+        String nombre, email, rol, municipio, categoria, descripcion;
+        double puntuacion;
+        System.out.println("EXPORTANDO A FICHERO: '" + nombreFich + "'");
+        try (BufferedWriter fichBuf = new BufferedWriter(new FileWriter(nombreFich, false))) {
+
+            sentencia = con.createStatement();
+            sql = "SELECT * FROM usuarios"; //se coge la info d usuarios
+            rs = sentencia.executeQuery(sql);
+
+            while (rs.next()) {
+                nombre = rs.getString("nombre");
+                email = rs.getString("email");
+                rol = rs.getString("rol");
+                municipio = rs.getString("municipio");
+                categoria = rs.getString("categoria");
+                descripcion = rs.getString("descripcion");
+                puntuacion = rs.getDouble("puntuacion_media");
+
+                // si son null se guardan como espacio para q haya dato
+                if (municipio == null) {
+                    municipio = "";
+                }
+                if (categoria == null) {
+                    categoria = "";
+                }
+                if (descripcion == null) {
+                    descripcion = "";
+                }
+
+                String linea = nombre + ";|" + email + ";|" + rol + ";|" + municipio
+                        + ";|" + categoria + ";|" + descripcion + ";|" + puntuacion; //se añaden con separacion
+
+                System.out.println("GUARDANDO: " + linea);
+                fichBuf.write(linea); //se enseña por terminal
+                fichBuf.newLine();
+                fichBuf.flush();
+            }
+
+            rs.close();
+            sentencia.close();
+            fichBuf.close();
+            System.out.println("Exportacion completada.");
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        } catch (SQLException e) {
+            System.err.println("SQL Error mensaje: " + e.getMessage());
+        }
+    }
+
+    public void importar(String nombreFich) {
+        System.out.println("IMPORTANDO DESDE FICHERO: '" + nombreFich + "'");
+        listaUsr.clear();
+
+        try (BufferedReader fichBuf = new BufferedReader(new FileReader(nombreFich))) {
+            String cadena = fichBuf.readLine();
+            while (cadena != null) {//bucle mientras haya linea
+                System.out.println("LEIDO: " + cadena); //enseña la lina q esta leyendo
+
+                String[] campos = cadena.split(";\\|"); //divide por los simbolos ; O |
+
+                if (campos.length >= 6) { //deben haber al menos 6 datos
+
+                    listaUsr.add(campos); //se añade al array list
+
+                    try {
+                        añadir(campos[0], campos[1], campos[2], campos[3], campos[4], campos[5]); //se añade al sql
+                    } catch (SQLException ex) {
+                        System.err.println("Error al insertar: " + ex.getMessage());
+                    }
+                }
+                cadena = fichBuf.readLine(); //lee siguiente linea y repite bucle
+            }
+            fichBuf.close();
+            System.out.println("Importacion completada. Total: " + listaUsr.size());
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
 }
