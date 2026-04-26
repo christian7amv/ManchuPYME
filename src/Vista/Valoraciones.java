@@ -363,8 +363,52 @@ public class Valoraciones extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jTableMouseClicked(java.awt.event.MouseEvent evt) {
+        int filaSelec = jTable.getSelectedRow();
+        System.out.println("Fila seleccionada: " + filaSelec);
+
+        jTextFieldID.setText(datos[filaSelec][0].toString());
+
+        String nombrePart = (String) datos[filaSelec][1];
+        for (int i = 0; i < jComboBoxRol.getItemCount(); i++) {
+            if (jComboBoxRol.getItemAt(i).contains(nombrePart)) {
+                jComboBoxRol.setSelectedIndex(i);
+                break;
+            }
+        }
+
+        String nombreProf = (String) datos[filaSelec][2];
+        for (int i = 0; i < jComboBoxRol.getItemCount(); i++) {
+            if (jComboBoxRol.getItemAt(i).contains(nombreProf)) {
+                jComboBoxRol.setSelectedIndex(i);
+                break;
+            }
+        }
+
+        jComboBoxPuntuacion.setSelectedItem(datos[filaSelec][3].toString());
+        jTextAreaComentario.setText(datos[filaSelec][4] != null
+                ? datos[filaSelec][4].toString() : "");
+        jTextField4.setText((String) datos[filaSelec][5]);
+    }
+
     private void jButtonEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEliminarActionPerformed
-        // TODO add your handling code here:
+        int filaSelec = jTable.getSelectedRow();
+
+        if (filaSelec < 0) {
+            JOptionPane.showMessageDialog(rootPane,
+                    "Selecciona primero una valoracion de la tabla.");
+        } else {
+            int id = (int) datos[filaSelec][0];
+            int respuesta = JOptionPane.showConfirmDialog(rootPane,
+                    "¿Seguro que quieres eliminar la valoracion con ID " + id + "?",
+                    "Confirmar eliminacion", JOptionPane.YES_NO_OPTION);
+
+            if (respuesta == JOptionPane.YES_OPTION) {
+                gestorValoraciones.eliminar(id);
+                refrescarDatos();
+                vaciarCampos();
+            }
+        }
     }//GEN-LAST:event_jButtonEliminarActionPerformed
 
     private void jTextFieldIDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldIDActionPerformed
@@ -388,27 +432,73 @@ public class Valoraciones extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextField4ActionPerformed
 
     private void jButtonModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonModificarActionPerformed
-        // TODO add your handling code here:
+        if (jTextFieldID.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(rootPane,
+                    "Selecciona primero una valoracion de la tabla.");
+        } else {
+            int id = Integer.parseInt(jTextFieldID.getText());
+            int idPart = extraerId(jComboBoxRol.getSelectedItem().toString());
+            int idProf = extraerId(jComboBoxRol.getSelectedItem().toString());
+            String fecha = jTextField4.getText().trim();
+            int puntuacion = Integer.parseInt(jComboBoxPuntuacion.getSelectedItem().toString());
+            String comentario = jTextAreaComentario.getText().trim();
+
+            if (idPart == idProf) {
+                JOptionPane.showMessageDialog(rootPane,
+                        "El particular y el profesional no pueden ser la misma persona.");
+            } else if (!fecha.matches("\\d{2}-\\d{2}-\\d{4}")) {
+                JOptionPane.showMessageDialog(rootPane,
+                        "Formato de fecha incorrecto. Usa dd-MM-yyyy  (ej: 23-04-2026)");
+            } else {
+                gestorValoraciones.modificar(id, idPart, idProf, puntuacion, comentario, fecha);
+                refrescarDatos();
+                vaciarCampos();
+                JOptionPane.showMessageDialog(rootPane, "Valoracion modificada correctamente.");
+            }
+        }
     }//GEN-LAST:event_jButtonModificarActionPerformed
 
     private void jButtonBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBuscarActionPerformed
-        // TODO add your handling code here:
+        String nombre = jTextField5.getText().trim();
+
+        if (nombre.isEmpty()) {
+            refrescarDatos();
+        } else {
+            datos = gestorValoraciones.buscarPorNombre(nombre);
+            dtm.setDataVector(datos, nomCols);
+        }
     }//GEN-LAST:event_jButtonBuscarActionPerformed
 
     private void jButtonGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGuardarActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButtonGuardarActionPerformed
+        int idPart = extraerId(jComboBoxRol.getSelectedItem().toString());
+        int idProf = extraerId(jComboBoxRol.getSelectedItem().toString());
+        String fecha = jTextField4.getText().trim();
+        int puntuacion = Integer.parseInt(jComboBoxPuntuacion.getSelectedItem().toString());
+        String comentario = jTextAreaComentario.getText().trim();
+
+        if (idPart == idProf) {
+            JOptionPane.showMessageDialog(rootPane,
+                    "El particular y el profesional no pueden ser la misma persona.");
+        } else if (!fecha.matches("\\d{2}-\\d{2}-\\d{4}")) {
+            JOptionPane.showMessageDialog(rootPane,
+                    "Formato de fecha incorrecto. Usa dd-MM-yyyy  (ej: 23-04-2026)");
+        } else {
+            gestorValoraciones.insertar(idPart, idProf, puntuacion, comentario, fecha);
+            refrescarDatos();
+            vaciarCampos();
+            JOptionPane.showMessageDialog(rootPane, "Valoracion guardada correctamente.");
+        }    }//GEN-LAST:event_jButtonGuardarActionPerformed
 
     private void jButtonLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonLimpiarActionPerformed
-        // TODO add your handling code here:
+        vaciarCampos();
     }//GEN-LAST:event_jButtonLimpiarActionPerformed
 
     private void jButtonNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonNuevoActionPerformed
-        // TODO add your handling code here:
+        vaciarCampos();
     }//GEN-LAST:event_jButtonNuevoActionPerformed
 
     private void jButtonActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonActualizarActionPerformed
-        // TODO add your handling code here:
+        refrescarDatos();
     }//GEN-LAST:event_jButtonActualizarActionPerformed
 
     /**
