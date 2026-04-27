@@ -502,7 +502,7 @@ public class Usuarios extends javax.swing.JFrame {
         try {
             gestorBDR.añadir(nombre, email, rol, municipio, categoria, descripcion);
         } catch (SQLException ex) {
-            System.getLogger(VentAlumnosBDR.class.getName())
+            System.getLogger(Usuarios.class.getName())
                     .log(System.Logger.Level.ERROR, (String) null, ex);
         }
 
