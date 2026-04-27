@@ -45,20 +45,17 @@ public class Valoraciones extends javax.swing.JFrame {
     }
 
     private void cargarCombos() {
-        // PARTICULAR -> jComboBoxRol
+        //PARTICULAR
         String[] particulares = gestorValoraciones.obtenerParticulares();
         jComboBoxParticular.removeAllItems();
         for (String p : particulares) {
             jComboBoxParticular.addItem(p);
         }
-
-        // PROFESIONAL -> jComboBoxProfesional
-        // IMPORTANTE: tienes que añadir jComboBoxProfesional en el diseñador
-        // arrastrando un JComboBox y nombrándolo "jComboBoxProfesional"
+        //PROFESIONAL
         String[] profesionales = gestorValoraciones.obtenerProfesionales();
-        jComboBoxParticular.removeAllItems();
+        jComboBoxProfesional.removeAllItems();
         for (String p : profesionales) {
-            jComboBoxParticular.addItem(p);
+            jComboBoxProfesional.addItem(p);
         }
     }
 
@@ -70,7 +67,7 @@ public class Valoraciones extends javax.swing.JFrame {
     private void vaciarCampos() {
         jTextFieldID.setText("");
         jComboBoxParticular.setSelectedIndex(0);
-        jComboBoxParticular.setSelectedIndex(0);
+        jComboBoxProfesional.setSelectedIndex(0);
         jComboBoxPuntuacion.setSelectedIndex(0);
         jTextAreaComentario.setText("");
         jTextField4.setText("");
@@ -102,10 +99,10 @@ public class Valoraciones extends javax.swing.JFrame {
         jButtonNuevo = new javax.swing.JButton();
         jButtonGuardar = new javax.swing.JButton();
         jButtonModificar = new javax.swing.JButton();
-        jButtonEliminar = new javax.swing.JButton();
-        jButtonLimpiar = new javax.swing.JButton();
+        jButtonEliminarTodo = new javax.swing.JButton();
+        jButtonEliminarPorId = new javax.swing.JButton();
         jLabelProfesional = new javax.swing.JLabel();
-        jButtonBuscar = new javax.swing.JButton();
+        jButtonEliminarSelec = new javax.swing.JButton();
         jComboBoxParticular = new javax.swing.JComboBox<>();
         jComboBoxPuntuacion = new javax.swing.JComboBox<>();
         jLabel5 = new javax.swing.JLabel();
@@ -115,8 +112,10 @@ public class Valoraciones extends javax.swing.JFrame {
         jTextField5 = new javax.swing.JTextField();
         jComboBoxProfesional = new javax.swing.JComboBox<>();
         jLabelRol1 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        jButtonExportar = new javax.swing.JButton();
+        jButtonImportar = new javax.swing.JButton();
+        jButtonVaciarCampos = new javax.swing.JButton();
+        jButtonAñadirDatosEjemplo = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
         jScrollPane = new javax.swing.JScrollPane();
         jTable = new javax.swing.JTable();
@@ -172,17 +171,17 @@ public class Valoraciones extends javax.swing.JFrame {
         jButtonModificar.setText("MODIFICAR");
         jButtonModificar.addActionListener(this::jButtonModificarActionPerformed);
 
-        jButtonEliminar.setText("ELIMINAR");
-        jButtonEliminar.addActionListener(this::jButtonEliminarActionPerformed);
+        jButtonEliminarTodo.setText("ELIMINAR TODO");
+        jButtonEliminarTodo.addActionListener(this::jButtonEliminarTodoActionPerformed);
 
-        jButtonLimpiar.setText("LIMPIAR");
-        jButtonLimpiar.addActionListener(this::jButtonLimpiarActionPerformed);
+        jButtonEliminarPorId.setText("ELIMINAR POR ID");
+        jButtonEliminarPorId.addActionListener(this::jButtonEliminarPorIdActionPerformed);
 
         jLabelProfesional.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabelProfesional.setText("PROFESIONAL:");
 
-        jButtonBuscar.setText("BUSCAR");
-        jButtonBuscar.addActionListener(this::jButtonBuscarActionPerformed);
+        jButtonEliminarSelec.setText("ELIMINAR SELEC.");
+        jButtonEliminarSelec.addActionListener(this::jButtonEliminarSelecActionPerformed);
 
         jComboBoxParticular.addActionListener(this::jComboBoxParticularActionPerformed);
 
@@ -204,73 +203,83 @@ public class Valoraciones extends javax.swing.JFrame {
         jLabelRol1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabelRol1.setText("PARTICULAR:");
 
-        jButton1.setText("EXPORTAR");
+        jButtonExportar.setText("EXPORTAR");
 
-        jButton2.setText("IMPORTAR");
+        jButtonImportar.setText("IMPORTAR");
+
+        jButtonVaciarCampos.setText("VACIAR COMPOS");
+        jButtonVaciarCampos.addActionListener(this::jButtonVaciarCamposActionPerformed);
+
+        jButtonAñadirDatosEjemplo.setText("AÑADIR DATOS DE EJEMPLO");
+        jButtonAñadirDatosEjemplo.addActionListener(this::jButtonAñadirDatosEjemploActionPerformed);
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(44, 44, 44)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel3)
-                    .addComponent(jLabel4)
-                    .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel6)
-                    .addComponent(jLabelProfesional)
-                    .addComponent(jLabelRol1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(50, 50, 50)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jTextField5, javax.swing.GroupLayout.DEFAULT_SIZE, 180, Short.MAX_VALUE)
-                            .addComponent(jTextFieldID))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel1))
-                    .addComponent(jComboBoxParticular, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jComboBoxPuntuacion, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jComboBoxProfesional, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                .addGap(20, 20, 20)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jButtonNuevo, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButtonEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(jButtonLimpiar, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jButtonBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(44, 44, 44)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel3)
+                            .addComponent(jLabel4)
+                            .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel6)
+                            .addComponent(jLabelProfesional)
+                            .addComponent(jLabelRol1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(50, 50, 50)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jComboBoxParticular, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jComboBoxPuntuacion, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jComboBoxProfesional, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(jTextField5, javax.swing.GroupLayout.DEFAULT_SIZE, 180, Short.MAX_VALUE)
+                                    .addComponent(jTextFieldID))
+                                .addGap(40, 40, 40)
+                                .addComponent(jLabel1))
+                            .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jButtonVaciarCampos, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jButtonAñadirDatosEjemplo, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(jButtonGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(20, 20, 20)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jButtonNuevo, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jButtonEliminarTodo, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
-                        .addComponent(jButtonModificar, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addComponent(jButtonEliminarPorId, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(jButtonEliminarSelec, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(jButtonImportar, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addComponent(jButtonGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(jButtonModificar, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(jButtonExportar, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addContainerGap(28, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                .addGap(18, 18, 18)
+                .addGap(23, 23, 23)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jTextFieldID, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel5))
+                            .addComponent(jLabel5)
+                            .addComponent(jLabel1))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel6)
-                            .addComponent(jLabel1))
+                            .addComponent(jLabel6))
                         .addGap(6, 6, 6)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jComboBoxProfesional, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -282,26 +291,28 @@ public class Valoraciones extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jComboBoxPuntuacion, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel3))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel4)))
+                            .addComponent(jLabel3)))
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel4)
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGap(24, 24, 24)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 85, Short.MAX_VALUE)
+                        .addComponent(jButtonVaciarCampos)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButtonAñadirDatosEjemplo))
+                    .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 65, Short.MAX_VALUE)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE, false)
                     .addComponent(jButtonGuardar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jButtonNuevo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jButtonModificar)
-                    .addComponent(jButton1))
+                    .addComponent(jButtonExportar))
                 .addGap(33, 33, 33)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButtonLimpiar)
-                    .addComponent(jButtonEliminar)
-                    .addComponent(jButtonBuscar)
-                    .addComponent(jButton2))
+                    .addComponent(jButtonEliminarPorId)
+                    .addComponent(jButtonEliminarTodo)
+                    .addComponent(jButtonEliminarSelec)
+                    .addComponent(jButtonImportar))
                 .addContainerGap())
         );
 
@@ -397,9 +408,9 @@ public class Valoraciones extends javax.swing.JFrame {
         }
 
         String nombreProf = (String) datos[filaSelec][2];
-        for (int i = 0; i < jComboBoxParticular.getItemCount(); i++) {
-            if (jComboBoxParticular.getItemAt(i).contains(nombreProf)) {
-                jComboBoxParticular.setSelectedIndex(i);
+        for (int i = 0; i < jComboBoxProfesional.getItemCount(); i++) {
+            if (jComboBoxProfesional.getItemAt(i).contains(nombreProf)) {
+                jComboBoxProfesional.setSelectedIndex(i);
                 break;
             }
         }
@@ -410,25 +421,21 @@ public class Valoraciones extends javax.swing.JFrame {
         jTextField4.setText((String) datos[filaSelec][5]);
     }
 
-    private void jButtonEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEliminarActionPerformed
-        int filaSelec = jTable.getSelectedRow();
+    private void jButtonEliminarTodoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEliminarTodoActionPerformed
+        int respuesta = JOptionPane.showConfirmDialog(rootPane,
+                "¿Seguro que quieres eliminar TODAS las valoraciones?\nEsta accion no se puede deshacer.",
+                "Confirmar eliminar todo", JOptionPane.YES_NO_OPTION,
+                JOptionPane.WARNING_MESSAGE);
 
-        if (filaSelec < 0) {
-            JOptionPane.showMessageDialog(rootPane,
-                    "Selecciona primero una valoracion de la tabla.");
-        } else {
-            int id = (int) datos[filaSelec][0];
-            int respuesta = JOptionPane.showConfirmDialog(rootPane,
-                    "¿Seguro que quieres eliminar la valoracion con ID " + id + "?",
-                    "Confirmar eliminacion", JOptionPane.YES_NO_OPTION);
-
-            if (respuesta == JOptionPane.YES_OPTION) {
+        if (respuesta == JOptionPane.YES_OPTION) {
+            for (int i = dtm.getRowCount() - 1; i >= 0; i--) {
+                int id = (int) datos[i][0];
                 gestorValoraciones.eliminar(id);
-                refrescarDatos();
-                vaciarCampos();
             }
+            refrescarDatos();
+            vaciarCampos();
         }
-    }//GEN-LAST:event_jButtonEliminarActionPerformed
+    }//GEN-LAST:event_jButtonEliminarTodoActionPerformed
 
     private void jTextFieldIDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldIDActionPerformed
         // TODO add your handling code here:
@@ -477,16 +484,25 @@ public class Valoraciones extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jButtonModificarActionPerformed
 
-    private void jButtonBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBuscarActionPerformed
-        String nombre = jTextField5.getText().trim();
+    private void jButtonEliminarSelecActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEliminarSelecActionPerformed
+        int filaSelec = jTable.getSelectedRow();
 
-        if (nombre.isEmpty()) {
-            refrescarDatos();
+        if (filaSelec < 0) {
+            JOptionPane.showMessageDialog(rootPane,
+                    "Selecciona primero una valoracion de la tabla.");
         } else {
-            datos = gestorValoraciones.buscarPorNombre(nombre);
-            dtm.setDataVector(datos, nomCols);
+            int id = (int) datos[filaSelec][0];
+            int respuesta = JOptionPane.showConfirmDialog(rootPane,
+                    "¿Seguro que quieres eliminar la valoracion con ID " + id + "?",
+                    "Confirmar eliminacion", JOptionPane.YES_NO_OPTION);
+
+            if (respuesta == JOptionPane.YES_OPTION) {
+                gestorValoraciones.eliminar(id);
+                refrescarDatos();
+                vaciarCampos();
+            }
         }
-    }//GEN-LAST:event_jButtonBuscarActionPerformed
+    }//GEN-LAST:event_jButtonEliminarSelecActionPerformed
 
     private void jButtonGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGuardarActionPerformed
         int idPart = extraerId(jComboBoxParticular.getSelectedItem().toString());
@@ -508,9 +524,25 @@ public class Valoraciones extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(rootPane, "Valoracion guardada correctamente.");
         }    }//GEN-LAST:event_jButtonGuardarActionPerformed
 
-    private void jButtonLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonLimpiarActionPerformed
-        vaciarCampos();
-    }//GEN-LAST:event_jButtonLimpiarActionPerformed
+    private void jButtonEliminarPorIdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEliminarPorIdActionPerformed
+        String respuesta = JOptionPane.showInputDialog("Introduce el ID de la valoracion a eliminar:");
+
+        if (respuesta == null || respuesta.isBlank()) {
+            JOptionPane.showMessageDialog(rootPane,
+                    "No se ha introducido ningun ID valido.");
+        } else {
+            int id = Integer.parseInt(respuesta);
+            int confirmacion = JOptionPane.showConfirmDialog(rootPane,
+                    "¿Seguro que quieres eliminar la valoracion con ID " + id + "?",
+                    "Confirmar eliminacion", JOptionPane.YES_NO_OPTION);
+
+            if (confirmacion == JOptionPane.YES_OPTION) {
+                gestorValoraciones.eliminar(id);
+                refrescarDatos();
+                vaciarCampos();
+            }
+        }
+    }//GEN-LAST:event_jButtonEliminarPorIdActionPerformed
 
     private void jButtonNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonNuevoActionPerformed
         vaciarCampos();
@@ -519,6 +551,18 @@ public class Valoraciones extends javax.swing.JFrame {
     private void jButtonActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonActualizarActionPerformed
         refrescarDatos();
     }//GEN-LAST:event_jButtonActualizarActionPerformed
+
+    private void jButtonAñadirDatosEjemploActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAñadirDatosEjemploActionPerformed
+        gestorValoraciones.generarDatosDeEjemplo();
+
+        refrescarDatos();
+
+        JOptionPane.showMessageDialog(rootPane, "4 datos de ejemplo han sido añadidos correctamente.");
+    }//GEN-LAST:event_jButtonAñadirDatosEjemploActionPerformed
+
+    private void jButtonVaciarCamposActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonVaciarCamposActionPerformed
+        vaciarCampos();
+    }//GEN-LAST:event_jButtonVaciarCamposActionPerformed
 
     /**
      * @param args the command line arguments
@@ -547,15 +591,17 @@ public class Valoraciones extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel TituloIngreso_Datos;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JButton jButtonActualizar;
-    private javax.swing.JButton jButtonBuscar;
-    private javax.swing.JButton jButtonEliminar;
+    private javax.swing.JButton jButtonAñadirDatosEjemplo;
+    private javax.swing.JButton jButtonEliminarPorId;
+    private javax.swing.JButton jButtonEliminarSelec;
+    private javax.swing.JButton jButtonEliminarTodo;
+    private javax.swing.JButton jButtonExportar;
     private javax.swing.JButton jButtonGuardar;
-    private javax.swing.JButton jButtonLimpiar;
+    private javax.swing.JButton jButtonImportar;
     private javax.swing.JButton jButtonModificar;
     private javax.swing.JButton jButtonNuevo;
+    private javax.swing.JButton jButtonVaciarCampos;
     private javax.swing.JComboBox<String> jComboBoxParticular;
     private javax.swing.JComboBox<String> jComboBoxProfesional;
     private javax.swing.JComboBox<String> jComboBoxPuntuacion;
