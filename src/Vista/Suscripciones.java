@@ -80,20 +80,27 @@ public class Suscripciones extends javax.swing.JFrame {
         labelCarac.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         labelCarac.setText("Características");
 
+        precio.addActionListener(this::precioActionPerformed);
+
         labelPlan.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         labelPlan.setText("Plan");
 
         caracteristicas.addActionListener(this::caracteristicasActionPerformed);
 
         añadir.setText("Añadir");
+        añadir.addActionListener(this::añadirActionPerformed);
 
         guardar.setText("Guardar");
+        guardar.addActionListener(this::guardarActionPerformed);
 
         exportar.setText("Exportar");
+        exportar.addActionListener(this::exportarActionPerformed);
 
         importar.setText("Importar");
+        importar.addActionListener(this::importarActionPerformed);
 
         borrarTodo.setText("Borrar todo");
+        borrarTodo.addActionListener(this::borrarTodoActionPerformed);
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel2.setText("Precio");
@@ -101,9 +108,13 @@ public class Suscripciones extends javax.swing.JFrame {
         cargarDatosEj.setText("Cargar datos de ejemplo");
         cargarDatosEj.addActionListener(this::cargarDatosEjActionPerformed);
 
+        plan.addActionListener(this::planActionPerformed);
+
         actualizar.setText("Actualizar");
+        actualizar.addActionListener(this::actualizarActionPerformed);
 
         vaciarDesp.setText("Vaciar después de añadir");
+        vaciarDesp.addActionListener(this::vaciarDespActionPerformed);
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -259,6 +270,42 @@ public class Suscripciones extends javax.swing.JFrame {
     private void cargarDatosEjActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cargarDatosEjActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_cargarDatosEjActionPerformed
+
+    private void planActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_planActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_planActionPerformed
+
+    private void precioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_precioActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_precioActionPerformed
+
+    private void añadirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_añadirActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_añadirActionPerformed
+
+    private void vaciarDespActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_vaciarDespActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_vaciarDespActionPerformed
+
+    private void actualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_actualizarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_actualizarActionPerformed
+
+    private void guardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_guardarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_guardarActionPerformed
+
+    private void borrarTodoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_borrarTodoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_borrarTodoActionPerformed
+
+    private void importarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_importarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_importarActionPerformed
+
+    private void exportarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exportarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_exportarActionPerformed
 
     /**
      * @param args the command line arguments

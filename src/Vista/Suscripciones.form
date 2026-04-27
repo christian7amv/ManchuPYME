@@ -222,6 +222,9 @@
               </Properties>
             </Component>
             <Component class="javax.swing.JTextField" name="precio">
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="precioActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JLabel" name="labelPlan">
               <Properties>
@@ -240,26 +243,41 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="A&#xf1;adir"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="a&#xf1;adirActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JButton" name="guardar">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Guardar"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="guardarActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JButton" name="exportar">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Exportar"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="exportarActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JButton" name="importar">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Importar"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="importarActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JButton" name="borrarTodo">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Borrar todo"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="borrarTodoActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel2">
               <Properties>
@@ -278,16 +296,25 @@
               </Events>
             </Component>
             <Component class="javax.swing.JTextField" name="plan">
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="planActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JButton" name="actualizar">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Actualizar"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="actualizarActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JCheckBox" name="vaciarDesp">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Vaciar despu&#xe9;s de a&#xf1;adir"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="vaciarDespActionPerformed"/>
+              </Events>
             </Component>
           </SubComponents>
         </Container>
