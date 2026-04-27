@@ -66,6 +66,7 @@ public class Usuarios extends javax.swing.JFrame {
     private void initComponents() {
 
         jTextNombre1 = new javax.swing.JTextField();
+        jButtonVaciar1 = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         TituloIngreso_Datos = new javax.swing.JLabel();
@@ -91,6 +92,7 @@ public class Usuarios extends javax.swing.JFrame {
         jButtonAñadir = new javax.swing.JButton();
         jButtonVaciar = new javax.swing.JButton();
         jCheckBoxVaciar = new javax.swing.JCheckBox();
+        jButtonModificar = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
@@ -104,6 +106,10 @@ public class Usuarios extends javax.swing.JFrame {
         jButtonDatEjx = new javax.swing.JButton();
 
         jTextNombre1.addActionListener(this::jTextNombre1ActionPerformed);
+
+        jButtonVaciar1.setText("Vaciar campos");
+        jButtonVaciar1.setToolTipText("");
+        jButtonVaciar1.addActionListener(this::jButtonVaciar1ActionPerformed);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("plantilla");
@@ -152,7 +158,7 @@ public class Usuarios extends javax.swing.JFrame {
 
         jTextNombre.addActionListener(this::jTextNombreActionPerformed);
 
-        jComboBoxRol.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "particular", "profesional" }));
+        jComboBoxRol.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "PARTICULAR", "PROFESIONAL" }));
         jComboBoxRol.addActionListener(this::jComboBoxRolActionPerformed);
 
         jLabel5.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
@@ -189,12 +195,16 @@ public class Usuarios extends javax.swing.JFrame {
         jCheckBoxVaciar.setText("Vaciar despues de añadir");
         jCheckBoxVaciar.addActionListener(this::jCheckBoxVaciarActionPerformed);
 
+        jButtonModificar.setText("Modificar");
+        jButtonModificar.setToolTipText("");
+        jButtonModificar.addActionListener(this::jButtonModificarActionPerformed);
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel3Layout.createSequentialGroup()
@@ -243,8 +253,10 @@ public class Usuarios extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jCheckBoxVaciar)
                         .addGap(18, 18, 18)
-                        .addComponent(jButtonVaciar, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(jButtonVaciar, javax.swing.GroupLayout.PREFERRED_SIZE, 295, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jButtonModificar, javax.swing.GroupLayout.PREFERRED_SIZE, 308, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(36, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -293,7 +305,8 @@ public class Usuarios extends javax.swing.JFrame {
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButtonVaciar)
                     .addComponent(jCheckBoxVaciar)
-                    .addComponent(jButtonAñadir))
+                    .addComponent(jButtonAñadir)
+                    .addComponent(jButtonModificar))
                 .addContainerGap(17, Short.MAX_VALUE))
         );
 
@@ -377,7 +390,7 @@ public class Usuarios extends javax.swing.JFrame {
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jButtonBorrarEmail, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jButtonImportar, javax.swing.GroupLayout.PREFERRED_SIZE, 299, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(29, 29, 29)
+                .addGap(18, 18, 18)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jButtonBorrarSeleccion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jButtonExportar, javax.swing.GroupLayout.PREFERRED_SIZE, 305, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -473,7 +486,7 @@ public class Usuarios extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextNombre1ActionPerformed
 
     private void jButtonAñadirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAñadirActionPerformed
-        String nombre, email, municipio, descripcion, puntuacion;
+        String nombre, email, municipio, descripcion;
         String rol, categoria;
 
         nombre = jTextNombre.getText();
@@ -581,11 +594,14 @@ public class Usuarios extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton7ActionPerformed
 
     private void jButtonBorrarSeleccionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBorrarSeleccionActionPerformed
+
         int filaSelec = jTable1.getSelectedRow();
         if (filaSelec != -1) {
             gestorBDR.borrarSelec(filaSelec);
             refrescarDatos();
         }
+
+
     }//GEN-LAST:event_jButtonBorrarSeleccionActionPerformed
 
     private void jButtonImportarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonImportarActionPerformed
@@ -613,6 +629,49 @@ public class Usuarios extends javax.swing.JFrame {
         }
 
     }//GEN-LAST:event_jButtonExportarActionPerformed
+
+    private void jButtonVaciar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonVaciar1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButtonVaciar1ActionPerformed
+
+    private void jButtonModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonModificarActionPerformed
+        String id, nombre, email, municipio, descripcion;
+        String rol, categoria;
+        
+        id = jTextId.getText();
+        nombre = jTextNombre.getText();
+        email = jTextFieldEmail.getText();
+        municipio = jTextMunicipio.getText();
+        descripcion = jTextDescipcion.getText();
+        
+
+        rol = (String) jComboBoxRol.getSelectedItem();
+        categoria = (String) jComboCategoria.getSelectedItem();
+
+        if (nombre.isEmpty() || email.isEmpty()) {
+            JOptionPane.showMessageDialog(this,
+                    "Los campos Nombre y Email son obligatorios.",
+                    "Faltan datos",
+                    JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        if (jCheckBoxVaciar.isSelected()) {
+            System.out.println("Check vaciar seleccionado");
+            vaciarCampos();
+        } else {
+            System.out.println("Check vaciar NO seleccionado");
+        }
+
+        try {
+            gestorBDR.modificar(id, nombre, email, rol, municipio, categoria, descripcion);
+        } catch (SQLException ex) {
+            System.getLogger(Usuarios.class.getName())
+                    .log(System.Logger.Level.ERROR, (String) null, ex);
+        }
+
+        refrescarDatos();
+    }//GEN-LAST:event_jButtonModificarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -649,7 +708,9 @@ public class Usuarios extends javax.swing.JFrame {
     private javax.swing.JButton jButtonDatEjx;
     private javax.swing.JButton jButtonExportar;
     private javax.swing.JButton jButtonImportar;
+    private javax.swing.JButton jButtonModificar;
     private javax.swing.JButton jButtonVaciar;
+    private javax.swing.JButton jButtonVaciar1;
     private javax.swing.JCheckBox jCheckBoxVaciar;
     private javax.swing.JCheckBox jCheckConexion;
     private javax.swing.JComboBox<String> jComboBoxRol;
@@ -704,7 +765,7 @@ public class Usuarios extends javax.swing.JFrame {
     }
 
     private void checkCombo() {
-        boolean particular = jComboBoxRol.getSelectedItem().equals("particular"); //deolvera true si se cumple esto
+        boolean particular = jComboBoxRol.getSelectedItem().equals("PARTICULAR"); //deolvera true si se cumple esto
         jComboCategoria.setEnabled(!particular);
         jTextDescipcion.setEnabled(!particular);
         if (particular) {

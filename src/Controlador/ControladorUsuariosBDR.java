@@ -321,5 +321,51 @@ public class ControladorUsuariosBDR {
             System.out.println(e.getMessage());
         }
     }
+    
+
+    public void modificar(String id, String nombre, String email, String rol, String municipio, String categoria, String descripcion) throws SQLException {
+
+        try {
+            sentencia = con.createStatement();
+
+            String munSQL;
+            String catSQL;
+            String descSQL;
+
+            if (municipio.isEmpty()) {
+                munSQL = "NULL";
+            } else {
+                munSQL = "'" + municipio + "'";
+            }
+
+            if (categoria.isEmpty()) {
+                catSQL = "NULL";
+            } else {
+                catSQL = "'" + categoria + "'";
+            }
+
+            if (descripcion.isEmpty()) {
+                descSQL = "NULL";
+            } else {
+                descSQL = "'" + descripcion + "'";
+            }
+
+            sql = "UPDATE usuarios SET nombre = '" + nombre + "', email = '" + email + "', rol = '" + rol
+                    + "', municipio = " + munSQL + ", categoria = " + catSQL + ", descripcion = " + descSQL
+                    + " WHERE id = '" + id + "'";
+
+            System.out.println("Sentencia a ejecutar: " + sql);
+            int filas = sentencia.executeUpdate(sql);
+            System.out.println("Se han modificado " + filas + " filas.");
+
+        } catch (SQLException e) {
+            System.err.println("SQL Error mensaje: " + e.getMessage());
+            System.err.println("SQL Estado: " + e.getSQLState());
+            System.err.println("SQL código específico: " + e.getErrorCode());
+        } catch (Exception e) {
+            e.printStackTrace(System.err);
+        }
+
+    }
 
 }
