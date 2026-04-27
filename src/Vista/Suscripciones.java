@@ -4,12 +4,31 @@
  */
 package Vista;
 
+import Controlador.ControladorSuscripcionesBDR;
+import javax.swing.table.DefaultTableModel;
+import java.sql.SQLException;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author chris
  */
 public class Suscripciones extends javax.swing.JFrame {
-    
+
+    ControladorSuscripcionesBDR gestorBDR = new ControladorSuscripcionesBDR();
+
+    String[] nomCols = {
+        "id",
+        "precio",
+        "caracteristicas"
+    };
+    Object[][] datos;
+    DefaultTableModel dtm = new DefaultTableModel(datos, nomCols);
+
+    // Guarda el id (plan) original de la fila seleccionada para poder hacer UPDATE
+    // aunque el usuario cambie el nombre del plan en el campo de texto.
+    private String idSeleccionado = null;
+
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(Suscripciones.class.getName());
 
     /**
@@ -17,6 +36,19 @@ public class Suscripciones extends javax.swing.JFrame {
      */
     public Suscripciones() {
         initComponents();
+
+        jTable1.setModel(dtm);
+        jTable1.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+
+        // El .form no define el evento mouseClicked para jTable1, así que lo añadimos aquí
+        jTable1.addMouseListener(new java.awt.event.MouseAdapter() {
+            @Override
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTable1MouseClicked(evt);
+            }
+        });
+
+        refrescarDatos();
     }
 
     /**
@@ -35,7 +67,6 @@ public class Suscripciones extends javax.swing.JFrame {
         labelCarac = new javax.swing.JLabel();
         precio = new javax.swing.JTextField();
         labelPlan = new javax.swing.JLabel();
-        caracteristicas = new javax.swing.JTextField();
         añadir = new javax.swing.JButton();
         guardar = new javax.swing.JButton();
         exportar = new javax.swing.JButton();
@@ -47,6 +78,8 @@ public class Suscripciones extends javax.swing.JFrame {
         actualizar = new javax.swing.JButton();
         vaciarDesp = new javax.swing.JCheckBox();
         borrar = new javax.swing.JButton();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        caracteristicas = new javax.swing.JTextArea();
         jPanel4 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
@@ -86,8 +119,6 @@ public class Suscripciones extends javax.swing.JFrame {
         labelPlan.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         labelPlan.setText("Plan");
 
-        caracteristicas.addActionListener(this::caracteristicasActionPerformed);
-
         añadir.setText("Añadir");
         añadir.addActionListener(this::añadirActionPerformed);
 
@@ -120,6 +151,10 @@ public class Suscripciones extends javax.swing.JFrame {
         borrar.setText("Borrar");
         borrar.addActionListener(this::borrarActionPerformed);
 
+        caracteristicas.setColumns(20);
+        caracteristicas.setRows(5);
+        jScrollPane2.setViewportView(caracteristicas);
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -137,7 +172,7 @@ public class Suscripciones extends javax.swing.JFrame {
                         .addComponent(vaciarDesp, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(borrar)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 39, Short.MAX_VALUE)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(importar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(actualizar, javax.swing.GroupLayout.DEFAULT_SIZE, 103, Short.MAX_VALUE))
@@ -153,19 +188,19 @@ public class Suscripciones extends javax.swing.JFrame {
                         .addComponent(labelPlan, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel3Layout.createSequentialGroup()
                                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(precio, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(plan, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(139, 139, 139))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                             .addGroup(jPanel3Layout.createSequentialGroup()
                                 .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(labelCarac)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)))
-                        .addComponent(caracteristicas, javax.swing.GroupLayout.PREFERRED_SIZE, 297, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(48, Short.MAX_VALUE))))
+                                .addComponent(labelCarac)))
+                        .addGap(18, 18, 18)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -176,30 +211,33 @@ public class Suscripciones extends javax.swing.JFrame {
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(plan, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(41, 41, 41)
-                        .addComponent(jLabel2)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addGap(41, 41, 41)
+                                .addComponent(jLabel2))
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addGap(26, 26, 26)
+                                .addComponent(labelCarac)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(precio, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 62, Short.MAX_VALUE)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(caracteristicas, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(labelCarac))
-                        .addGap(47, 47, 47)))
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(añadir)
-                    .addComponent(guardar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(vaciarDesp)
-                    .addComponent(actualizar)
-                    .addComponent(borrar))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(borrarTodo)
-                    .addComponent(cargarDatosEj)
-                    .addComponent(importar)
-                    .addComponent(exportar))
-                .addGap(45, 45, 45))
+                            .addComponent(añadir)
+                            .addComponent(guardar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(vaciarDesp)
+                            .addComponent(actualizar)
+                            .addComponent(borrar))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(borrarTodo)
+                            .addComponent(cargarDatosEj)
+                            .addComponent(importar)
+                            .addComponent(exportar))
+                        .addGap(45, 45, 45))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGap(24, 24, 24)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
 
         jPanel4.setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -272,12 +310,9 @@ public class Suscripciones extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void caracteristicasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_caracteristicasActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_caracteristicasActionPerformed
-
     private void cargarDatosEjActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cargarDatosEjActionPerformed
-        // TODO add your handling code here:
+        gestorBDR.añadirDatosEjemplo();
+        refrescarDatos();
     }//GEN-LAST:event_cargarDatosEjActionPerformed
 
     private void planActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_planActionPerformed
@@ -289,7 +324,55 @@ public class Suscripciones extends javax.swing.JFrame {
     }//GEN-LAST:event_precioActionPerformed
 
     private void añadirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_añadirActionPerformed
-        // TODO add your handling code here:
+        String planTxt, caracTxt, precioTxt;
+        double precioVal;
+
+        planTxt = plan.getText().trim();
+        precioTxt = precio.getText().trim().replace(",", ".");
+        caracTxt = caracteristicas.getText();
+
+        if (planTxt.isEmpty() || precioTxt.isEmpty()) {
+            JOptionPane.showMessageDialog(this,
+                    "Los campos Plan y Precio son obligatorios.",
+                    "Faltan datos",
+                    JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        if (planTxt.length() > 20) {
+            JOptionPane.showMessageDialog(this,
+                    "El nombre del plan no puede tener más de 20 caracteres.",
+                    "Plan demasiado largo",
+                    JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        try {
+            precioVal = Double.parseDouble(precioTxt);
+        } catch (NumberFormatException ex) {
+            JOptionPane.showMessageDialog(this,
+                    "El precio debe ser un número válido (ej: 9.99).",
+                    "Precio no válido",
+                    JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        if (vaciarDesp.isSelected()) {
+            System.out.println("Check vaciar seleccionado");
+            vaciarCampos();
+        } else {
+            System.out.println("Check vaciar NO seleccionado");
+        }
+
+        try {
+            gestorBDR.añadir(planTxt.toUpperCase(), precioVal, caracTxt);
+        } catch (SQLException ex) {
+            System.getLogger(Suscripciones.class.getName())
+                    .log(System.Logger.Level.ERROR, (String) null, ex);
+        }
+
+        refrescarDatos();
+
     }//GEN-LAST:event_añadirActionPerformed
 
     private void vaciarDespActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_vaciarDespActionPerformed
@@ -297,28 +380,136 @@ public class Suscripciones extends javax.swing.JFrame {
     }//GEN-LAST:event_vaciarDespActionPerformed
 
     private void actualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_actualizarActionPerformed
-        // TODO add your handling code here:
+        // ACTUALIZAR (UPDATE) la suscripción seleccionada con los valores de los campos
+        if (idSeleccionado == null) {
+            JOptionPane.showMessageDialog(this,
+                    "Selecciona primero una fila de la tabla para actualizarla.",
+                    "Sin selección",
+                    JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        String planTxt = plan.getText().trim();
+        String precioTxt = precio.getText().trim().replace(",", ".");
+        String caracTxt = caracteristicas.getText();
+        double precioVal;
+
+        if (planTxt.isEmpty() || precioTxt.isEmpty()) {
+            JOptionPane.showMessageDialog(this,
+                    "Los campos Plan y Precio son obligatorios.",
+                    "Faltan datos",
+                    JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        if (planTxt.length() > 20) {
+            JOptionPane.showMessageDialog(this,
+                    "El nombre del plan no puede tener más de 20 caracteres.",
+                    "Plan demasiado largo",
+                    JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        try {
+            precioVal = Double.parseDouble(precioTxt);
+        } catch (NumberFormatException ex) {
+            JOptionPane.showMessageDialog(this,
+                    "El precio debe ser un número válido (ej: 9.99).",
+                    "Precio no válido",
+                    JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        int opcion = JOptionPane.showConfirmDialog(this,
+                "¿Seguro que quieres actualizar la suscripción \"" + idSeleccionado + "\"?");
+        if (opcion == JOptionPane.YES_OPTION) {
+            try {
+                gestorBDR.actualizar(idSeleccionado, planTxt.toUpperCase(), precioVal, caracTxt);
+            } catch (SQLException ex) {
+                System.getLogger(Suscripciones.class.getName())
+                        .log(System.Logger.Level.ERROR, (String) null, ex);
+            }
+            idSeleccionado = null;
+            refrescarDatos();
+        }
     }//GEN-LAST:event_actualizarActionPerformed
 
     private void guardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_guardarActionPerformed
-        // TODO add your handling code here:
+        // "Guardar" se usa aquí como botón para vaciar los campos manualmente
+        // (equivalente a "Vaciar campos" en la ventana de Usuarios)
+        vaciarCampos();
+        idSeleccionado = null;
     }//GEN-LAST:event_guardarActionPerformed
 
     private void borrarTodoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_borrarTodoActionPerformed
-        // TODO add your handling code here:
+        int opcion = JOptionPane.showConfirmDialog(this,
+                "¿Seguro que quieres borrar TODAS las suscripciones?\nEsta acción no se puede deshacer.");
+        if (opcion == JOptionPane.YES_OPTION) {
+            gestorBDR.borrarTodo();
+            idSeleccionado = null;
+            refrescarDatos();
+        }
     }//GEN-LAST:event_borrarTodoActionPerformed
 
     private void importarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_importarActionPerformed
-        // TODO add your handling code here:
+        javax.swing.JFileChooser selector = new javax.swing.JFileChooser();
+        selector.setDialogTitle("Selecciona el fichero a importar");
+        int resp = selector.showOpenDialog(this);
+        if (resp == javax.swing.JFileChooser.APPROVE_OPTION) {
+            String nombreFich = selector.getSelectedFile().getAbsolutePath();
+            gestorBDR.importar(nombreFich);
+            refrescarDatos();
+            JOptionPane.showMessageDialog(this, "Importacion completada desde:\n" + nombreFich);
+        }
     }//GEN-LAST:event_importarActionPerformed
 
     private void exportarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exportarActionPerformed
-        // TODO add your handling code here:
+        javax.swing.JFileChooser selector = new javax.swing.JFileChooser();
+        selector.setDialogTitle("Guardar fichero de exportacion");
+        selector.setSelectedFile(new java.io.File("suscripciones.txt")); //archivo por defecto
+        int resp = selector.showSaveDialog(this); //se abre ventana y se comprueba si el user no ha cancelado
+        if (resp == javax.swing.JFileChooser.APPROVE_OPTION) { //si ha pulsado guardar y no canelar
+            String nombreFich = selector.getSelectedFile().getAbsolutePath(); //se obtiene la ruta del fichero/dir obtenido
+            gestorBDR.exportar(nombreFich);
+            JOptionPane.showMessageDialog(this, "Exportacion completada en:\n" + nombreFich);
+        }
     }//GEN-LAST:event_exportarActionPerformed
 
     private void borrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_borrarActionPerformed
-        // TODO add your handling code here:
+        int filaSelec = jTable1.getSelectedRow();
+        if (filaSelec == -1) {
+            JOptionPane.showMessageDialog(this,
+                    "Selecciona primero una fila de la tabla para borrarla.",
+                    "Sin selección",
+                    JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        int opcion = JOptionPane.showConfirmDialog(this,
+                "¿Seguro que quieres borrar esta suscripción?\nEsta acción no se puede deshacer.");
+        if (opcion == JOptionPane.YES_OPTION) {
+            gestorBDR.borrarSelec(filaSelec);
+            idSeleccionado = null;
+            vaciarCampos();
+            refrescarDatos();
+        }
     }//GEN-LAST:event_borrarActionPerformed
+
+    private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {
+        int filaSelec = jTable1.getSelectedRow();
+        if (filaSelec == -1) {
+            return;
+        }
+        System.out.println("Fila seleccionada: " + filaSelec);
+        String id = (String) datos[filaSelec][0];
+        double precioVal = (double) datos[filaSelec][1];
+        String carac = (String) datos[filaSelec][2];
+
+        idSeleccionado = id; // se guarda el id original para el UPDATE
+        plan.setText(id);
+        precio.setText(String.valueOf(precioVal));
+        caracteristicas.setText(carac == null ? "" : carac);
+        System.out.println("id=" + id + " precio=" + precioVal);
+    }
 
     /**
      * @param args the command line arguments
@@ -351,7 +542,7 @@ public class Suscripciones extends javax.swing.JFrame {
     private javax.swing.JButton añadir;
     private javax.swing.JButton borrar;
     private javax.swing.JButton borrarTodo;
-    private javax.swing.JTextField caracteristicas;
+    private javax.swing.JTextArea caracteristicas;
     private javax.swing.JButton cargarDatosEj;
     private javax.swing.JButton exportar;
     private javax.swing.JButton guardar;
@@ -362,6 +553,7 @@ public class Suscripciones extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jTable1;
     private javax.swing.JLabel labelCarac;
     private javax.swing.JLabel labelPlan;
@@ -369,4 +561,21 @@ public class Suscripciones extends javax.swing.JFrame {
     private javax.swing.JTextField precio;
     private javax.swing.JCheckBox vaciarDesp;
     // End of variables declaration//GEN-END:variables
+
+    private void vaciarCampos() {
+        plan.setText("");
+        precio.setText("");
+        caracteristicas.setText("");
+    }
+
+    private void refrescarDatos() {
+        datos = gestorBDR.obtenerMatriz();
+        if (datos == null) {
+            datos = new Object[0][3];
+        }
+        dtm.setDataVector(datos, nomCols);
+        jTable1.getColumn("id").setPreferredWidth(120);
+        jTable1.getColumn("precio").setPreferredWidth(80);
+        jTable1.getColumn("caracteristicas").setPreferredWidth(360);
+    }
 }
