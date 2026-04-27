@@ -36,16 +36,16 @@ public class Suscripciones extends javax.swing.JFrame {
         precio = new javax.swing.JTextField();
         labelPlan = new javax.swing.JLabel();
         caracteristicas = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
+        añadir = new javax.swing.JButton();
+        guardar = new javax.swing.JButton();
+        exportar = new javax.swing.JButton();
+        importar = new javax.swing.JButton();
+        borrarTodo = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
-        jButton6 = new javax.swing.JButton();
+        cargarDatosEj = new javax.swing.JButton();
         plan = new javax.swing.JTextField();
-        jButton7 = new javax.swing.JButton();
-        jCheckBox1 = new javax.swing.JCheckBox();
+        actualizar = new javax.swing.JButton();
+        vaciarDesp = new javax.swing.JCheckBox();
         jPanel4 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
@@ -85,25 +85,25 @@ public class Suscripciones extends javax.swing.JFrame {
 
         caracteristicas.addActionListener(this::caracteristicasActionPerformed);
 
-        jButton1.setText("Añadir");
+        añadir.setText("Añadir");
 
-        jButton2.setText("Guardar");
+        guardar.setText("Guardar");
 
-        jButton3.setText("Exportar");
+        exportar.setText("Exportar");
 
-        jButton4.setText("Importar");
+        importar.setText("Importar");
 
-        jButton5.setText("Borrar todo");
+        borrarTodo.setText("Borrar todo");
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel2.setText("Precio");
 
-        jButton6.setText("Cargar datos de ejemplo");
-        jButton6.addActionListener(this::jButton6ActionPerformed);
+        cargarDatosEj.setText("Cargar datos de ejemplo");
+        cargarDatosEj.addActionListener(this::cargarDatosEjActionPerformed);
 
-        jButton7.setText("Actualizar");
+        actualizar.setText("Actualizar");
 
-        jCheckBox1.setText("Vaciar después de añadir");
+        vaciarDesp.setText("Vaciar después de añadir");
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -112,20 +112,20 @@ public class Suscripciones extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                 .addGap(26, 26, 26)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jButton5, javax.swing.GroupLayout.DEFAULT_SIZE, 145, Short.MAX_VALUE)
-                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(borrarTodo, javax.swing.GroupLayout.DEFAULT_SIZE, 145, Short.MAX_VALUE)
+                    .addComponent(añadir, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jCheckBox1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton6, javax.swing.GroupLayout.DEFAULT_SIZE, 165, Short.MAX_VALUE))
+                    .addComponent(vaciarDesp, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(cargarDatosEj, javax.swing.GroupLayout.DEFAULT_SIZE, 165, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jButton4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton7, javax.swing.GroupLayout.DEFAULT_SIZE, 103, Short.MAX_VALUE))
+                    .addComponent(importar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(actualizar, javax.swing.GroupLayout.DEFAULT_SIZE, 103, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, 98, Short.MAX_VALUE)
-                    .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(exportar, javax.swing.GroupLayout.DEFAULT_SIZE, 98, Short.MAX_VALUE)
+                    .addComponent(guardar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(76, 76, 76))
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGap(112, 112, 112)
@@ -169,16 +169,16 @@ public class Suscripciones extends javax.swing.JFrame {
                             .addComponent(labelCarac))
                         .addGap(29, 29, 29)))
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jCheckBox1)
-                    .addComponent(jButton7))
+                    .addComponent(añadir)
+                    .addComponent(guardar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(vaciarDesp)
+                    .addComponent(actualizar))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton5)
-                    .addComponent(jButton6)
-                    .addComponent(jButton4)
-                    .addComponent(jButton3))
+                    .addComponent(borrarTodo)
+                    .addComponent(cargarDatosEj)
+                    .addComponent(importar)
+                    .addComponent(exportar))
                 .addGap(45, 45, 45))
         );
 
@@ -256,9 +256,9 @@ public class Suscripciones extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_caracteristicasActionPerformed
 
-    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+    private void cargarDatosEjActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cargarDatosEjActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton6ActionPerformed
+    }//GEN-LAST:event_cargarDatosEjActionPerformed
 
     /**
      * @param args the command line arguments
@@ -287,15 +287,14 @@ public class Suscripciones extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel TituloIngreso_Datos;
+    private javax.swing.JButton actualizar;
+    private javax.swing.JButton añadir;
+    private javax.swing.JButton borrarTodo;
     private javax.swing.JTextField caracteristicas;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
-    private javax.swing.JButton jButton6;
-    private javax.swing.JButton jButton7;
-    private javax.swing.JCheckBox jCheckBox1;
+    private javax.swing.JButton cargarDatosEj;
+    private javax.swing.JButton exportar;
+    private javax.swing.JButton guardar;
+    private javax.swing.JButton importar;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
@@ -307,5 +306,6 @@ public class Suscripciones extends javax.swing.JFrame {
     private javax.swing.JLabel labelPlan;
     private javax.swing.JTextField plan;
     private javax.swing.JTextField precio;
+    private javax.swing.JCheckBox vaciarDesp;
     // End of variables declaration//GEN-END:variables
 }
