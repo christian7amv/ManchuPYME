@@ -4,57 +4,19 @@
  */
 package Vista;
 
-import javax.swing.JOptionPane;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.table.DefaultTableModel;
-
 /**
  *
  * @author chris
  */
 public class Suscripciones extends javax.swing.JFrame {
-
+    
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(Suscripciones.class.getName());
-
-    // Modelo de la tabla, se inicializa tras initComponents()
-    private DefaultTableModel modeloTabla;
 
     /**
      * Creates new form PLANTILLA_NO_USAR
      */
     public Suscripciones() {
         initComponents();
-
-        // Obtenemos el modelo de la tabla ya creada por el diseñador
-        modeloTabla = (DefaultTableModel) jTable1.getModel();
-
-        // Al hacer clic en una fila de la tabla se rellenan los campos del formulario
-        jTable1.getSelectionModel().addListSelectionListener((ListSelectionEvent e) -> {
-            if (!e.getValueIsAdjusting()) {
-                int fila = jTable1.getSelectedRow();
-                if (fila != -1) {
-                    id.setText(String.valueOf(modeloTabla.getValueAt(fila, 0)));
-                    cliente.setText(String.valueOf(modeloTabla.getValueAt(fila, 1)));
-                    plan.setSelectedItem(modeloTabla.getValueAt(fila, 2));
-                    precio.setText(String.valueOf(modeloTabla.getValueAt(fila, 3)));
-                    fecInicio.setText(String.valueOf(modeloTabla.getValueAt(fila, 4)));
-                    fecFin.setText(String.valueOf(modeloTabla.getValueAt(fila, 5)));
-                    estado.setSelectedItem(modeloTabla.getValueAt(fila, 6));
-
-                    // Con fila seleccionada: permitir Actualizar y Eliminar, bloquear Guardar
-                    id.setEditable(true);
-                    cliente.setEditable(true);
-                    precio.setEditable(true);
-                    fecInicio.setEditable(true);
-                    fecFin.setEditable(true);
-                    plan.setEnabled(true);
-                    estado.setEnabled(true);
-                    guardar.setEnabled(false);
-                    actualizar.setEnabled(true);
-                    Eliminar.setEnabled(true);
-                }
-            }
-        });
     }
 
     /**
@@ -70,34 +32,28 @@ public class Suscripciones extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         TituloIngreso_Datos = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
-        labelFecInicio = new javax.swing.JLabel();
-        labelFecFin = new javax.swing.JLabel();
-        labelID = new javax.swing.JLabel();
-        fecInicio = new javax.swing.JTextField();
-        id = new javax.swing.JTextField();
-        fecFin = new javax.swing.JTextField();
-        labelPlan = new javax.swing.JLabel();
-        plan = new javax.swing.JComboBox<>();
-        labelEstado = new javax.swing.JLabel();
-        estado = new javax.swing.JComboBox<>();
-        labelCliente = new javax.swing.JLabel();
-        cliente = new javax.swing.JTextField();
-        labelPrecio = new javax.swing.JLabel();
+        labelCarac = new javax.swing.JLabel();
         precio = new javax.swing.JTextField();
+        labelPlan = new javax.swing.JLabel();
+        caracteristicas = new javax.swing.JTextField();
+        jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
+        jButton3 = new javax.swing.JButton();
+        jButton4 = new javax.swing.JButton();
+        jButton5 = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
+        jButton6 = new javax.swing.JButton();
+        plan = new javax.swing.JTextField();
+        jButton7 = new javax.swing.JButton();
+        jCheckBox1 = new javax.swing.JCheckBox();
         jPanel4 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
-        jPanel5 = new javax.swing.JPanel();
-        nuevo = new javax.swing.JButton();
-        guardar = new javax.swing.JButton();
-        actualizar = new javax.swing.JButton();
-        Eliminar = new javax.swing.JButton();
-        limpiar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("plantilla");
 
-        jPanel2.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jPanel2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         TituloIngreso_Datos.setFont(new java.awt.Font("Segoe UI", 1, 48)); // NOI18N
         TituloIngreso_Datos.setText("INGRESO DE DATOS");
@@ -107,7 +63,7 @@ public class Suscripciones extends javax.swing.JFrame {
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(91, 91, 91)
+                .addGap(65, 65, 65)
                 .addComponent(TituloIngreso_Datos, javax.swing.GroupLayout.PREFERRED_SIZE, 469, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -119,126 +75,126 @@ public class Suscripciones extends javax.swing.JFrame {
                 .addGap(28, 28, 28))
         );
 
-        jPanel3.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jPanel3.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        labelFecInicio.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        labelFecInicio.setText("Fecha de inicio");
-
-        labelFecFin.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        labelFecFin.setText("Fecha de fin");
-
-        labelID.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        labelID.setText("ID");
-
-        fecInicio.addActionListener(this::fecInicioActionPerformed);
-
-        id.addActionListener(this::idActionPerformed);
-
-        fecFin.addActionListener(this::fecFinActionPerformed);
+        labelCarac.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        labelCarac.setText("Características");
 
         labelPlan.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         labelPlan.setText("Plan");
 
-        plan.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "ESTÁNDAR", "PROFESIONAL", "EMPRESARIAL" }));
-        plan.addActionListener(this::planActionPerformed);
+        caracteristicas.addActionListener(this::caracteristicasActionPerformed);
 
-        labelEstado.setText("Estado");
+        jButton1.setText("Añadir");
 
-        estado.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "ACTIVA", "NO ACTIVA", "PAUSADA" }));
-        estado.addActionListener(this::estadoActionPerformed);
+        jButton2.setText("Guardar");
 
-        labelCliente.setText("Cliente");
+        jButton3.setText("Exportar");
 
-        cliente.addActionListener(this::clienteActionPerformed);
+        jButton4.setText("Importar");
 
-        labelPrecio.setText("Precio (€)");
+        jButton5.setText("Borrar todo");
 
-        precio.addActionListener(this::precioActionPerformed);
+        jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel2.setText("Precio");
+
+        jButton6.setText("Cargar datos de ejemplo");
+        jButton6.addActionListener(this::jButton6ActionPerformed);
+
+        jButton7.setText("Actualizar");
+
+        jCheckBox1.setText("Vaciar después de añadir");
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                 .addGap(26, 26, 26)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jButton5, javax.swing.GroupLayout.DEFAULT_SIZE, 145, Short.MAX_VALUE)
+                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jCheckBox1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButton6, javax.swing.GroupLayout.DEFAULT_SIZE, 165, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jButton4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButton7, javax.swing.GroupLayout.DEFAULT_SIZE, 103, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, 98, Short.MAX_VALUE)
+                    .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(76, 76, 76))
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGap(112, 112, 112)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(labelPlan, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(labelID, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(labelFecInicio)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(labelPlan, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addGap(124, 124, 124)
-                                .addComponent(labelEstado)
-                                .addGap(18, 18, 18)
-                                .addComponent(estado, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addGap(46, 46, 46)
-                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(id)
-                                    .addComponent(plan, 0, 137, Short.MAX_VALUE)
-                                    .addComponent(fecInicio))
-                                .addGap(51, 51, 51)
                                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(labelFecFin)
-                                    .addComponent(labelCliente)
-                                    .addComponent(labelPrecio))
-                                .addGap(18, 18, 18)
-                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(fecFin, javax.swing.GroupLayout.DEFAULT_SIZE, 137, Short.MAX_VALUE)
-                                    .addComponent(precio)
-                                    .addComponent(cliente))))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                    .addComponent(precio, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(plan, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(139, 139, 139))
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(labelCarac)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)))
+                        .addComponent(caracteristicas, javax.swing.GroupLayout.PREFERRED_SIZE, 297, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(43, Short.MAX_VALUE))))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                .addGap(22, 22, 22)
+                .addComponent(labelPlan)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(plan, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(41, 41, 41)
+                        .addComponent(jLabel2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(precio, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(caracteristicas, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(labelCarac))
+                        .addGap(29, 29, 29)))
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton1)
+                    .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jCheckBox1)
+                    .addComponent(jButton7))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(id, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(labelID)
-                    .addComponent(labelCliente)
-                    .addComponent(cliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(labelPlan)
-                        .addComponent(plan, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(labelPrecio)
-                        .addComponent(precio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(labelFecInicio)
-                        .addComponent(labelFecFin)
-                        .addComponent(fecFin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(fecInicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 34, Short.MAX_VALUE)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(estado, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(labelEstado))
-                .addGap(18, 18, 18))
+                    .addComponent(jButton5)
+                    .addComponent(jButton6)
+                    .addComponent(jButton4)
+                    .addComponent(jButton3))
+                .addGap(45, 45, 45))
         );
 
-        jPanel4.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jPanel4.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
             },
             new String [] {
-                "ID", "Cliente", "Plan", "Precio", "Fecha Inicio", "Fecha Fin", "Estado"
+                "Title 1", "Title 2", "Title 3", "Title 4"
             }
-        ) {
-            Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.Float.class, java.lang.Object.class, java.lang.Object.class, java.lang.String.class
-            };
-
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-            }
-        });
+        ));
         jScrollPane1.setViewportView(jTable1);
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
@@ -247,75 +203,27 @@ public class Suscripciones extends javax.swing.JFrame {
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 652, Short.MAX_VALUE)
+                .addComponent(jScrollPane1)
                 .addContainerGap())
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 420, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 382, Short.MAX_VALUE)
                 .addContainerGap())
-        );
-
-        jPanel5.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-
-        nuevo.setText("Nuevo");
-        nuevo.addActionListener(this::nuevoActionPerformed);
-
-        guardar.setText("Guardar");
-        guardar.addActionListener(this::guardarActionPerformed);
-
-        actualizar.setText("Actualizar");
-        actualizar.addActionListener(this::actualizarActionPerformed);
-
-        Eliminar.setText("Eliminar");
-        Eliminar.addActionListener(this::EliminarActionPerformed);
-
-        limpiar.setText("Limpiar");
-        limpiar.addActionListener(this::limpiarActionPerformed);
-
-        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
-        jPanel5.setLayout(jPanel5Layout);
-        jPanel5Layout.setHorizontalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel5Layout.createSequentialGroup()
-                .addGap(70, 70, 70)
-                .addComponent(nuevo)
-                .addGap(34, 34, 34)
-                .addComponent(guardar)
-                .addGap(32, 32, 32)
-                .addComponent(actualizar)
-                .addGap(28, 28, 28)
-                .addComponent(Eliminar)
-                .addGap(32, 32, 32)
-                .addComponent(limpiar)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        jPanel5Layout.setVerticalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel5Layout.createSequentialGroup()
-                .addGap(23, 23, 23)
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(nuevo)
-                    .addComponent(guardar)
-                    .addComponent(actualizar)
-                    .addComponent(Eliminar)
-                    .addComponent(limpiar))
-                .addContainerGap(29, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+            .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -323,11 +231,9 @@ public class Suscripciones extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -346,328 +252,13 @@ public class Suscripciones extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void planActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_planActionPerformed
-        // Al cambiar el plan, se sugiere un precio automáticamente si el campo está vacío
-        if (precio.getText().trim().isEmpty()) {
-            switch ((String) plan.getSelectedItem()) {
-                case "ESTÁNDAR":
-                    precio.setText("9.99");
-                    break;
-                case "PROFESIONAL":
-                    precio.setText("19.99");
-                    break;
-                case "EMPRESARIAL":
-                    precio.setText("49.99");
-                    break;
-            }
-        }
-    }//GEN-LAST:event_planActionPerformed
+    private void caracteristicasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_caracteristicasActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_caracteristicasActionPerformed
 
-    private void idActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_idActionPerformed
-        // Al pulsar Enter en el campo ID, el foco pasa al campo Cliente
-        cliente.requestFocus();
-    }//GEN-LAST:event_idActionPerformed
-
-    private void fecInicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fecInicioActionPerformed
-        // Validamos formato dd/MM/yyyy y año >= 2026 al salir del campo con Enter
-        String texto = fecInicio.getText().trim();
-        try {
-            java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("dd/MM/yyyy");
-            sdf.setLenient(false);
-            java.util.Date fecha = sdf.parse(texto);
-            java.util.Calendar cal = java.util.Calendar.getInstance();
-            cal.setTime(fecha);
-            if (cal.get(java.util.Calendar.YEAR) < 2026) {
-                JOptionPane.showMessageDialog(this,
-                        "El año de la fecha de inicio debe ser 2026 o posterior.",
-                        "Año inválido", JOptionPane.WARNING_MESSAGE);
-                fecInicio.requestFocus();
-                return;
-            }
-        } catch (java.text.ParseException ex) {
-            JOptionPane.showMessageDialog(this,
-                    "Formato de fecha incorrecto. Usa dd/MM/yyyy  (ej: 15/04/2026)",
-                    "Fecha inválida", JOptionPane.WARNING_MESSAGE);
-            fecInicio.requestFocus();
-            return;
-        }
-        // Fecha correcta → el foco pasa a Fecha Fin
-        fecFin.requestFocus();
-    }//GEN-LAST:event_fecInicioActionPerformed
-
-    private void clienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_clienteActionPerformed
-        // Al pulsar Enter en Cliente, el foco pasa al campo Precio
-        precio.requestFocus();
-    }//GEN-LAST:event_clienteActionPerformed
-
-    private void precioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_precioActionPerformed
-        // Al pulsar Enter en Precio, el foco pasa a Fecha Inicio
-        fecInicio.requestFocus();
-    }//GEN-LAST:event_precioActionPerformed
-
-    private void fecFinActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fecFinActionPerformed
-        // Validamos formato dd/MM/yyyy y año >= 2026 al salir del campo con Enter
-        String texto = fecFin.getText().trim();
-        try {
-            java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("dd/MM/yyyy");
-            sdf.setLenient(false);
-            java.util.Date fecha = sdf.parse(texto);
-            java.util.Calendar cal = java.util.Calendar.getInstance();
-            cal.setTime(fecha);
-            if (cal.get(java.util.Calendar.YEAR) < 2026) {
-                JOptionPane.showMessageDialog(this,
-                        "El año de la fecha de fin debe ser 2026 o posterior.",
-                        "Año inválido", JOptionPane.WARNING_MESSAGE);
-                fecFin.requestFocus();
-                return;
-            }
-        } catch (java.text.ParseException ex) {
-            JOptionPane.showMessageDialog(this,
-                    "Formato de fecha incorrecto. Usa dd/MM/yyyy  (ej: 15/04/2026)",
-                    "Fecha inválida", JOptionPane.WARNING_MESSAGE);
-            fecFin.requestFocus();
-            return;
-        }
-        // Fecha correcta → el foco va al botón activo (Guardar o Actualizar)
-        if (guardar.isEnabled()) {
-            guardar.requestFocus();
-        } else if (actualizar.isEnabled()) {
-            actualizar.requestFocus();
-        }
-    }//GEN-LAST:event_fecFinActionPerformed
-
-    private void estadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_estadoActionPerformed
-        // El estado seleccionado se usará directamente al guardar o actualizar
-        // No se necesita ninguna acción adicional aquí
-    }//GEN-LAST:event_estadoActionPerformed
-
-    private void nuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nuevoActionPerformed
-        // Limpiamos todos los campos
-        id.setText("");
-        cliente.setText("");
-        precio.setText("");
-        fecInicio.setText("");
-        fecFin.setText("");
-        plan.setSelectedIndex(0);
-        estado.setSelectedIndex(0);
-
-        // Habilitamos los campos para que el usuario pueda escribir
-        id.setEditable(true);
-        cliente.setEditable(true);
-        precio.setEditable(true);
-        fecInicio.setEditable(true);
-        fecFin.setEditable(true);
-        plan.setEnabled(true);
-        estado.setEnabled(true);
-
-        // Solo Guardar disponible; no tiene sentido Actualizar ni Eliminar aún
-        guardar.setEnabled(true);
-        actualizar.setEnabled(false);
-        Eliminar.setEnabled(false);
-
-        // Quitamos la selección de la tabla y ponemos el cursor en el primer campo
-        jTable1.clearSelection();
-        id.requestFocus();
-    }//GEN-LAST:event_nuevoActionPerformed
-
-    private void guardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_guardarActionPerformed
-        // Comprobamos que ningún campo esté vacío
-        if (id.getText().trim().isEmpty() || cliente.getText().trim().isEmpty()
-                || precio.getText().trim().isEmpty() || fecInicio.getText().trim().isEmpty()
-                || fecFin.getText().trim().isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Debes rellenar todos los campos.",
-                    "Campos vacíos", JOptionPane.WARNING_MESSAGE);
-            return;
-
-        }
-
-        try {
-            int idVal = Integer.parseInt(id.getText().trim());
-
-            // Comprobamos que el ID no exista ya en la tabla
-            for (int i = 0; i < modeloTabla.getRowCount(); i++) {
-                if (((Integer) modeloTabla.getValueAt(i, 0)) == idVal) {
-                    JOptionPane.showMessageDialog(this,
-                            "Ya existe una suscripción con ID " + idVal,
-                            "ID duplicado", JOptionPane.WARNING_MESSAGE);
-                    id.requestFocus();
-                    return;
-                }
-            }
-
-            float precioVal = Float.parseFloat(precio.getText().trim().replace(",", "."));
-
-            // Añadimos la nueva fila a la tabla
-            modeloTabla.addRow(new Object[]{
-                idVal,
-                cliente.getText().trim(),
-                (String) plan.getSelectedItem(),
-                precioVal,
-                fecInicio.getText().trim(),
-                fecFin.getText().trim(),
-                (String) estado.getSelectedItem()
-            });
-
-            JOptionPane.showMessageDialog(this, "Suscripción guardada correctamente.");
-
-            // Limpiamos y volvemos al estado inicial
-            id.setText("");
-            cliente.setText("");
-            precio.setText("");
-            fecInicio.setText("");
-            fecFin.setText("");
-            plan.setSelectedIndex(0);
-            estado.setSelectedIndex(0);
-            id.setEditable(false);
-            cliente.setEditable(false);
-            precio.setEditable(false);
-            fecInicio.setEditable(false);
-            fecFin.setEditable(false);
-            plan.setEnabled(false);
-            estado.setEnabled(false);
-            guardar.setEnabled(false);
-            actualizar.setEnabled(false);
-            Eliminar.setEnabled(false);
-
-        } catch (NumberFormatException ex) {
-            JOptionPane.showMessageDialog(this,
-                    "El ID debe ser un número entero y el precio un número válido (ej: 9.99).",
-                    "Error de formato", JOptionPane.ERROR_MESSAGE);
-        }
-    }//GEN-LAST:event_guardarActionPerformed
-
-    private void actualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_actualizarActionPerformed
-        int fila = jTable1.getSelectedRow();
-        if (fila == -1) {
-            JOptionPane.showMessageDialog(this, "Selecciona una fila de la tabla para actualizar.",
-                    "Sin selección", JOptionPane.WARNING_MESSAGE);
-            return;
-        }
-
-        // Comprobamos que ningún campo esté vacío
-        if (id.getText().trim().isEmpty() || cliente.getText().trim().isEmpty()
-                || precio.getText().trim().isEmpty() || fecInicio.getText().trim().isEmpty()
-                || fecFin.getText().trim().isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Debes rellenar todos los campos.",
-                    "Campos vacíos", JOptionPane.WARNING_MESSAGE);
-            return;
-        }
-
-        try {
-            int idVal = Integer.parseInt(id.getText().trim());
-
-            // Comprobamos que el ID no coincida con el de otra fila distinta
-            for (int i = 0; i < modeloTabla.getRowCount(); i++) {
-                if (i == fila) {
-                    continue;
-                }
-                if (((Integer) modeloTabla.getValueAt(i, 0)) == idVal) {
-                    JOptionPane.showMessageDialog(this,
-                            "Ya existe otra suscripción con ID " + idVal,
-                            "ID duplicado", JOptionPane.WARNING_MESSAGE);
-                    return;
-                }
-            }
-
-            float precioVal = Float.parseFloat(precio.getText().trim().replace(",", "."));
-
-            // Sobreescribimos los datos de la fila seleccionada
-            modeloTabla.setValueAt(idVal, fila, 0);
-            modeloTabla.setValueAt(cliente.getText().trim(), fila, 1);
-            modeloTabla.setValueAt(plan.getSelectedItem(), fila, 2);
-            modeloTabla.setValueAt(precioVal, fila, 3);
-            modeloTabla.setValueAt(fecInicio.getText().trim(), fila, 4);
-            modeloTabla.setValueAt(fecFin.getText().trim(), fila, 5);
-            modeloTabla.setValueAt(estado.getSelectedItem(), fila, 6);
-
-            JOptionPane.showMessageDialog(this, "Suscripción actualizada correctamente.");
-
-            // Limpiamos y volvemos al estado inicial
-            id.setText("");
-            cliente.setText("");
-            precio.setText("");
-            fecInicio.setText("");
-            fecFin.setText("");
-            plan.setSelectedIndex(0);
-            estado.setSelectedIndex(0);
-            id.setEditable(false);
-            cliente.setEditable(false);
-            precio.setEditable(false);
-            fecInicio.setEditable(false);
-            fecFin.setEditable(false);
-            plan.setEnabled(false);
-            estado.setEnabled(false);
-            guardar.setEnabled(false);
-            actualizar.setEnabled(false);
-            Eliminar.setEnabled(false);
-            jTable1.clearSelection();
-
-        } catch (NumberFormatException ex) {
-            JOptionPane.showMessageDialog(this,
-                    "El ID debe ser un número entero y el precio un número válido (ej: 9.99).",
-                    "Error de formato", JOptionPane.ERROR_MESSAGE);
-        }
-    }//GEN-LAST:event_actualizarActionPerformed
-
-    private void EliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EliminarActionPerformed
-        int fila = jTable1.getSelectedRow();
-        if (fila == -1) {
-            JOptionPane.showMessageDialog(this, "Selecciona una fila de la tabla para eliminar.",
-                    "Sin selección", JOptionPane.WARNING_MESSAGE);
-            return;
-        }
-
-        int respuesta = JOptionPane.showConfirmDialog(this,
-                "¿Deseas eliminar la suscripción seleccionada?",
-                "Confirmar eliminación", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
-
-        if (respuesta == JOptionPane.YES_OPTION) {
-            modeloTabla.removeRow(fila);
-
-            // Limpiamos y volvemos al estado inicial
-            id.setText("");
-            cliente.setText("");
-            precio.setText("");
-            fecInicio.setText("");
-            fecFin.setText("");
-            plan.setSelectedIndex(0);
-            estado.setSelectedIndex(0);
-            id.setEditable(false);
-            cliente.setEditable(false);
-            precio.setEditable(false);
-            fecInicio.setEditable(false);
-            fecFin.setEditable(false);
-            plan.setEnabled(false);
-            estado.setEnabled(false);
-            guardar.setEnabled(false);
-            actualizar.setEnabled(false);
-            Eliminar.setEnabled(false);
-        }
-    }//GEN-LAST:event_EliminarActionPerformed
-
-    private void limpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_limpiarActionPerformed
-        // Vaciamos todos los campos de texto
-        id.setText("");
-        cliente.setText("");
-        precio.setText("");
-        fecInicio.setText("");
-        fecFin.setText("");
-        plan.setSelectedIndex(0);
-        estado.setSelectedIndex(0);
-
-        // Bloqueamos los campos y botones, quitamos la selección de la tabla
-        id.setEditable(false);
-        cliente.setEditable(false);
-        precio.setEditable(false);
-        fecInicio.setEditable(false);
-        fecFin.setEditable(false);
-        plan.setEnabled(false);
-        estado.setEnabled(false);
-        guardar.setEnabled(false);
-        actualizar.setEnabled(false);
-        Eliminar.setEnabled(false);
-        jTable1.clearSelection();
-    }//GEN-LAST:event_limpiarActionPerformed
+    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton6ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -689,48 +280,32 @@ public class Suscripciones extends javax.swing.JFrame {
             logger.log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ReflectiveOperationException | javax.swing.UnsupportedLookAndFeelException ex) {
-            logger.log(java.util.logging.Level.SEVERE, null, ex);
-        }
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(() -> new Suscripciones().setVisible(true));
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton Eliminar;
     private javax.swing.JLabel TituloIngreso_Datos;
-    private javax.swing.JButton actualizar;
-    private javax.swing.JTextField cliente;
-    private javax.swing.JComboBox<String> estado;
-    private javax.swing.JTextField fecFin;
-    private javax.swing.JTextField fecInicio;
-    private javax.swing.JButton guardar;
-    private javax.swing.JTextField id;
+    private javax.swing.JTextField caracteristicas;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButton4;
+    private javax.swing.JButton jButton5;
+    private javax.swing.JButton jButton6;
+    private javax.swing.JButton jButton7;
+    private javax.swing.JCheckBox jCheckBox1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
-    private javax.swing.JPanel jPanel5;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
-    private javax.swing.JLabel labelCliente;
-    private javax.swing.JLabel labelEstado;
-    private javax.swing.JLabel labelFecFin;
-    private javax.swing.JLabel labelFecInicio;
-    private javax.swing.JLabel labelID;
+    private javax.swing.JLabel labelCarac;
     private javax.swing.JLabel labelPlan;
-    private javax.swing.JLabel labelPrecio;
-    private javax.swing.JButton limpiar;
-    private javax.swing.JButton nuevo;
-    private javax.swing.JComboBox<String> plan;
+    private javax.swing.JTextField plan;
     private javax.swing.JTextField precio;
     // End of variables declaration//GEN-END:variables
 }
