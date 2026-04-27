@@ -56,7 +56,7 @@ public class ControladorUsuariosBDR {
 
     public ArrayList<String> obtenerPerfiles() {
         ArrayList<String> perfiles = new ArrayList<>();
-        if (!online || con == null) {
+        if (!online || con == null) { //si la base de datos esta apagada no lo ejecuta
             return perfiles;
         }
         try {

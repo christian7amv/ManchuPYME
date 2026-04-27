@@ -9,7 +9,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 
 
-public class GestValoraciones {
+public class ControladorValoracionesBDR {
 
     Connection con;
     Statement sentencia;
@@ -20,7 +20,7 @@ public class GestValoraciones {
     String url     = "jdbc:mariadb://localhost:3306/machuphymev2";
     // -------------------------------------------------
 
-    public GestValoraciones() {
+    public ControladorValoracionesBDR() {
         conectar();
     }
 

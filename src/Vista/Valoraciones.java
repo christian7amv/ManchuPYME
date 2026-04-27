@@ -4,7 +4,7 @@
  */
 package Vista;
 
-import Controlador.GestValoraciones;
+import Controlador.ControladorValoracionesBDR;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -20,7 +20,7 @@ public class Valoraciones extends javax.swing.JFrame {
     String[] nomCols = {"ID", "Particular", "Profesional", "Puntuacion", "Comentario", "Fecha"};
     Object[][] datos;
     DefaultTableModel dtm = new DefaultTableModel(datos, nomCols);
-    GestValoraciones gestorValoraciones = new GestValoraciones();
+    ControladorValoracionesBDR gestorValoraciones = new ControladorValoracionesBDR();
 
     /**
      * Creates new form PLANTILLA_NO_USAR
@@ -36,7 +36,7 @@ public class Valoraciones extends javax.swing.JFrame {
         jTable.getColumn("Comentario").setPreferredWidth(230);
         jTable.getColumn("Fecha").setPreferredWidth(90);
 
-        jLabelRol.setText("PARTICULAR:");
+        jLabelProfesional.setText("PARTICULAR:");
         jLabel6.setText("PROFESIONAL:");
         jLabel4.setText("FECHA (dd-MM-yyyy):");
 
@@ -47,18 +47,18 @@ public class Valoraciones extends javax.swing.JFrame {
     private void cargarCombos() {
         // PARTICULAR -> jComboBoxRol
         String[] particulares = gestorValoraciones.obtenerParticulares();
-        jComboBoxRol.removeAllItems();
+        jComboBoxParticular.removeAllItems();
         for (String p : particulares) {
-            jComboBoxRol.addItem(p);
+            jComboBoxParticular.addItem(p);
         }
 
         // PROFESIONAL -> jComboBoxProfesional
         // IMPORTANTE: tienes que añadir jComboBoxProfesional en el diseñador
         // arrastrando un JComboBox y nombrándolo "jComboBoxProfesional"
         String[] profesionales = gestorValoraciones.obtenerProfesionales();
-        jComboBoxRol.removeAllItems();
+        jComboBoxParticular.removeAllItems();
         for (String p : profesionales) {
-            jComboBoxRol.addItem(p);
+            jComboBoxParticular.addItem(p);
         }
     }
 
@@ -69,8 +69,8 @@ public class Valoraciones extends javax.swing.JFrame {
 
     private void vaciarCampos() {
         jTextFieldID.setText("");
-        jComboBoxRol.setSelectedIndex(0);
-        jComboBoxRol.setSelectedIndex(0);
+        jComboBoxParticular.setSelectedIndex(0);
+        jComboBoxParticular.setSelectedIndex(0);
         jComboBoxPuntuacion.setSelectedIndex(0);
         jTextAreaComentario.setText("");
         jTextField4.setText("");
@@ -104,15 +104,19 @@ public class Valoraciones extends javax.swing.JFrame {
         jButtonModificar = new javax.swing.JButton();
         jButtonEliminar = new javax.swing.JButton();
         jButtonLimpiar = new javax.swing.JButton();
-        jLabelRol = new javax.swing.JLabel();
+        jLabelProfesional = new javax.swing.JLabel();
         jButtonBuscar = new javax.swing.JButton();
-        jComboBoxRol = new javax.swing.JComboBox<>();
+        jComboBoxParticular = new javax.swing.JComboBox<>();
         jComboBoxPuntuacion = new javax.swing.JComboBox<>();
         jLabel5 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTextAreaComentario = new javax.swing.JTextArea();
         jLabel6 = new javax.swing.JLabel();
         jTextField5 = new javax.swing.JTextField();
+        jComboBoxProfesional = new javax.swing.JComboBox<>();
+        jLabelRol1 = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
         jScrollPane = new javax.swing.JScrollPane();
         jTable = new javax.swing.JTable();
@@ -174,14 +178,13 @@ public class Valoraciones extends javax.swing.JFrame {
         jButtonLimpiar.setText("LIMPIAR");
         jButtonLimpiar.addActionListener(this::jButtonLimpiarActionPerformed);
 
-        jLabelRol.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jLabelRol.setText("ROL:");
+        jLabelProfesional.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabelProfesional.setText("PROFESIONAL:");
 
         jButtonBuscar.setText("BUSCAR");
         jButtonBuscar.addActionListener(this::jButtonBuscarActionPerformed);
 
-        jComboBoxRol.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "", "PARTICULAR", "PROFESIONAL" }));
-        jComboBoxRol.addActionListener(this::jComboBoxRolActionPerformed);
+        jComboBoxParticular.addActionListener(this::jComboBoxParticularActionPerformed);
 
         jComboBoxPuntuacion.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "", "1", "2", "3", "4", "5" }));
         jComboBoxPuntuacion.addActionListener(this::jComboBoxPuntuacionActionPerformed);
@@ -198,6 +201,13 @@ public class Valoraciones extends javax.swing.JFrame {
 
         jTextField5.addActionListener(this::jTextField5ActionPerformed);
 
+        jLabelRol1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabelRol1.setText("PARTICULAR:");
+
+        jButton1.setText("EXPORTAR");
+
+        jButton2.setText("IMPORTAR");
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -207,41 +217,45 @@ public class Valoraciones extends javax.swing.JFrame {
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel3)
                     .addComponent(jLabel4)
-                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(jLabelRol, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, 62, Short.MAX_VALUE))
-                    .addComponent(jLabel6))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                    .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel6)
+                    .addComponent(jLabelProfesional)
+                    .addComponent(jLabelRol1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(50, 50, 50)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(jTextFieldID)
-                        .addGap(38, 38, 38)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jTextField5, javax.swing.GroupLayout.DEFAULT_SIZE, 180, Short.MAX_VALUE)
+                            .addComponent(jTextFieldID))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jLabel1))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(jComboBoxRol, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jTextField5, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 125, Short.MAX_VALUE)
-                                .addComponent(jComboBoxPuntuacion, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(12, 12, 12))
+                    .addComponent(jComboBoxParticular, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jComboBoxPuntuacion, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jComboBoxProfesional, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                 .addGap(20, 20, 20)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jButtonNuevo, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButtonEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jButtonLimpiar, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButtonGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(55, 55, 55)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jButtonModificar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButtonBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(22, 22, 22))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addComponent(jButtonLimpiar, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jButtonBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addComponent(jButtonGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jButtonModificar, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(28, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -249,40 +263,45 @@ public class Valoraciones extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(jTextFieldID, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jLabel1))
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jTextFieldID, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel5))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel6))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 7, Short.MAX_VALUE)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jComboBoxRol, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabelRol))
+                            .addComponent(jLabel6)
+                            .addComponent(jLabel1))
+                        .addGap(6, 6, 6)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jComboBoxProfesional, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabelProfesional))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel3)
-                            .addComponent(jComboBoxPuntuacion, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jComboBoxParticular, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabelRol1))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jComboBoxPuntuacion, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel3))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel4)))
-                    .addComponent(jScrollPane2))
-                .addGap(27, 27, 27)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jButtonGuardar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButtonNuevo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addComponent(jButtonModificar))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGap(24, 24, 24)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 85, Short.MAX_VALUE)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE, false)
+                    .addComponent(jButtonGuardar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButtonNuevo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButtonModificar)
+                    .addComponent(jButton1))
                 .addGap(33, 33, 33)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButtonBuscar, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jButtonLimpiar)
-                        .addComponent(jButtonEliminar)))
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButtonLimpiar)
+                    .addComponent(jButtonEliminar)
+                    .addComponent(jButtonBuscar)
+                    .addComponent(jButton2))
                 .addContainerGap())
         );
 
@@ -311,14 +330,14 @@ public class Valoraciones extends javax.swing.JFrame {
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 649, Short.MAX_VALUE)
-                    .addComponent(jButtonActualizar, javax.swing.GroupLayout.DEFAULT_SIZE, 649, Short.MAX_VALUE))
+                    .addComponent(jScrollPane)
+                    .addComponent(jButtonActualizar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
-                .addContainerGap(16, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jButtonActualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 341, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -343,9 +362,9 @@ public class Valoraciones extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
-                .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, 359, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
@@ -370,17 +389,17 @@ public class Valoraciones extends javax.swing.JFrame {
         jTextFieldID.setText(datos[filaSelec][0].toString());
 
         String nombrePart = (String) datos[filaSelec][1];
-        for (int i = 0; i < jComboBoxRol.getItemCount(); i++) {
-            if (jComboBoxRol.getItemAt(i).contains(nombrePart)) {
-                jComboBoxRol.setSelectedIndex(i);
+        for (int i = 0; i < jComboBoxParticular.getItemCount(); i++) {
+            if (jComboBoxParticular.getItemAt(i).contains(nombrePart)) {
+                jComboBoxParticular.setSelectedIndex(i);
                 break;
             }
         }
 
         String nombreProf = (String) datos[filaSelec][2];
-        for (int i = 0; i < jComboBoxRol.getItemCount(); i++) {
-            if (jComboBoxRol.getItemAt(i).contains(nombreProf)) {
-                jComboBoxRol.setSelectedIndex(i);
+        for (int i = 0; i < jComboBoxParticular.getItemCount(); i++) {
+            if (jComboBoxParticular.getItemAt(i).contains(nombreProf)) {
+                jComboBoxParticular.setSelectedIndex(i);
                 break;
             }
         }
@@ -419,9 +438,9 @@ public class Valoraciones extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField5ActionPerformed
 
-    private void jComboBoxRolActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxRolActionPerformed
+    private void jComboBoxParticularActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxParticularActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jComboBoxRolActionPerformed
+    }//GEN-LAST:event_jComboBoxParticularActionPerformed
 
     private void jComboBoxPuntuacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxPuntuacionActionPerformed
         // TODO add your handling code here:
@@ -437,8 +456,8 @@ public class Valoraciones extends javax.swing.JFrame {
                     "Selecciona primero una valoracion de la tabla.");
         } else {
             int id = Integer.parseInt(jTextFieldID.getText());
-            int idPart = extraerId(jComboBoxRol.getSelectedItem().toString());
-            int idProf = extraerId(jComboBoxRol.getSelectedItem().toString());
+            int idPart = extraerId(jComboBoxParticular.getSelectedItem().toString());
+            int idProf = extraerId(jComboBoxParticular.getSelectedItem().toString());
             String fecha = jTextField4.getText().trim();
             int puntuacion = Integer.parseInt(jComboBoxPuntuacion.getSelectedItem().toString());
             String comentario = jTextAreaComentario.getText().trim();
@@ -470,8 +489,8 @@ public class Valoraciones extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonBuscarActionPerformed
 
     private void jButtonGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGuardarActionPerformed
-        int idPart = extraerId(jComboBoxRol.getSelectedItem().toString());
-        int idProf = extraerId(jComboBoxRol.getSelectedItem().toString());
+        int idPart = extraerId(jComboBoxParticular.getSelectedItem().toString());
+        int idProf = extraerId(jComboBoxParticular.getSelectedItem().toString());
         String fecha = jTextField4.getText().trim();
         int puntuacion = Integer.parseInt(jComboBoxPuntuacion.getSelectedItem().toString());
         String comentario = jTextAreaComentario.getText().trim();
@@ -528,6 +547,8 @@ public class Valoraciones extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel TituloIngreso_Datos;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JButton jButtonActualizar;
     private javax.swing.JButton jButtonBuscar;
     private javax.swing.JButton jButtonEliminar;
@@ -535,14 +556,16 @@ public class Valoraciones extends javax.swing.JFrame {
     private javax.swing.JButton jButtonLimpiar;
     private javax.swing.JButton jButtonModificar;
     private javax.swing.JButton jButtonNuevo;
+    private javax.swing.JComboBox<String> jComboBoxParticular;
+    private javax.swing.JComboBox<String> jComboBoxProfesional;
     private javax.swing.JComboBox<String> jComboBoxPuntuacion;
-    private javax.swing.JComboBox<String> jComboBoxRol;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabelRol;
+    private javax.swing.JLabel jLabelProfesional;
+    private javax.swing.JLabel jLabelRol1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
