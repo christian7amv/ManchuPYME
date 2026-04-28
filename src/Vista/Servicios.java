@@ -6,14 +6,25 @@ package Vista;
 
 import Controlador.ControladorServiciosBDR;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import java.sql.SQLException;
 
 /**
  *
  * @author chris
  */
 public class Servicios extends javax.swing.JFrame {
-    
-     ControladorServiciosBDR gestorBDR = new ControladorServiciosBDR();
+
+    ControladorServiciosBDR gestorBDR = new ControladorServiciosBDR();
+
+    String[] nomCols = {
+        "id",
+        "perfil",
+        "nombre",
+        "descripcion"
+    };
+    Object[][] datos;
+    DefaultTableModel dtm = new DefaultTableModel(datos, nomCols);
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(Servicios.class.getName());
 
     /**
@@ -21,10 +32,16 @@ public class Servicios extends javax.swing.JFrame {
      */
     public Servicios() {
         initComponents();
-    }
-    private void refrescarDatos() {
-        datos = gestorValoraciones.obtenerMatriz();
-        dtm.setDataVector(datos, nomCols);
+
+        jTable1.setModel(dtm);
+        jTable1.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        refrescarDatos();
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            @Override
+            public void windowClosing(java.awt.event.WindowEvent e) {
+                gestorBDR.desconectar(); //se desconecta al cerrar
+            }
+        });
     }
 
     /**
@@ -43,11 +60,10 @@ public class Servicios extends javax.swing.JFrame {
         jPanel3 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        jTextFieldPerfil = new javax.swing.JTextField();
+        jTextPerfil = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
-        jTextFieldNombre = new javax.swing.JTextField();
-        jTextFieldID = new javax.swing.JTextField();
-        jTextFieldDesc = new javax.swing.JTextField();
+        jTextNombre = new javax.swing.JTextField();
+        jTextId = new javax.swing.JTextField();
         jButtonAñadir = new javax.swing.JButton();
         jButtonGuardar = new javax.swing.JButton();
         jButtonModificar = new javax.swing.JButton();
@@ -59,6 +75,8 @@ public class Servicios extends javax.swing.JFrame {
         jButtonExportar = new javax.swing.JButton();
         jButtonAñadirDatosEjemplo = new javax.swing.JButton();
         jButtonVaciarCampos = new javax.swing.JButton();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jTextDescripcion = new javax.swing.JTextArea();
         jPanel4 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
@@ -110,9 +128,9 @@ public class Servicios extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel1.setText("ID:");
 
-        jTextFieldNombre.addActionListener(this::jTextFieldNombreActionPerformed);
+        jTextNombre.addActionListener(this::jTextNombreActionPerformed);
 
-        jTextFieldDesc.addActionListener(this::jTextFieldDescActionPerformed);
+        jTextId.setEnabled(false);
 
         jButtonAñadir.setText("AÑADIR");
         jButtonAñadir.addActionListener(this::jButtonAñadirActionPerformed);
@@ -120,8 +138,10 @@ public class Servicios extends javax.swing.JFrame {
         jButtonGuardar.setText("GUARDAR");
 
         jButtonModificar.setText("MODIFICAR");
+        jButtonModificar.addActionListener(this::jButtonModificarActionPerformed);
 
         jButtonEliminarSelec.setText("ELIMINAR SELEC.");
+        jButtonEliminarSelec.addActionListener(this::jButtonEliminarSelecActionPerformed);
 
         jButtonEliminarTodo.setText("ELIMINAR TODO");
         jButtonEliminarTodo.addActionListener(this::jButtonEliminarTodoActionPerformed);
@@ -143,6 +163,10 @@ public class Servicios extends javax.swing.JFrame {
 
         jButtonVaciarCampos.setText("VACIAR COMPOS");
         jButtonVaciarCampos.addActionListener(this::jButtonVaciarCamposActionPerformed);
+
+        jTextDescripcion.setColumns(20);
+        jTextDescripcion.setRows(5);
+        jScrollPane2.setViewportView(jTextDescripcion);
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -168,7 +192,7 @@ public class Servicios extends javax.swing.JFrame {
                                     .addGroup(jPanel3Layout.createSequentialGroup()
                                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jTextFieldID, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addComponent(jTextId, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addGroup(jPanel3Layout.createSequentialGroup()
                                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                             .addGroup(jPanel3Layout.createSequentialGroup()
@@ -178,14 +202,15 @@ public class Servicios extends javax.swing.JFrame {
                                                 .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
                                                 .addGap(23, 23, 23)))
                                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jTextFieldNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(jTextFieldPerfil, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                            .addComponent(jTextNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(jTextPerfil, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE))))
                                 .addGap(73, 73, 73)))
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(jPanel3Layout.createSequentialGroup()
                                 .addComponent(jLabel4)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jTextFieldDesc, javax.swing.GroupLayout.PREFERRED_SIZE, 218, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, Short.MAX_VALUE))
                             .addGroup(jPanel3Layout.createSequentialGroup()
                                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jButtonEliminarID, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -204,11 +229,11 @@ public class Servicios extends javax.swing.JFrame {
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                .addGap(35, 35, 35)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGap(35, 35, 35)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jTextFieldID, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jTextId, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel1))
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel3Layout.createSequentialGroup()
@@ -218,17 +243,16 @@ public class Servicios extends javax.swing.JFrame {
                             .addGroup(jPanel3Layout.createSequentialGroup()
                                 .addGap(18, 18, 18)
                                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(jTextFieldPerfil, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jTextPerfil, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jLabel2))
                                 .addGap(18, 18, 18)
                                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(jTextFieldNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jTextNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jLabel3))
                                 .addGap(0, 0, Short.MAX_VALUE))))
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addContainerGap(24, Short.MAX_VALUE)
-                        .addComponent(jTextFieldDesc, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 46, Short.MAX_VALUE)
                         .addComponent(jButtonAñadirDatosEjemplo)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jButtonVaciarCampos)
@@ -260,9 +284,15 @@ public class Servicios extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        jTable1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTable1MouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(jTable1);
 
         jButtonActualizarTabla.setText("Actualizar Tabla");
+        jButtonActualizarTabla.addActionListener(this::jButtonActualizarTablaActionPerformed);
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -323,62 +353,95 @@ public class Servicios extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTextFieldNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldNombreActionPerformed
+    private void jTextNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextNombreActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextFieldNombreActionPerformed
-
-    private void jTextFieldDescActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldDescActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextFieldDescActionPerformed
+    }//GEN-LAST:event_jTextNombreActionPerformed
 
     private void jButtonEliminarTodoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEliminarTodoActionPerformed
-        // TODO add your handling code here:
+        int opcion = JOptionPane.showConfirmDialog(this, "¿Seguro que quieres borrar TODOS los servicios?\nEsta acción no se puede deshacer.");
+        if (opcion == JOptionPane.YES_OPTION) {
+            gestorBDR.borrarTodo();
+            refrescarDatos();
+        }// TODO add your handling code here:
     }//GEN-LAST:event_jButtonEliminarTodoActionPerformed
 
     private void jButtonEliminarIDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEliminarIDActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButtonEliminarIDActionPerformed
+        String resp;
 
-    private void jButtonExportarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonExportarActionPerformed
-         Object[] opciones = {".txt", ".xml"};
-        int formato = JOptionPane.showOptionDialog(rootPane,
-                "¿En qué formato quieres exportar?",
-                "Seleccionar formato",
-                JOptionPane.DEFAULT_OPTION,
-                JOptionPane.QUESTION_MESSAGE,
-                null, opciones, opciones[0]);
+        resp = JOptionPane.showInputDialog("Inserta el id del servicio a borrar:");
 
-        if (formato == JOptionPane.CLOSED_OPTION) {
+        if (resp == null) {
             return;
         }
 
-        javax.swing.JFileChooser fc = new javax.swing.JFileChooser();
-        fc.setDialogTitle("Guardar valoraciones");
-        fc.setSelectedFile(new java.io.File(
-                formato == 0 ? "valoraciones.txt" : "valoraciones.xml"));
-
-        if (fc.showSaveDialog(this) == javax.swing.JFileChooser.APPROVE_OPTION) {
-            java.io.File archivo = fc.getSelectedFile();
-            if (formato == 0) {
-                gestorValoraciones.exportarTxt(archivo, datos);
-            } else {
-                gestorValoraciones.exportarXml(archivo, datos);
+        if (resp.isBlank()) {
+            JOptionPane.showMessageDialog(rootPane, "No has introducido nada.");
+        } else {
+            int opcion = JOptionPane.showConfirmDialog(this, "¿Seguro que quieres borrar este servicio?\nEsta acción no se puede deshacer.");
+            if (opcion == JOptionPane.YES_OPTION) {
+                gestorBDR.borrarPorId(resp.trim());
             }
-            JOptionPane.showMessageDialog(rootPane,
-                    "Exportacion completada:\n" + archivo.getAbsolutePath());
+            refrescarDatos();
         }
-                          
+    }//GEN-LAST:event_jButtonEliminarIDActionPerformed
+
+
+    private void jButtonExportarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonExportarActionPerformed
+        Object[] opciones = {"TXT", "XML", "Cancelar"};
+        int eleccion = JOptionPane.showOptionDialog(
+                this,
+                "¿Desde qué formato quieres exportar?",
+                "Seleccionar formato",
+                JOptionPane.YES_NO_CANCEL_OPTION,
+                JOptionPane.QUESTION_MESSAGE,
+                null,
+                opciones,
+                opciones[0]
+        );
+
+        // Si pulsa Cancelar o cierra el diálogo, no hacemos nada
+        if (eleccion == 2 || eleccion == JOptionPane.CLOSED_OPTION) {
+            return;
+        }
+
+        javax.swing.JFileChooser selector = new javax.swing.JFileChooser();
+        selector.setDialogTitle("Selecciona el fichero a exportar");
+
+        // Filtro según el formato elegido
+        if (eleccion == 0) { // TXT
+            selector.setFileFilter(new javax.swing.filechooser.FileNameExtensionFilter("Ficheros TXT (*.txt)", "txt"));
+        } else { // XML
+            selector.setFileFilter(new javax.swing.filechooser.FileNameExtensionFilter("Ficheros XML (*.xml)", "xml"));
+        }
+
+        int resp = selector.showOpenDialog(this);
+        if (resp == javax.swing.JFileChooser.APPROVE_OPTION) {
+            String nombreFich = selector.getSelectedFile().getAbsolutePath();
+
+            if (eleccion == 0) {
+                gestorBDR.exportar(nombreFich + ".txt");
+            } else {
+                gestorBDR.exportarXML(nombreFich + ".xml");
+            }
+
+            refrescarDatos();
+            JOptionPane.showMessageDialog(this, "Exportacion completada desde:\n" + nombreFich);
+        }
+
+
     }//GEN-LAST:event_jButtonExportarActionPerformed
 
     private void jButtonAñadirDatosEjemploActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAñadirDatosEjemploActionPerformed
-      
+        gestorBDR.añadirDatosEjemplo();
+        refrescarDatos();
     }//GEN-LAST:event_jButtonAñadirDatosEjemploActionPerformed
 
     private void jButtonVaciarCamposActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonVaciarCamposActionPerformed
-        
+        vaciarCampos();
     }//GEN-LAST:event_jButtonVaciarCamposActionPerformed
 
     private void jButtonVolverAlMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonVolverAlMenuActionPerformed
+        gestorBDR.desconectar();
         Menu m = new Menu();
         m.setLocationRelativeTo(null);
         m.setVisible(true);
@@ -386,44 +449,154 @@ public class Servicios extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonVolverAlMenuActionPerformed
 
     private void jButtonAñadirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAñadirActionPerformed
-    
-        
-    }//GEN-LAST:event_jButtonAñadirActionPerformed
+        String nombre, descripcion;
+        String perfil;
 
-    private void jButtonImportarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonImportarActionPerformed
-             Object[] opciones = {".txt", ".xml"};
-        int formato = JOptionPane.showOptionDialog(rootPane,
-                "¿Desde qué formato quieres importar?",
-                "Seleccionar formato",
-                JOptionPane.DEFAULT_OPTION,
-                JOptionPane.QUESTION_MESSAGE,
-                null, opciones, opciones[0]);
+        nombre = jTextNombre.getText();
+        descripcion = jTextDescripcion.getText();
 
-        if (formato == JOptionPane.CLOSED_OPTION) {
+        perfil = jTextPerfil.getText().trim();
+
+        if (perfil.isEmpty() || nombre.isEmpty()) {
+            JOptionPane.showMessageDialog(this,
+                    "Los campos Perfil y Nombre son obligatorios.",
+                    "Faltan datos",
+                    JOptionPane.WARNING_MESSAGE);
             return;
         }
 
-        javax.swing.JFileChooser fc = new javax.swing.JFileChooser();
-        fc.setDialogTitle("Abrir archivo de valoraciones");
+        try {
+            gestorBDR.añadir(perfil, nombre, descripcion);
+        } catch (SQLException ex) {
+            System.getLogger(Servicios.class.getName())
+                    .log(System.Logger.Level.ERROR, (String) null, ex);
+        }
 
-        if (fc.showOpenDialog(this) == javax.swing.JFileChooser.APPROVE_OPTION) {
-            java.io.File archivo = fc.getSelectedFile();
-            int[] resultado;
+        refrescarDatos();
 
-            if (formato == 0) {
-                resultado = gestorValoraciones.importarTxt(archivo);
+    }//GEN-LAST:event_jButtonAñadirActionPerformed
+
+    private void jButtonImportarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonImportarActionPerformed
+        Object[] opciones = {"TXT", "XML", "Cancelar"};
+        int eleccion = JOptionPane.showOptionDialog(
+                this,
+                "¿Desde qué formato quieres importar?",
+                "Seleccionar formato",
+                JOptionPane.YES_NO_CANCEL_OPTION,
+                JOptionPane.QUESTION_MESSAGE,
+                null,
+                opciones,
+                opciones[0]
+        );
+
+        // Si pulsa Cancelar o cierra el diálogo, no hacemos nada
+        if (eleccion == 2 || eleccion == JOptionPane.CLOSED_OPTION) {
+            return;
+        }
+
+        javax.swing.JFileChooser selector = new javax.swing.JFileChooser();
+        selector.setDialogTitle("Selecciona el fichero a importar");
+
+        // Filtro según el formato elegido
+        if (eleccion == 0) { // TXT
+            selector.setFileFilter(new javax.swing.filechooser.FileNameExtensionFilter("Ficheros TXT (*.txt)", "txt"));
+        } else { // XML
+            selector.setFileFilter(new javax.swing.filechooser.FileNameExtensionFilter("Ficheros XML (*.xml)", "xml"));
+        }
+
+        int resp = selector.showOpenDialog(this);
+        if (resp == javax.swing.JFileChooser.APPROVE_OPTION) {
+            String nombreFich = selector.getSelectedFile().getAbsolutePath();
+
+            if (eleccion == 0) {
+                gestorBDR.importarTXT(nombreFich);
             } else {
-                resultado = gestorValoraciones.importarXml(archivo);
+                gestorBDR.importarXML(nombreFich);
             }
 
             refrescarDatos();
-            JOptionPane.showMessageDialog(rootPane,
-                    "Importacion completada.\n"
-                    + "Insertados: " + resultado[0] + "\n"
-                    + "Errores: " + resultado[1]);
+            JOptionPane.showMessageDialog(this, "Importación completada desde:\n" + nombreFich);
         }
-                                
+
     }//GEN-LAST:event_jButtonImportarActionPerformed
+    private void vaciarCampos() {
+        jTextId.setText("");
+        jTextPerfil.setText("");
+        jTextNombre.setText("");
+        jTextDescripcion.setText("");
+    }
+    private void refrescarDatos() {
+        datos = gestorBDR.obtenerMatriz();
+        dtm.setDataVector(datos, nomCols);
+        jTable1.getColumn("id").setPreferredWidth(60);
+        jTable1.getColumn("perfil").setPreferredWidth(140);
+        jTable1.getColumn("nombre").setPreferredWidth(220);
+        jTable1.getColumn("descripcion").setPreferredWidth(380);
+    }
+    private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
+        String perfil, nombre, descripcion;
+        int filaSelec, id;
+        filaSelec = jTable1.getSelectedRow();
+        System.out.println("Fila seleccionada: " + jTable1.getSelectedRow());
+        id = (int) datos[filaSelec][0];
+        perfil = (String) datos[filaSelec][1];
+        nombre = (String) datos[filaSelec][2];
+        descripcion = (String) datos[filaSelec][3];
+        jTextId.setText(id + "");
+        jTextPerfil.setText(perfil);
+        jTextNombre.setText(nombre);
+        jTextDescripcion.setText(descripcion);
+        System.out.println("id=" + id + " perfil=" + perfil);
+    }//GEN-LAST:event_jTable1MouseClicked
+
+    private void jButtonActualizarTablaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonActualizarTablaActionPerformed
+        refrescarDatos();
+    }//GEN-LAST:event_jButtonActualizarTablaActionPerformed
+
+    private void jButtonEliminarSelecActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEliminarSelecActionPerformed
+        int filaSelec = jTable1.getSelectedRow();
+        if (filaSelec != -1) {
+            gestorBDR.borrarSelec(filaSelec);
+            refrescarDatos();
+        }
+    }//GEN-LAST:event_jButtonEliminarSelecActionPerformed
+
+    private void jButtonModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonModificarActionPerformed
+        String id, nombre, descripcion;
+        String perfil;
+        
+        id = jTextId.getText();
+        nombre = jTextNombre.getText();
+        descripcion = jTextDescripcion.getText();
+        
+        perfil = jTextPerfil.getText().trim();
+        
+        if (id.isEmpty()) {
+            JOptionPane.showMessageDialog(this,
+                    "Selecciona un servicio de la tabla para modificarlo.",
+                    "Faltan datos",
+                    JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        
+        if (perfil.isEmpty() || nombre.isEmpty()) {
+            JOptionPane.showMessageDialog(this,
+                    "Los campos Perfil y Nombre son obligatorios.",
+                    "Faltan datos",
+                    JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        
+        
+        try {
+            gestorBDR.modificar(id, perfil, nombre, descripcion);
+        } catch (SQLException ex) {
+            System.getLogger(Servicios.class.getName())
+                    .log(System.Logger.Level.ERROR, (String) null, ex);
+        }
+        
+        refrescarDatos();
+    }//GEN-LAST:event_jButtonModificarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -473,10 +646,11 @@ public class Servicios extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jTable1;
-    private javax.swing.JTextField jTextFieldDesc;
-    private javax.swing.JTextField jTextFieldID;
-    private javax.swing.JTextField jTextFieldNombre;
-    private javax.swing.JTextField jTextFieldPerfil;
+    private javax.swing.JTextArea jTextDescripcion;
+    private javax.swing.JTextField jTextId;
+    private javax.swing.JTextField jTextNombre;
+    private javax.swing.JTextField jTextPerfil;
     // End of variables declaration//GEN-END:variables
 }
