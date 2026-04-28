@@ -20,8 +20,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.List;
-import javax.swing.DefaultListModel;
 
 /**
  *
@@ -58,6 +56,18 @@ public class ControladorUsuariosBDR {
             System.err.println("SQL código específico: " + e.getErrorCode());
         } catch (Exception e) {
             e.printStackTrace(System.err);
+        }
+    }
+
+    public void desconectar() {
+        try {
+            if (con != null && !con.isClosed()) {
+                con.close();
+                System.out.println("Conexión cerrada.");
+            }
+            online = false;
+        } catch (SQLException e) {
+            System.err.println("Error al cerrar la conexión: " + e.getMessage());
         }
     }
 

@@ -197,7 +197,7 @@ public class LOGIN extends javax.swing.JFrame {
             return;
     }//GEN-LAST:event_jButton1ActionPerformed
     gestorBDO.cerrar();
-        Menu menu = new Menu(usuario.getRol());
+        Menu menu = new Menu(usuario.getRol()); //aqui se pasa el rol
         menu.setLocationRelativeTo(null);
         menu.setVisible(true);
         this.dispose();
