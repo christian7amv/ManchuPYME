@@ -466,27 +466,90 @@ public class Suscripciones extends javax.swing.JFrame {
     }//GEN-LAST:event_borrarTodoActionPerformed
 
     private void importarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_importarActionPerformed
+        Object[] opciones = {"TXT", "XML", "Cancelar"};
+        int eleccion = JOptionPane.showOptionDialog(
+                this,
+                "¿Desde qué formato quieres importar?",
+                "Seleccionar formato",
+                JOptionPane.YES_NO_CANCEL_OPTION,
+                JOptionPane.QUESTION_MESSAGE,
+                null,
+                opciones,
+                opciones[0]
+        );
+
+        // Si pulsa Cancelar o cierra el diálogo, no hacemos nada
+        if (eleccion == 2 || eleccion == JOptionPane.CLOSED_OPTION) {
+            return;
+        }
+
         javax.swing.JFileChooser selector = new javax.swing.JFileChooser();
         selector.setDialogTitle("Selecciona el fichero a importar");
+
+        // Filtro según el formato elegido
+        if (eleccion == 0) { // TXT
+            selector.setFileFilter(new javax.swing.filechooser.FileNameExtensionFilter("Ficheros TXT (*.txt)", "txt"));
+        } else { // XML
+            selector.setFileFilter(new javax.swing.filechooser.FileNameExtensionFilter("Ficheros XML (*.xml)", "xml"));
+        }
+
         int resp = selector.showOpenDialog(this);
         if (resp == javax.swing.JFileChooser.APPROVE_OPTION) {
             String nombreFich = selector.getSelectedFile().getAbsolutePath();
-            gestorBDR.importar(nombreFich);
+
+            if (eleccion == 0) {
+                gestorBDR.importarTXT(nombreFich);
+            } else {
+                gestorBDR.importarXML(nombreFich);
+            }
+
             refrescarDatos();
-            JOptionPane.showMessageDialog(this, "Importacion completada desde:\n" + nombreFich);
+            JOptionPane.showMessageDialog(this, "Importación completada desde:\n" + nombreFich);
         }
     }//GEN-LAST:event_importarActionPerformed
 
     private void exportarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exportarActionPerformed
-        javax.swing.JFileChooser selector = new javax.swing.JFileChooser();
-        selector.setDialogTitle("Guardar fichero de exportacion");
-        selector.setSelectedFile(new java.io.File("suscripciones.txt")); //archivo por defecto
-        int resp = selector.showSaveDialog(this); //se abre ventana y se comprueba si el user no ha cancelado
-        if (resp == javax.swing.JFileChooser.APPROVE_OPTION) { //si ha pulsado guardar y no canelar
-            String nombreFich = selector.getSelectedFile().getAbsolutePath(); //se obtiene la ruta del fichero/dir obtenido
-            gestorBDR.exportar(nombreFich);
-            JOptionPane.showMessageDialog(this, "Exportacion completada en:\n" + nombreFich);
+        Object[] opciones = {"TXT", "XML", "Cancelar"};
+        int eleccion = JOptionPane.showOptionDialog(
+                this,
+                "¿Desde qué formato quieres exportar?",
+                "Seleccionar formato",
+                JOptionPane.YES_NO_CANCEL_OPTION,
+                JOptionPane.QUESTION_MESSAGE,
+                null,
+                opciones,
+                opciones[0]
+        );
+
+        // Si pulsa Cancelar o cierra el diálogo, no hacemos nada
+        if (eleccion == 2 || eleccion == JOptionPane.CLOSED_OPTION) {
+            return;
         }
+
+        javax.swing.JFileChooser selector = new javax.swing.JFileChooser();
+        selector.setDialogTitle("Selecciona el fichero a exportar");
+
+        // Filtro según el formato elegido
+        if (eleccion == 0) { // TXT
+            selector.setFileFilter(new javax.swing.filechooser.FileNameExtensionFilter("Ficheros TXT (*.txt)", "txt"));
+        } else { // XML
+            selector.setFileFilter(new javax.swing.filechooser.FileNameExtensionFilter("Ficheros XML (*.xml)", "xml"));
+        }
+
+        int resp = selector.showOpenDialog(this);
+        if (resp == javax.swing.JFileChooser.APPROVE_OPTION) {
+            String nombreFich = selector.getSelectedFile().getAbsolutePath();
+
+            if (eleccion == 0) {
+                gestorBDR.exportar(nombreFich + ".txt");
+            } else {
+                gestorBDR.exportarXML(nombreFich + ".xml");
+            }
+
+            refrescarDatos();
+            JOptionPane.showMessageDialog(this, "Exportacion completada desde:\n" + nombreFich);
+        }
+
     }//GEN-LAST:event_exportarActionPerformed
 
     private void borrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_borrarActionPerformed

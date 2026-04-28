@@ -5,8 +5,13 @@
 package Controlador;
 
 import static Controlador.ControladorUsuariosBDR.online;
+import java.beans.XMLDecoder;
+import java.beans.XMLEncoder;
+import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -299,6 +304,103 @@ public class ControladorSuscripcionesBDR {
             System.out.println(e.getMessage());
         }
     }
+    
+    public void importarTXT(String nombreFich) {
+    System.out.println("IMPORTANDO SUSCRIPCIONES DESDE: '" + nombreFich + "'");
+    listaSus.clear();
+
+    try (BufferedReader fichBuf = new BufferedReader(new FileReader(nombreFich))) {
+        String linea;
+
+        while ((linea = fichBuf.readLine()) != null) {
+            System.out.println("LEIDO: " + linea);
+
+            String[] campos = linea.split(";");
+
+            if (campos.length >= 3) {
+                String plan = campos[0];
+                double precio = Double.parseDouble(campos[1]);
+                String caracteristicas = campos[2];
+
+                listaSus.add(campos);
+
+                try {
+                    añadir(plan, precio, caracteristicas);
+                } catch (SQLException ex) {
+                    System.err.println("Error al insertar: " + ex.getMessage());
+                }
+            } else {
+                System.err.println("Linea incorrecta, se omite.");
+            }
+        }
+
+        System.out.println("Importación TXT completada. Total: " + listaSus.size());
+
+    } catch (IOException e) {
+        System.err.println(e.getMessage());
+    }
+}
+    
+    public void exportarXML(String nombreFich) {
+    try {
+        FileOutputStream fos = new FileOutputStream(nombreFich);
+        XMLEncoder xmle = new XMLEncoder(new BufferedOutputStream(fos));
+
+        xmle.writeObject(listaSus);
+        xmle.close();
+
+        System.out.println("Exportación XML completada.");
+    } catch (Exception e) {
+        System.err.println("ERROR al exportar XML: " + e.getMessage());
+    }
+}
+    
+    public void importarXML(String nombreFich) {
+    System.out.println("IMPORTANDO XML: '" + nombreFich + "'");
+
+    try {
+        FileInputStream fis = new FileInputStream(nombreFich);
+        XMLDecoder xmld = new XMLDecoder(fis);
+
+        ArrayList<Object[]> listaImportada = (ArrayList<Object[]>) xmld.readObject();
+
+        xmld.close();
+        fis.close();
+
+        listaSus.clear();
+
+        for (Object[] fila : listaImportada) {
+
+            if (fila.length < 3) {
+                System.err.println("Fila incorrecta, se omite.");
+                continue;
+            }
+
+            String plan = fila[0] != null ? fila[0].toString() : "";
+            double precio = fila[1] != null ? Double.parseDouble(fila[1].toString()) : 0;
+            String caracteristicas = fila[2] != null ? fila[2].toString() : "";
+
+            if (plan.isEmpty()) {
+                System.err.println("Fila omitida: plan vacío.");
+                continue;
+            }
+
+            listaSus.add(fila);
+
+            try {
+                añadir(plan, precio, caracteristicas);
+            } catch (SQLException ex) {
+                System.err.println("Error al insertar: " + ex.getMessage());
+            }
+        }
+
+        System.out.println("Importación XML completada. Total: " + listaImportada.size());
+
+    } catch (Exception e) {
+        System.err.println("ERROR al importar XML: " + e.getMessage());
+        e.printStackTrace();
+    }
+}
 
     public void desconectar() {
         try {
