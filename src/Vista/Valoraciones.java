@@ -90,6 +90,7 @@ public class Valoraciones extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         TituloIngreso_Datos = new javax.swing.JLabel();
+        jButtonVolverAlMenu = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
@@ -129,6 +130,9 @@ public class Valoraciones extends javax.swing.JFrame {
         TituloIngreso_Datos.setFont(new java.awt.Font("Segoe UI", 1, 48)); // NOI18N
         TituloIngreso_Datos.setText("INGRESO DE DATOS");
 
+        jButtonVolverAlMenu.setText("VOLVER AL MENU");
+        jButtonVolverAlMenu.addActionListener(this::jButtonVolverAlMenuActionPerformed);
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -136,13 +140,17 @@ public class Valoraciones extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(96, 96, 96)
                 .addComponent(TituloIngreso_Datos, javax.swing.GroupLayout.PREFERRED_SIZE, 469, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 129, Short.MAX_VALUE)
+                .addComponent(jButtonVolverAlMenu, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(20, 20, 20))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addGap(21, 21, 21)
-                .addComponent(TituloIngreso_Datos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jButtonVolverAlMenu, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(TituloIngreso_Datos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(27, 27, 27))
         );
 
@@ -200,6 +208,8 @@ public class Valoraciones extends javax.swing.JFrame {
 
         jTextField5.addActionListener(this::jTextField5ActionPerformed);
 
+        jComboBoxProfesional.addActionListener(this::jComboBoxProfesionalActionPerformed);
+
         jLabelRol1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabelRol1.setText("PARTICULAR:");
 
@@ -229,7 +239,7 @@ public class Valoraciones extends javax.swing.JFrame {
                             .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel6)
                             .addComponent(jLabelProfesional)
-                            .addComponent(jLabelRol1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(jLabelRol1, javax.swing.GroupLayout.DEFAULT_SIZE, 133, Short.MAX_VALUE))
                         .addGap(50, 50, 50)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jComboBoxParticular, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -242,7 +252,7 @@ public class Valoraciones extends javax.swing.JFrame {
                                 .addGap(40, 40, 40)
                                 .addComponent(jLabel1))
                             .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 47, Short.MAX_VALUE)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jButtonVaciarCampos, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -266,7 +276,7 @@ public class Valoraciones extends javax.swing.JFrame {
                                 .addComponent(jButtonModificar, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
                                 .addComponent(jButtonExportar, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addContainerGap(28, Short.MAX_VALUE))
+                .addContainerGap(79, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -443,10 +453,6 @@ public class Valoraciones extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextFieldIDActionPerformed
 
-    private void jTextField5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField5ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField5ActionPerformed
-
     private void jComboBoxParticularActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxParticularActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jComboBoxParticularActionPerformed
@@ -597,38 +603,53 @@ public class Valoraciones extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonExportarActionPerformed
 
     private void jButtonImportarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonImportarActionPerformed
-            Object[] opciones = {".txt", ".xml"};
-    int formato = JOptionPane.showOptionDialog(rootPane,
-            "¿Desde qué formato quieres importar?",
-            "Seleccionar formato",
-            JOptionPane.DEFAULT_OPTION,
-            JOptionPane.QUESTION_MESSAGE,
-            null, opciones, opciones[0]);
+        Object[] opciones = {".txt", ".xml"};
+        int formato = JOptionPane.showOptionDialog(rootPane,
+                "¿Desde qué formato quieres importar?",
+                "Seleccionar formato",
+                JOptionPane.DEFAULT_OPTION,
+                JOptionPane.QUESTION_MESSAGE,
+                null, opciones, opciones[0]);
 
-    if (formato == JOptionPane.CLOSED_OPTION) {
-        return;
-    }
-
-    javax.swing.JFileChooser fc = new javax.swing.JFileChooser();
-    fc.setDialogTitle("Abrir archivo de valoraciones");
-
-    if (fc.showOpenDialog(this) == javax.swing.JFileChooser.APPROVE_OPTION) {
-        java.io.File archivo = fc.getSelectedFile();
-        int[] resultado;
-
-        if (formato == 0) {
-            resultado = gestorValoraciones.importarTxt(archivo);
-        } else {
-            resultado = gestorValoraciones.importarXml(archivo);
+        if (formato == JOptionPane.CLOSED_OPTION) {
+            return;
         }
 
-        refrescarDatos();
-        JOptionPane.showMessageDialog(rootPane,
-                "Importacion completada.\n" +
-                "Insertados: " + resultado[0] + "\n" +
-                "Errores: "    + resultado[1]);
-    }
+        javax.swing.JFileChooser fc = new javax.swing.JFileChooser();
+        fc.setDialogTitle("Abrir archivo de valoraciones");
+
+        if (fc.showOpenDialog(this) == javax.swing.JFileChooser.APPROVE_OPTION) {
+            java.io.File archivo = fc.getSelectedFile();
+            int[] resultado;
+
+            if (formato == 0) {
+                resultado = gestorValoraciones.importarTxt(archivo);
+            } else {
+                resultado = gestorValoraciones.importarXml(archivo);
+            }
+
+            refrescarDatos();
+            JOptionPane.showMessageDialog(rootPane,
+                    "Importacion completada.\n"
+                    + "Insertados: " + resultado[0] + "\n"
+                    + "Errores: " + resultado[1]);
+        }
     }//GEN-LAST:event_jButtonImportarActionPerformed
+
+    private void jTextField5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField5ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField5ActionPerformed
+
+    private void jButtonVolverAlMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonVolverAlMenuActionPerformed
+        Menu m = new Menu();
+        m.setLocationRelativeTo(null);
+        m.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jButtonVolverAlMenuActionPerformed
+
+    private void jComboBoxProfesionalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxProfesionalActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jComboBoxProfesionalActionPerformed
 
     /**
      * @param args the command line arguments
@@ -668,6 +689,7 @@ public class Valoraciones extends javax.swing.JFrame {
     private javax.swing.JButton jButtonModificar;
     private javax.swing.JButton jButtonNuevo;
     private javax.swing.JButton jButtonVaciarCampos;
+    private javax.swing.JButton jButtonVolverAlMenu;
     private javax.swing.JComboBox<String> jComboBoxParticular;
     private javax.swing.JComboBox<String> jComboBoxProfesional;
     private javax.swing.JComboBox<String> jComboBoxPuntuacion;

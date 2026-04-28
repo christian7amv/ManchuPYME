@@ -21,7 +21,6 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
-
 /**
  *
  * @author chris
@@ -59,18 +58,18 @@ public class ControladorUsuariosBDR {
             e.printStackTrace(System.err);
         }
     }
-    
+
     public void desconectar() {
-    try {
-        if (con != null && !con.isClosed()) {
-            con.close();
-            System.out.println("Conexión cerrada.");
+        try {
+            if (con != null && !con.isClosed()) {
+                con.close();
+                System.out.println("Conexión cerrada.");
+            }
+            online = false;
+        } catch (SQLException e) {
+            System.err.println("Error al cerrar la conexión: " + e.getMessage());
         }
-        online = false;
-    } catch (SQLException e) {
-        System.err.println("Error al cerrar la conexión: " + e.getMessage());
     }
-}
 
     public ArrayList<String> obtenerPerfiles() {
         ArrayList<String> perfiles = new ArrayList<>();

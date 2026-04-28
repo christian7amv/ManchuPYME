@@ -1,5 +1,6 @@
 package Controlador;
 
+import static Controlador.ControladorUsuariosBDR.online;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -33,6 +34,18 @@ public class ControladorValoracionesBDR {
             System.err.println("SQL codigo: " + e.getErrorCode());
         } catch (Exception e) {
             e.printStackTrace(System.err);
+        }
+    }
+
+    public void desconectar() {
+        try {
+            if (con != null && !con.isClosed()) {
+                con.close();
+                System.out.println("Conexión cerrada.");
+            }
+            online = false;
+        } catch (SQLException e) {
+            System.err.println("Error al cerrar la conexión: " + e.getMessage());
         }
     }
 
