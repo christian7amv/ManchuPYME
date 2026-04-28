@@ -749,6 +749,7 @@ public class Usuarios extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonModificarActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        gestorBDR.desconectar();
         Menu m = new Menu();
         m.setLocationRelativeTo(null);
         m.setVisible(true);

@@ -16,7 +16,6 @@ import javax.swing.JOptionPane;
 public class Accesos extends javax.swing.JFrame {
 
     ControladorBDO gestorBDO = new ControladorBDO();
-    ControladorUsuariosBDR gestorUSRBDR = new ControladorUsuariosBDR();
 
     String[] nomCols = {
         "id",
@@ -45,7 +44,6 @@ public class Accesos extends javax.swing.JFrame {
             @Override
             public void windowClosing(java.awt.event.WindowEvent e) {
                 gestorBDO.cerrar();//se desconecta al cerrar
-                gestorUSRBDR.desconectar();
                 
             }
         });
