@@ -1,0 +1,141 @@
+------------------------------------------------------------------------------------------------------------------------
+
+[2026-04-28 07:47:13 #1 store] 
+Database 'E:\Proyectos\NetBeansProjects\ManchuPYME\db\ManchuAccesos.odb' is opened by 13432@DESKTOP-PMMQ443
+
+[2026-04-28 07:47:13 #2 store] 
+Configuration path: ?
+
+[2026-04-28 07:47:13 #3 type] 
+Type Modelos.UserAcceso is not enhanced.
+
+------------------------------------------------------------------------------------------------------------------------
+
+[2026-04-28 07:49:03 #1 store] 
+Database 'E:\Proyectos\NetBeansProjects\ManchuPYME\db\ManchuAccesos.odb' has been recovered (tr. 1-10)
+
+[2026-04-28 07:49:03 #2 store] 
+Database 'E:\Proyectos\NetBeansProjects\ManchuPYME\db\ManchuAccesos.odb' is opened by 20852@DESKTOP-PMMQ443
+
+[2026-04-28 07:49:03 #3 store] 
+Configuration path: ?
+
+[2026-04-28 07:49:03 #4 type] 
+Type Modelos.UserAcceso is not enhanced.
+
+------------------------------------------------------------------------------------------------------------------------
+
+[2026-04-28 07:52:33 #1 store] 
+Database 'E:\Proyectos\NetBeansProjects\ManchuPYME\db\ManchuAccesos.odb' has been recovered (tr. 11-23)
+
+[2026-04-28 07:52:33 #2 store] 
+Database 'E:\Proyectos\NetBeansProjects\ManchuPYME\db\ManchuAccesos.odb' is opened by 19264@DESKTOP-PMMQ443
+
+[2026-04-28 07:52:33 #3 store] 
+Configuration path: ?
+
+[2026-04-28 07:52:33 #4 type] 
+Type Modelos.UserAcceso is not enhanced.
+
+------------------------------------------------------------------------------------------------------------------------
+
+[2026-04-28 07:53:10 #1 store] 
+Database 'E:\Proyectos\NetBeansProjects\ManchuPYME\db\ManchuAccesos.odb' is opened by 13096@DESKTOP-PMMQ443
+
+[2026-04-28 07:53:10 #2 store] 
+Configuration path: ?
+
+[2026-04-28 07:53:10 #3 type] 
+Type Modelos.UserAcceso is not enhanced.
+
+------------------------------------------------------------------------------------------------------------------------
+
+[2026-04-28 07:54:42 #1 store] 
+Database 'E:\Proyectos\NetBeansProjects\ManchuPYME\db\ManchuAccesos.odb' has been recovered (tr. 25-25)
+
+[2026-04-28 07:54:42 #2 store] 
+Database 'E:\Proyectos\NetBeansProjects\ManchuPYME\db\ManchuAccesos.odb' is opened by 6848@DESKTOP-PMMQ443
+
+[2026-04-28 07:54:42 #3 store] 
+Configuration path: ?
+
+[2026-04-28 07:54:42 #4 type] 
+Type Modelos.UserAcceso is not enhanced.
+
+------------------------------------------------------------------------------------------------------------------------
+
+[2026-04-28 08:24:30 #1 store] 
+Database 'E:\Proyectos\NetBeansProjects\ManchuPYME\db\ManchuAccesos.odb' has been recovered (tr. 27-34)
+
+[2026-04-28 08:24:30 #2 store] 
+Database 'E:\Proyectos\NetBeansProjects\ManchuPYME\db\ManchuAccesos.odb' is opened by 15592@DESKTOP-PMMQ443
+
+[2026-04-28 08:24:30 #3 store] 
+Configuration path: ?
+
+[2026-04-28 08:24:30 #4 type] 
+Type Modelos.UserAcceso is not enhanced.
+
+[2026-04-28 08:24:30 #5 index] 
+Index activation started for class Modelos.UserAcceso and its subclasses
+
+[2026-04-28 08:24:30 #6 index] 
+Index -102 was cleared
+
+[2026-04-28 08:24:30 #7 index] 
+Index activation batch completed: Size: 1000, Time: 2, Sleep: 3, Last PK: MAX
+
+[2026-04-28 08:24:30 #8 index] 
+Index activation completed for class Modelos.UserAcceso and its subclasses
+
+------------------------------------------------------------------------------------------------------------------------
+
+[2026-04-28 08:24:56 #1 store] 
+Database 'E:\Proyectos\NetBeansProjects\ManchuPYME\db\ManchuAccesos.odb' has been recovered (tr. 35-38)
+
+[2026-04-28 08:24:56 #2 store] 
+Database 'E:\Proyectos\NetBeansProjects\ManchuPYME\db\ManchuAccesos.odb' is opened by 10892@DESKTOP-PMMQ443
+
+[2026-04-28 08:24:56 #3 store] 
+Configuration path: ?
+
+[2026-04-28 08:24:56 #4 type] 
+Type Modelos.UserAcceso is not enhanced.
+
+[2026-04-28 08:25:04 #5 store] 
+Database 'E:\Proyectos\NetBeansProjects\ManchuPYME\db\ManchuAccesos.odb' is closed by 10892@DESKTOP-PMMQ443
+
+[2026-04-28 08:25:07 #6 store] 
+Database 'E:\Proyectos\NetBeansProjects\ManchuPYME\db\ManchuAccesos.odb' is opened by 10892@DESKTOP-PMMQ443
+
+[2026-04-28 08:25:07 #7 store] 
+Configuration path: ?
+
+------------------------------------------------------------------------------------------------------------------------
+
+[2026-04-28 08:25:15 #1 store] 
+Database 'E:\Proyectos\NetBeansProjects\ManchuPYME\db\ManchuAccesos.odb' is opened by 22652@DESKTOP-PMMQ443
+
+[2026-04-28 08:25:15 #2 store] 
+Configuration path: ?
+
+[2026-04-28 08:25:15 #3 type] 
+Type Modelos.UserAcceso is not enhanced.
+
+[2026-04-28 08:25:36 #4 store] 
+Database 'E:\Proyectos\NetBeansProjects\ManchuPYME\db\ManchuAccesos.odb' is closed by 22652@DESKTOP-PMMQ443
+
+------------------------------------------------------------------------------------------------------------------------
+
+[2026-04-28 08:25:43 #1 store] 
+Database 'E:\Proyectos\NetBeansProjects\ManchuPYME\db\ManchuAccesos.odb' is opened by 23304@DESKTOP-PMMQ443
+
+[2026-04-28 08:25:43 #2 store] 
+Configuration path: ?
+
+[2026-04-28 08:25:43 #3 type] 
+Type Modelos.UserAcceso is not enhanced.
+
+[2026-04-28 08:26:10 #4 store] 
+Database 'E:\Proyectos\NetBeansProjects\ManchuPYME\db\ManchuAccesos.odb' is closed by 23304@DESKTOP-PMMQ443
+
