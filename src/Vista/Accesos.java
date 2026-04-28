@@ -5,6 +5,7 @@
 package Vista;
 
 import Controlador.ControladorBDO;
+import Controlador.ControladorUsuariosBDR;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.JOptionPane;
 
@@ -15,6 +16,7 @@ import javax.swing.JOptionPane;
 public class Accesos extends javax.swing.JFrame {
 
     ControladorBDO gestorBDO = new ControladorBDO();
+    ControladorUsuariosBDR gestorUSRBDR = new ControladorUsuariosBDR();
 
     String[] nomCols = {
         "id",
@@ -43,6 +45,8 @@ public class Accesos extends javax.swing.JFrame {
             @Override
             public void windowClosing(java.awt.event.WindowEvent e) {
                 gestorBDO.cerrar();//se desconecta al cerrar
+                gestorUSRBDR.desconectar();
+                
             }
         });
     }
