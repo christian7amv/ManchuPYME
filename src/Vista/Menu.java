@@ -12,16 +12,23 @@ public class Menu extends javax.swing.JFrame {
 
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(Menu.class.getName());
     private final String rol;
+    private static String ultimoRol = "invitado";
 
     /**
      * Creates new form Menu
      */
     public Menu() {
-        this("invitado");
+        this(ultimoRol);
     }
 
-    public Menu(String rol) {
-        this.rol = (rol == null) ? "" : rol;
+    public Menu(String rol) { //Menu recibe rol aqui
+
+        if (rol == null) {
+            this.rol = "invitado";
+        } else {
+            this.rol = rol;
+        }
+        ultimoRol = this.rol;
         initComponents();
         aplicarPermisos();
     }
@@ -138,30 +145,35 @@ public class Menu extends javax.swing.JFrame {
         Usuarios u = new Usuarios();
         u.setLocationRelativeTo(null);
         u.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_UsuariosActionPerformed
 
     private void AccesoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AccesoActionPerformed
         Accesos a = new Accesos();
         a.setLocationRelativeTo(null);
         a.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_AccesoActionPerformed
 
     private void SuscripcionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SuscripcionesActionPerformed
         Suscripciones s = new Suscripciones();
         s.setLocationRelativeTo(null);
         s.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_SuscripcionesActionPerformed
 
     private void ServiciosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ServiciosActionPerformed
         Servicios s = new Servicios();
         s.setLocationRelativeTo(null);
         s.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_ServiciosActionPerformed
 
     private void ValoracionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ValoracionesActionPerformed
         Valoraciones v = new Valoraciones();
         v.setLocationRelativeTo(null);
         v.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_ValoracionesActionPerformed
 
     /**

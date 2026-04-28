@@ -45,6 +45,12 @@ public class Usuarios extends javax.swing.JFrame {
         cargarCategorias();
         checkCombo();
         refrescarDatos();
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            @Override
+            public void windowClosing(java.awt.event.WindowEvent e) {
+                gestorBDR.desconectar(); //se desconecta al cerrar
+            }
+        });
     }
 
     private void cargarCategorias() {
@@ -70,6 +76,7 @@ public class Usuarios extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         TituloIngreso_Datos = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
@@ -119,6 +126,9 @@ public class Usuarios extends javax.swing.JFrame {
         TituloIngreso_Datos.setFont(new java.awt.Font("Segoe UI", 1, 48)); // NOI18N
         TituloIngreso_Datos.setText("INGRESO DE DATOS");
 
+        jButton1.setText("Volver al Menu");
+        jButton1.addActionListener(this::jButton1ActionPerformed);
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -126,13 +136,17 @@ public class Usuarios extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(65, 65, 65)
                 .addComponent(TituloIngreso_Datos, javax.swing.GroupLayout.PREFERRED_SIZE, 469, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(23, 23, 23))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(20, 20, 20)
-                .addComponent(TituloIngreso_Datos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(TituloIngreso_Datos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(28, 28, 28))
         );
 
@@ -681,9 +695,9 @@ public class Usuarios extends javax.swing.JFrame {
             String nombreFich = selector.getSelectedFile().getAbsolutePath();
 
             if (eleccion == 0) {
-                gestorBDR.exportar(nombreFich+".txt");
+                gestorBDR.exportar(nombreFich + ".txt");
             } else {
-                gestorBDR.exportarXML(nombreFich+".xml");
+                gestorBDR.exportarXML(nombreFich + ".xml");
             }
 
             refrescarDatos();
@@ -734,6 +748,14 @@ public class Usuarios extends javax.swing.JFrame {
         refrescarDatos();
     }//GEN-LAST:event_jButtonModificarActionPerformed
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        gestorBDR.desconectar();
+        Menu m = new Menu();
+        m.setLocationRelativeTo(null);
+        m.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_jButton1ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -761,6 +783,7 @@ public class Usuarios extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel TituloIngreso_Datos;
+    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton7;
     private javax.swing.JButton jButtonAñadir;
     private javax.swing.JButton jButtonBorrarEmail;
