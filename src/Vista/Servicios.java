@@ -4,6 +4,7 @@
  */
 package Vista;
 
+import Controlador.ControladorServiciosBDR;
 import javax.swing.JOptionPane;
 
 /**
@@ -12,6 +13,7 @@ import javax.swing.JOptionPane;
  */
 public class Servicios extends javax.swing.JFrame {
     
+     ControladorServiciosBDR gestorBDR = new ControladorServiciosBDR();
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(Servicios.class.getName());
 
     /**
