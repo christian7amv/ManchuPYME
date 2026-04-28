@@ -466,7 +466,7 @@ public class Valoraciones extends javax.swing.JFrame {
         } else {
             int id = Integer.parseInt(jTextFieldID.getText());
             int idPart = extraerId(jComboBoxParticular.getSelectedItem().toString());
-            int idProf = extraerId(jComboBoxParticular.getSelectedItem().toString());
+            int idProf = extraerId(jComboBoxProfesional.getSelectedItem().toString());
             String fecha = jTextField4.getText().trim();
             int puntuacion = Integer.parseInt(jComboBoxPuntuacion.getSelectedItem().toString());
             String comentario = jTextAreaComentario.getText().trim();
@@ -508,7 +508,7 @@ public class Valoraciones extends javax.swing.JFrame {
 
     private void jButtonGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGuardarActionPerformed
         int idPart = extraerId(jComboBoxParticular.getSelectedItem().toString());
-        int idProf = extraerId(jComboBoxParticular.getSelectedItem().toString());
+        int idProf = extraerId(jComboBoxProfesional.getSelectedItem().toString());
         String fecha = jTextField4.getText().trim();
         int puntuacion = Integer.parseInt(jComboBoxPuntuacion.getSelectedItem().toString());
         String comentario = jTextAreaComentario.getText().trim();
