@@ -4,8 +4,13 @@
  */
 package Controlador;
 
+import java.beans.XMLDecoder;
+import java.beans.XMLEncoder;
+import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -15,6 +20,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.List;
+import javax.swing.DefaultListModel;
 
 /**
  *
@@ -292,7 +299,7 @@ public class ControladorUsuariosBDR {
         }
     }
 
-    public void importar(String nombreFich) {
+    public void importarTXT(String nombreFich) {
         System.out.println("IMPORTANDO DESDE FICHERO: '" + nombreFich + "'");
         listaUsr.clear();
 
@@ -321,7 +328,103 @@ public class ControladorUsuariosBDR {
             System.out.println(e.getMessage());
         }
     }
-    
+
+    public void exportarXML(String nombreFich) {
+        FileOutputStream fos;
+        XMLEncoder xmle;
+
+        try {
+            fos = new FileOutputStream(nombreFich);
+            xmle = new XMLEncoder(new BufferedOutputStream(fos));
+            xmle.writeObject(listaUsr);
+            xmle.close();
+        } catch (Exception e) {
+            System.err.println("\tERROR en la escritura de datos del archivo: " + nombreFich);
+        }
+    }
+
+    public void importarXML(String nombreFich) {
+        System.out.println("IMPORTANDO DESDE FICHERO XML: '" + nombreFich + "'");
+        FileInputStream fis;
+        XMLDecoder xmld;
+        try {
+            fis = new FileInputStream(nombreFich);
+            xmld = new XMLDecoder(fis);
+            ArrayList<Object[]> listaImportada = (ArrayList<Object[]>) xmld.readObject();
+            xmld.close();
+            fis.close();
+
+            listaUsr.clear();
+            for (Object[] fila : listaImportada) {
+                String nombre, email, rol, municipio, categoria, descripcion;
+
+                int offset;
+                if (fila.length >= 8) {
+                    offset = 1; // saltar el id
+                } else if (fila.length >= 6) {
+                    offset = 0;
+                } else {
+                    System.err.println("Fila con formato incorrecto, se omite.");
+                    continue;
+                }
+
+                if (fila[offset] == null) {
+                    nombre = "";
+                } else {
+                    nombre = fila[offset].toString();
+                }
+
+                if (fila[offset + 1] == null) {
+                    email = "";
+                } else {
+                    email = fila[offset + 1].toString();
+                }
+
+                if (fila[offset + 2] == null) {
+                    rol = "";
+                } else {
+                    rol = fila[offset + 2].toString();
+                }
+
+                // nombre, email y rol son obligatorios: si falta alguno se omite la fila
+                if (nombre.isEmpty() || email.isEmpty() || rol.isEmpty()) {
+                    System.err.println("Fila omitida: nombre, email y rol no pueden estar vacios.");
+                    continue;
+                }
+
+                if (fila[offset + 3] == null) {
+                    municipio = "";
+                } else {
+                    municipio = fila[offset + 3].toString();
+                }
+
+                if (fila[offset + 4] == null) {
+                    categoria = "";
+                } else {
+                    categoria = fila[offset + 4].toString();
+                }
+
+                if (fila[offset + 5] == null) {
+                    descripcion = "";
+                } else {
+                    descripcion = fila[offset + 5].toString();
+                }
+
+                listaUsr.add(fila);
+
+                try {
+                    añadir(nombre, email, rol, municipio, categoria, descripcion);
+                } catch (SQLException ex) {
+                    System.err.println("Error al insertar: " + ex.getMessage());
+                }
+            }
+            System.out.println("Importacion XML completada. Total: " + listaImportada.size());
+        } catch (Exception e) {
+            System.err.println("\tERROR en la lectura de datos del archivo: " + nombreFich);
+            e.printStackTrace(System.err);
+        }
+
+    }
 
     public void modificar(String id, String nombre, String email, String rol, String municipio, String categoria, String descripcion) throws SQLException {
 
