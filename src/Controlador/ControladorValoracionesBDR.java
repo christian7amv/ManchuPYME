@@ -177,4 +177,177 @@ public class ControladorValoracionesBDR {
         }
         return fechaDDMMYYYY;
     }
+
+// EXPORTAR A TXT
+    public void exportarTxt(java.io.File archivo, Object[][] datos) {
+        try {
+            java.io.PrintWriter pw = new java.io.PrintWriter(
+                    new java.io.FileWriter(archivo));
+
+            pw.println("ID | Particular | Profesional | Puntuacion | Comentario | Fecha");
+            pw.println("------------------------------------------------------------------");
+
+            for (int i = 0; i < datos.length; i++) {
+                pw.println(
+                        datos[i][0] + " | "
+                        + datos[i][1] + " | "
+                        + datos[i][2] + " | "
+                        + datos[i][3] + " | "
+                        + datos[i][4] + " | "
+                        + datos[i][5]
+                );
+            }
+
+            pw.close();
+            System.out.println("Exportacion TXT completada: " + archivo.getAbsolutePath());
+
+        } catch (java.io.IOException e) {
+            System.err.println("Error al exportar TXT: " + e.getMessage());
+        }
+    }
+
+// EXPORTAR A XML
+    public void exportarXml(java.io.File archivo, Object[][] datos) {
+        try {
+            java.io.PrintWriter pw = new java.io.PrintWriter(
+                    new java.io.FileWriter(archivo));
+
+            pw.println("<?xml version=\"1.0\" encoding=\"UTF-8\"?>");
+            pw.println("<valoraciones>");
+
+            for (int i = 0; i < datos.length; i++) {
+                pw.println("    <valoracion>");
+                pw.println("        <id>" + datos[i][0] + "</id>");
+                pw.println("        <particular>" + datos[i][1] + "</particular>");
+                pw.println("        <profesional>" + datos[i][2] + "</profesional>");
+                pw.println("        <puntuacion>" + datos[i][3] + "</puntuacion>");
+                pw.println("        <comentario>" + datos[i][4] + "</comentario>");
+                pw.println("        <fecha>" + datos[i][5] + "</fecha>");
+                pw.println("    </valoracion>");
+            }
+
+            pw.println("</valoraciones>");
+            pw.close();
+            System.out.println("Exportacion XML completada: " + archivo.getAbsolutePath());
+
+        } catch (java.io.IOException e) {
+            System.err.println("Error al exportar XML: " + e.getMessage());
+        }
+    }
+
+// IMPORTAR DESDE TXT
+    public int[] importarTxt(java.io.File archivo) {
+        int insertados = 0;
+        int errores = 0;
+        try {
+            java.io.BufferedReader br = new java.io.BufferedReader(
+                    new java.io.FileReader(archivo));
+
+            br.readLine(); // saltar cabecera
+            br.readLine(); // saltar guiones
+
+            String linea;
+            while ((linea = br.readLine()) != null) {
+                if (!linea.isBlank()) {
+                    String[] partes = linea.split("\\|");
+                    if (partes.length == 6) {
+                        try {
+                            int particularId = obtenerIdPorNombre(partes[1].trim(), "PARTICULAR");
+                            int profesionalId = obtenerIdPorNombre(partes[2].trim(), "PROFESIONAL");
+                            int puntuacion = Integer.parseInt(partes[3].trim());
+                            String comentario = partes[4].trim();
+                            String fecha = partes[5].trim();
+
+                            if (particularId != -1 && profesionalId != -1) {
+                                insertar(particularId, profesionalId, puntuacion, comentario, fecha);
+                                insertados++;
+                            } else {
+                                errores++;
+                            }
+                        } catch (NumberFormatException e) {
+                            errores++;
+                        }
+                    }
+                }
+            }
+            br.close();
+
+        } catch (java.io.IOException e) {
+            System.err.println("Error al importar TXT: " + e.getMessage());
+        }
+        return new int[]{insertados, errores}; // devuelve [0]=insertados [1]=errores
+    }
+
+// IMPORTAR DESDE XML
+    public int[] importarXml(java.io.File archivo) {
+        int insertados = 0;
+        int errores = 0;
+        try {
+            java.io.BufferedReader br = new java.io.BufferedReader(
+                    new java.io.FileReader(archivo));
+
+            String linea;
+            String particular = "", profesional = "", puntuacion = "",
+                    comentario = "", fecha = "";
+
+            while ((linea = br.readLine()) != null) {
+                linea = linea.trim();
+
+                if (linea.startsWith("<particular>")) {
+                    particular = linea.replace("<particular>", "").replace("</particular>", "").trim();
+                } else if (linea.startsWith("<profesional>")) {
+                    profesional = linea.replace("<profesional>", "").replace("</profesional>", "").trim();
+                } else if (linea.startsWith("<puntuacion>")) {
+                    puntuacion = linea.replace("<puntuacion>", "").replace("</puntuacion>", "").trim();
+                } else if (linea.startsWith("<comentario>")) {
+                    comentario = linea.replace("<comentario>", "").replace("</comentario>", "").trim();
+                } else if (linea.startsWith("<fecha>")) {
+                    fecha = linea.replace("<fecha>", "").replace("</fecha>", "").trim();
+                } else if (linea.startsWith("</valoracion>")) {
+                    try {
+                        int particularId = obtenerIdPorNombre(particular, "PARTICULAR");
+                        int profesionalId = obtenerIdPorNombre(profesional, "PROFESIONAL");
+                        int punt = Integer.parseInt(puntuacion);
+
+                        if (particularId != -1 && profesionalId != -1) {
+                            insertar(particularId, profesionalId, punt, comentario, fecha);
+                            insertados++;
+                        } else {
+                            errores++;
+                        }
+                    } catch (NumberFormatException e) {
+                        errores++;
+                    }
+                    particular = "";
+                    profesional = "";
+                    puntuacion = "";
+                    comentario = "";
+                    fecha = "";
+                }
+            }
+            br.close();
+
+        } catch (java.io.IOException e) {
+            System.err.println("Error al importar XML: " + e.getMessage());
+        }
+        return new int[]{insertados, errores};
+    }
+
+// Busca ID de usuario por nombre y rol. Devuelve -1 si no existe
+    public int obtenerIdPorNombre(String nombre, String rol) {
+        sql = "SELECT id FROM usuarios WHERE nombre = ? AND rol = ?";
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setString(1, nombre);
+            ps.setString(2, rol);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                return rs.getInt("id");
+            }
+        } catch (SQLException e) {
+            System.err.println("SQL Error: " + e.getMessage());
+        }
+        return -1;
+    }
+
 }

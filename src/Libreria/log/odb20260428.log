@@ -139,3 +139,23 @@ Type Modelos.UserAcceso is not enhanced.
 [2026-04-28 08:26:10 #4 store] 
 Database 'E:\Proyectos\NetBeansProjects\ManchuPYME\db\ManchuAccesos.odb' is closed by 23304@DESKTOP-PMMQ443
 
+------------------------------------------------------------------------------------------------------------------------
+
+[2026-04-28 08:31:37 #1 store] 
+Database 'C:\Users\chris\OneDrive\Documentos\NetBeansProjects\ManchuPYME\db\ManchuAccesos.odb' is opened by 7664@ChristianV
+
+[2026-04-28 08:31:37 #2 store] 
+Configuration path: ?
+
+[2026-04-28 08:31:37 #3 type] 
+Type Modelos.UserAcceso is not enhanced.
+
+[2026-04-28 08:32:01 #4 store] 
+Database 'C:\Users\chris\OneDrive\Documentos\NetBeansProjects\ManchuPYME\db\ManchuAccesos.odb' is closed by 7664@ChristianV
+
+[2026-04-28 08:32:11 #5 store] 
+Database 'C:\Users\chris\OneDrive\Documentos\NetBeansProjects\ManchuPYME\db\ManchuAccesos.odb' is opened by 7664@ChristianV
+
+[2026-04-28 08:32:11 #6 store] 
+Configuration path: ?
+

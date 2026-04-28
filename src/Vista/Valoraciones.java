@@ -122,7 +122,7 @@ public class Valoraciones extends javax.swing.JFrame {
         jButtonActualizar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("plantilla");
+        setTitle("Admin Valoraciones");
 
         jPanel2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
@@ -204,8 +204,10 @@ public class Valoraciones extends javax.swing.JFrame {
         jLabelRol1.setText("PARTICULAR:");
 
         jButtonExportar.setText("EXPORTAR");
+        jButtonExportar.addActionListener(this::jButtonExportarActionPerformed);
 
         jButtonImportar.setText("IMPORTAR");
+        jButtonImportar.addActionListener(this::jButtonImportarActionPerformed);
 
         jButtonVaciarCampos.setText("VACIAR COMPOS");
         jButtonVaciarCampos.addActionListener(this::jButtonVaciarCamposActionPerformed);
@@ -563,6 +565,70 @@ public class Valoraciones extends javax.swing.JFrame {
     private void jButtonVaciarCamposActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonVaciarCamposActionPerformed
         vaciarCampos();
     }//GEN-LAST:event_jButtonVaciarCamposActionPerformed
+
+    private void jButtonExportarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonExportarActionPerformed
+        Object[] opciones = {".txt", ".xml"};
+        int formato = JOptionPane.showOptionDialog(rootPane,
+                "¿En qué formato quieres exportar?",
+                "Seleccionar formato",
+                JOptionPane.DEFAULT_OPTION,
+                JOptionPane.QUESTION_MESSAGE,
+                null, opciones, opciones[0]);
+
+        if (formato == JOptionPane.CLOSED_OPTION) {
+            return;
+        }
+
+        javax.swing.JFileChooser fc = new javax.swing.JFileChooser();
+        fc.setDialogTitle("Guardar valoraciones");
+        fc.setSelectedFile(new java.io.File(
+                formato == 0 ? "valoraciones.txt" : "valoraciones.xml"));
+
+        if (fc.showSaveDialog(this) == javax.swing.JFileChooser.APPROVE_OPTION) {
+            java.io.File archivo = fc.getSelectedFile();
+            if (formato == 0) {
+                gestorValoraciones.exportarTxt(archivo, datos);
+            } else {
+                gestorValoraciones.exportarXml(archivo, datos);
+            }
+            JOptionPane.showMessageDialog(rootPane,
+                    "Exportacion completada:\n" + archivo.getAbsolutePath());
+        }
+    }//GEN-LAST:event_jButtonExportarActionPerformed
+
+    private void jButtonImportarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonImportarActionPerformed
+            Object[] opciones = {".txt", ".xml"};
+    int formato = JOptionPane.showOptionDialog(rootPane,
+            "¿Desde qué formato quieres importar?",
+            "Seleccionar formato",
+            JOptionPane.DEFAULT_OPTION,
+            JOptionPane.QUESTION_MESSAGE,
+            null, opciones, opciones[0]);
+
+    if (formato == JOptionPane.CLOSED_OPTION) {
+        return;
+    }
+
+    javax.swing.JFileChooser fc = new javax.swing.JFileChooser();
+    fc.setDialogTitle("Abrir archivo de valoraciones");
+
+    if (fc.showOpenDialog(this) == javax.swing.JFileChooser.APPROVE_OPTION) {
+        java.io.File archivo = fc.getSelectedFile();
+        int[] resultado;
+
+        if (formato == 0) {
+            resultado = gestorValoraciones.importarTxt(archivo);
+        } else {
+            resultado = gestorValoraciones.importarXml(archivo);
+        }
+
+        refrescarDatos();
+        JOptionPane.showMessageDialog(rootPane,
+                "Importacion completada.\n" +
+                "Insertados: " + resultado[0] + "\n" +
+                "Errores: "    + resultado[1]);
+    }
+    }//GEN-LAST:event_jButtonImportarActionPerformed
 
     /**
      * @param args the command line arguments
