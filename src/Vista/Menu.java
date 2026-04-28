@@ -82,6 +82,11 @@ public class Menu extends javax.swing.JFrame {
         });
 
         Valoraciones.setText("Valoraciones");
+        Valoraciones.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ValoracionesActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -152,6 +157,12 @@ public class Menu extends javax.swing.JFrame {
         s.setLocationRelativeTo(null);
         s.setVisible(true);
     }//GEN-LAST:event_ServiciosActionPerformed
+
+    private void ValoracionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ValoracionesActionPerformed
+        Valoraciones v = new Valoraciones();
+        v.setLocationRelativeTo(null);
+        v.setVisible(true);
+    }//GEN-LAST:event_ValoracionesActionPerformed
 
     /**
      * @param args the command line arguments
