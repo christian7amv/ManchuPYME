@@ -86,3 +86,40 @@ Type Modelos.UserAcceso is not enhanced.
 [2026-04-29 10:42:18 #4 store] 
 Database 'C:\Users\MARIO\Documents\NetBeansProjects\ManchuPYME\db\ManchuAccesos.odb' is closed by 11928@LAPTOP-7734NG41
 
+------------------------------------------------------------------------------------------------------------------------
+
+[2026-04-29 11:00:28 #1 store] 
+Database 'C:\Users\MARIO\Documents\NetBeansProjects\ManchuPYME\db\ManchuAccesos.odb' is opened by 31208@LAPTOP-7734NG41
+
+[2026-04-29 11:00:28 #2 store] 
+Configuration path: ?
+
+[2026-04-29 11:00:28 #3 type] 
+Type Modelos.UserAcceso is not enhanced.
+
+[2026-04-29 11:00:40 #4 store] 
+Database 'C:\Users\MARIO\Documents\NetBeansProjects\ManchuPYME\db\ManchuAccesos.odb' is closed by 31208@LAPTOP-7734NG41
+
+[2026-04-29 11:00:42 #5 store] 
+Database 'C:\Users\MARIO\Documents\NetBeansProjects\ManchuPYME\db\ManchuAccesos.odb' is opened by 31208@LAPTOP-7734NG41
+
+[2026-04-29 11:00:42 #6 store] 
+Configuration path: ?
+
+[2026-04-29 11:01:16 #7 store] 
+Database 'C:\Users\MARIO\Documents\NetBeansProjects\ManchuPYME\db\ManchuAccesos.odb' is closed by 31208@LAPTOP-7734NG41
+
+------------------------------------------------------------------------------------------------------------------------
+
+[2026-04-29 11:12:25 #1 store] 
+Database 'C:\Users\MARIO\Documents\NetBeansProjects\ManchuPYME\db\ManchuAccesos.odb' is opened by 28600@LAPTOP-7734NG41
+
+[2026-04-29 11:12:25 #2 store] 
+Configuration path: ?
+
+[2026-04-29 11:12:25 #3 type] 
+Type Modelos.UserAcceso is not enhanced.
+
+[2026-04-29 11:12:29 #4 store] 
+Database 'C:\Users\MARIO\Documents\NetBeansProjects\ManchuPYME\db\ManchuAccesos.odb' is closed by 28600@LAPTOP-7734NG41
+
