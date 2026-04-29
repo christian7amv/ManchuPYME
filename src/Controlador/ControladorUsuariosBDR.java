@@ -199,7 +199,7 @@ public class ControladorUsuariosBDR {
                 munSQL = "'" + municipio + "'";
             }
 
-            if (categoria.isEmpty()) {
+            if (categoria==null||categoria.isEmpty()) {
                 catSQL = "NULL";
             } else {
                 catSQL = "'" + categoria + "'";
@@ -451,7 +451,7 @@ public class ControladorUsuariosBDR {
                 munSQL = "'" + municipio + "'";
             }
 
-            if (categoria.isEmpty()) {
+            if (categoria == null) {
                 catSQL = "NULL";
             } else {
                 catSQL = "'" + categoria + "'";

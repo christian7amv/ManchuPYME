@@ -126,7 +126,7 @@ public class Usuarios extends javax.swing.JFrame {
         jPanel2.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
         TituloIngreso_Datos.setFont(new java.awt.Font("Segoe UI", 1, 48)); // NOI18N
-        TituloIngreso_Datos.setText("INGRESO DE DATOS");
+        TituloIngreso_Datos.setText("Usuarios");
 
         jButton1.setText("Volver al Menu");
         jButton1.addActionListener(this::jButton1ActionPerformed);

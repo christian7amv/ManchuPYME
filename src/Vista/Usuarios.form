@@ -124,7 +124,7 @@
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Segoe UI" size="48" style="1"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="INGRESO DE DATOS"/>
+                <Property name="text" type="java.lang.String" value="Usuarios"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JButton" name="jButton1">
