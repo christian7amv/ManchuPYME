@@ -5,6 +5,8 @@
 package Vista;
 
 import Controlador.ControladorUsuariosBDR;
+import Libreria.Leer;
+import java.io.IOException;
 import javax.swing.table.DefaultTableModel;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
@@ -508,6 +510,16 @@ public class Usuarios extends javax.swing.JFrame {
         municipio = jTextMunicipio.getText();
         descripcion = jTextDescipcion.getText();
 
+        boolean emailCheck;
+
+        emailCheck = Leer.ComprobarEmail(email);
+        if (!emailCheck) {
+            JOptionPane.showMessageDialog(this,
+                    "El email es incorrecto",
+                    "Error",
+                    JOptionPane.WARNING_MESSAGE);
+            return;
+        }
         rol = (String) jComboBoxRol.getSelectedItem();
         categoria = (String) jComboCategoria.getSelectedItem();
 
@@ -723,6 +735,16 @@ public class Usuarios extends javax.swing.JFrame {
         rol = (String) jComboBoxRol.getSelectedItem();
         categoria = (String) jComboCategoria.getSelectedItem();
 
+        boolean emailCheck = false;
+
+        emailCheck = Leer.ComprobarEmail(email);
+        if (!emailCheck) {
+            JOptionPane.showMessageDialog(this,
+                    "El email es incorrecto",
+                    "Error",
+                    JOptionPane.WARNING_MESSAGE);
+            return;
+        }
         if (nombre.isEmpty() || email.isEmpty()) {
             JOptionPane.showMessageDialog(this,
                     "Los campos Nombre y Email son obligatorios.",

@@ -123,3 +123,49 @@ Type Modelos.UserAcceso is not enhanced.
 [2026-04-29 11:12:29 #4 store] 
 Database 'C:\Users\MARIO\Documents\NetBeansProjects\ManchuPYME\db\ManchuAccesos.odb' is closed by 28600@LAPTOP-7734NG41
 
+------------------------------------------------------------------------------------------------------------------------
+
+[2026-04-29 11:36:38 #1 store] 
+Database 'C:\Users\alumno\Documents\NetBeansProjects\ManchuPYME\db\ManchuAccesos.odb' is opened by 21632@INFORMATICA-XX
+
+[2026-04-29 11:36:38 #2 store] 
+Configuration path: ?
+
+[2026-04-29 11:36:39 #3 type] 
+Type Modelos.UserAcceso is not enhanced.
+
+[2026-04-29 11:36:59 #4 store] 
+Database 'C:\Users\alumno\Documents\NetBeansProjects\ManchuPYME\db\ManchuAccesos.odb' is closed by 21632@INFORMATICA-XX
+
+------------------------------------------------------------------------------------------------------------------------
+
+[2026-04-29 11:38:38 #1 store] 
+Database 'C:\Users\alumno\Documents\NetBeansProjects\ManchuPYME\db\ManchuAccesos.odb' is opened by 18468@INFORMATICA-XX
+
+[2026-04-29 11:38:38 #2 store] 
+Configuration path: ?
+
+[2026-04-29 11:38:38 #3 type] 
+Type Modelos.UserAcceso is not enhanced.
+
+[2026-04-29 11:38:43 #4 store] 
+Database 'C:\Users\alumno\Documents\NetBeansProjects\ManchuPYME\db\ManchuAccesos.odb' is closed by 18468@INFORMATICA-XX
+
+[2026-04-29 11:38:45 #5 store] 
+Database 'C:\Users\alumno\Documents\NetBeansProjects\ManchuPYME\db\ManchuAccesos.odb' is opened by 18468@INFORMATICA-XX
+
+[2026-04-29 11:38:45 #6 store] 
+Configuration path: ?
+
+[2026-04-29 11:38:45 #7 store] 
+Database 'C:\Users\alumno\Documents\NetBeansProjects\ManchuPYME\db\ManchuAccesos.odb' is closed by 18468@INFORMATICA-XX
+
+[2026-04-29 11:38:47 #8 store] 
+Database 'C:\Users\alumno\Documents\NetBeansProjects\ManchuPYME\db\ManchuAccesos.odb' is opened by 18468@INFORMATICA-XX
+
+[2026-04-29 11:38:47 #9 store] 
+Configuration path: ?
+
+[2026-04-29 11:38:55 #10 store] 
+Database 'C:\Users\alumno\Documents\NetBeansProjects\ManchuPYME\db\ManchuAccesos.odb' is closed by 18468@INFORMATICA-XX
+

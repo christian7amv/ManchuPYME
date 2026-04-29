@@ -57,6 +57,7 @@ public class Menu extends javax.swing.JFrame {
         Servicios = new javax.swing.JButton();
         Suscripciones = new javax.swing.JButton();
         Valoraciones = new javax.swing.JButton();
+        Acceso1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -95,6 +96,14 @@ public class Menu extends javax.swing.JFrame {
             }
         });
 
+        Acceso1.setForeground(java.awt.Color.red);
+        Acceso1.setText("Log out");
+        Acceso1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Acceso1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -103,7 +112,8 @@ public class Menu extends javax.swing.JFrame {
                 .addGap(72, 72, 72)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(Usuarios, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(Suscripciones, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(Suscripciones, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(Acceso1, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 99, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(Acceso, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -123,7 +133,9 @@ public class Menu extends javax.swing.JFrame {
                     .addComponent(Suscripciones, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(Valoraciones, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(51, 51, 51)
-                .addComponent(Acceso, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(Acceso, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(Acceso1, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(38, 38, 38))
         );
 
@@ -176,6 +188,14 @@ public class Menu extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_ValoracionesActionPerformed
 
+    private void Acceso1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Acceso1ActionPerformed
+        ultimoRol="invitado";
+        LOGIN l = new LOGIN();
+        l.setLocationRelativeTo(null);
+        l.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_Acceso1ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -203,6 +223,7 @@ public class Menu extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Acceso;
+    private javax.swing.JButton Acceso1;
     private javax.swing.JButton Servicios;
     private javax.swing.JButton Suscripciones;
     private javax.swing.JButton Usuarios;

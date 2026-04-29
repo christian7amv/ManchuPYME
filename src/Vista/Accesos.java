@@ -6,6 +6,8 @@ package Vista;
 
 import Controlador.ControladorBDO;
 import Controlador.ControladorUsuariosBDR;
+import Libreria.Leer;
+import java.io.IOException;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.JOptionPane;
 
@@ -44,7 +46,7 @@ public class Accesos extends javax.swing.JFrame {
             @Override
             public void windowClosing(java.awt.event.WindowEvent e) {
                 gestorBDO.cerrar();//se desconecta al cerrar
-                
+
             }
         });
     }
@@ -424,12 +426,23 @@ public class Accesos extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextNombre1ActionPerformed
 
     private void jButtonAñadirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAñadirActionPerformed
-        String username = jTextUsername.getText().trim();
-        String email = jTextEmail.getText().trim();
-        String password = jTextPassword.getText();
-        String rol = (String) jComboBoxRol.getSelectedItem();
-        String estado = (String) jComboBoxEstado.getSelectedItem();
+        String username, email, password;
+        String rol, estado;
+         username = jTextUsername.getText().trim();
+         email = jTextEmail.getText().trim();
+         password = jTextPassword.getText();
+         rol = (String) jComboBoxRol.getSelectedItem();
+         estado = (String) jComboBoxEstado.getSelectedItem();
+        boolean emailCheck;
 
+        emailCheck = Leer.ComprobarEmail(email);
+        if(!emailCheck){
+            JOptionPane.showMessageDialog(this,
+                    "El email es incorrecto",
+                    "Error",
+                    JOptionPane.WARNING_MESSAGE);
+            return;
+        }
         if (username.isEmpty() || email.isEmpty() || password.isEmpty()) {
             JOptionPane.showMessageDialog(this,
                     "Los campos username, email y password son obligatorios.",
@@ -545,6 +558,16 @@ public class Accesos extends javax.swing.JFrame {
         rol = (String) jComboBoxRol.getSelectedItem();
         estado = (String) jComboBoxEstado.getSelectedItem();
 
+        boolean emailCheck;
+
+        emailCheck = Leer.ComprobarEmail(email);
+        if(!emailCheck){
+            JOptionPane.showMessageDialog(this,
+                    "El email es incorrecto",
+                    "Error",
+                    JOptionPane.WARNING_MESSAGE);
+            return;
+        }
         if (id.isEmpty() || email.isEmpty()) {
             JOptionPane.showMessageDialog(this,
                     "Selecciona primero un usuario en la tabla para modificarlo.",

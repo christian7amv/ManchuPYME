@@ -43,6 +43,7 @@
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Component id="Usuarios" min="-2" pref="151" max="-2" attributes="0"/>
                       <Component id="Suscripciones" min="-2" pref="151" max="-2" attributes="0"/>
+                      <Component id="Acceso1" min="-2" pref="151" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace pref="99" max="32767" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
@@ -68,7 +69,10 @@
                       <Component id="Valoraciones" alignment="3" min="-2" pref="77" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" pref="51" max="-2" attributes="0"/>
-                  <Component id="Acceso" min="-2" pref="37" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="Acceso" alignment="3" min="-2" pref="37" max="-2" attributes="0"/>
+                      <Component id="Acceso1" alignment="3" min="-2" pref="37" max="-2" attributes="0"/>
+                  </Group>
                   <EmptySpace min="-2" pref="38" max="-2" attributes="0"/>
               </Group>
           </Group>
@@ -113,6 +117,17 @@
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="ValoracionesActionPerformed"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JButton" name="Acceso1">
+          <Properties>
+            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="0" green="0" id="red" palette="1" red="ff" type="palette"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="Log out"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="Acceso1ActionPerformed"/>
           </Events>
         </Component>
       </SubComponents>
