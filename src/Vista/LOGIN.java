@@ -39,9 +39,9 @@ public class LOGIN extends javax.swing.JFrame {
         jPanel3 = new javax.swing.JPanel();
         jTextUserOEmail = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
-        jTextUserOEmail1 = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
+        jPasswordField1 = new javax.swing.JPasswordField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -77,12 +77,6 @@ public class LOGIN extends javax.swing.JFrame {
 
         jLabel1.setText("User o Email aquí");
 
-        jTextUserOEmail1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextUserOEmail1ActionPerformed(evt);
-            }
-        });
-
         jLabel2.setText("Contraseña");
 
         jButton1.setText("Log in");
@@ -111,8 +105,8 @@ public class LOGIN extends javax.swing.JFrame {
                                 .addComponent(jLabel2)))
                         .addGap(18, 18, 18)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jTextUserOEmail1, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTextUserOEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jTextUserOEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jPasswordField1, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(0, 9, Short.MAX_VALUE)))
                 .addGap(41, 41, 41))
         );
@@ -121,11 +115,11 @@ public class LOGIN extends javax.swing.JFrame {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGap(61, 61, 61)
                 .addComponent(jTextUserOEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(43, 43, 43)
+                .addGap(48, 48, 48)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextUserOEmail1, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel2))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 61, Short.MAX_VALUE)
+                    .addComponent(jLabel2)
+                    .addComponent(jPasswordField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 66, Short.MAX_VALUE)
                 .addComponent(jButton1)
                 .addGap(29, 29, 29))
             .addGroup(jPanel3Layout.createSequentialGroup()
@@ -173,13 +167,9 @@ public class LOGIN extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextUserOEmailActionPerformed
 
-    private void jTextUserOEmail1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextUserOEmail1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextUserOEmail1ActionPerformed
-
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         String userOEmail = jTextUserOEmail.getText().trim();
-        String password = jTextUserOEmail1.getText();
+        String password = jPasswordField1.getText();
         if (userOEmail.isEmpty() || password.isEmpty()) {
             JOptionPane.showMessageDialog(this,
                     "Introduce usuario/email y contraseña.",
@@ -193,7 +183,7 @@ public class LOGIN extends javax.swing.JFrame {
                     "Usuario, email o contraseña incorrectos\n(o el usuario está inactivo).",
                     "Error de acceso",
                     JOptionPane.ERROR_MESSAGE);
-            jTextUserOEmail1.setText("");
+            jPasswordField1.setText("");
             return;
     }//GEN-LAST:event_jButton1ActionPerformed
     gestorBDO.cerrar();
@@ -236,7 +226,7 @@ public class LOGIN extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
+    private javax.swing.JPasswordField jPasswordField1;
     private javax.swing.JTextField jTextUserOEmail;
-    private javax.swing.JTextField jTextUserOEmail1;
     // End of variables declaration//GEN-END:variables
 }
