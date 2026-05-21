@@ -159,9 +159,9 @@ public class ControladorValoracionesBDR {
     }
 
     // ------------------------------------------------------------------
-    //  ELIMINAR por ID                                                  
+    //  ELIMINAR                                                  
     // ------------------------------------------------------------------ 
-    public void eliminar(int id) {
+    public void eliminarID(int id) {
         sql = "DELETE FROM valoraciones WHERE id = ?";
         try {
             PreparedStatement ps = con.prepareStatement(sql);
@@ -175,6 +175,19 @@ public class ControladorValoracionesBDR {
         }
     }
 
+    public void eliminarTodo() {
+        sql = "DELETE FROM valoraciones"; // Sin el WHERE, borra todo de golpe
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            int filas = ps.executeUpdate();
+            System.out.println("Tabla vaciada. Filas eliminadas: " + filas);
+        } catch (SQLException e) {
+            System.err.println("Error al vaciar la tabla: " + e.getMessage());
+        }
+    }
+    // ------------------------------------------------------------------
+    //  complementos                                                  
+    // ------------------------------------------------------------------ 
     public void generarDatosDeEjemplo() {
         insertar(2, 5, 5, "Instalación de puertas perfecta y a tiempo.", "27-04-2026");
         insertar(4, 9, 3, "Buen trabajo de pintura, pero manchó un poco el suelo.", "28-04-2026");
