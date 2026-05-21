@@ -407,6 +407,7 @@ public class ControladorServiciosBDR {
     public void modificar(String id, String perfil, String nombre, String descripcion) throws SQLException {
 
         try {
+            asegurarPerfil(perfil);
             sentencia = con.createStatement();
 
             String descSQL;
